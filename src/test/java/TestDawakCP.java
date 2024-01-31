@@ -7,6 +7,5 @@ public class TestDawakCP extends BaseClass {
     public void loginToCP(){
         test = extent.createTest("Login to Central Pharmacist");
         Pages.LoginCP().testCPLogin();
-
     }
 }
