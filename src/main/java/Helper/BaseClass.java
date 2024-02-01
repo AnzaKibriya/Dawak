@@ -47,7 +47,7 @@ public class BaseClass {
         if (result.getStatus() == ITestResult.FAILURE) {
             test.log(Status.FAIL, MarkupHelper.createLabel(result.getName() + "Test case failed", ExtentColor.RED));
             test.fail(result.getThrowable());
-            String destination = screenshot("fail Scenario screenshot");
+            String destination = screenshot("Failed Scenario Screenshot");
             test.fail(result.getThrowable()).addScreenCaptureFromPath(destination);
         } else if (result.getStatus() == ITestResult.SUCCESS) {
             test.log(Status.PASS, MarkupHelper.createLabel(result.getName() + "Test case passed", ExtentColor.GREEN));
