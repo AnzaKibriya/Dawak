@@ -4,7 +4,7 @@ import org.testng.annotations.Test;
 
 public class TestDawakCP extends BaseClass {
     @Test
-    public void loginToCP(){
+    public void loginToCP() throws InterruptedException {
         test = extent.createTest("Login to Central Pharmacist");
         Pages.LoginCP().testCPLogin();
     }
