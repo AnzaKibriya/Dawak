@@ -10,59 +10,65 @@ import com.google.common.io.Files;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
-import com.google.common.io.Files;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
-
+import java.util.Properties;
 
 
 public class BaseClass {
     public static ChromeDriver driver;
     public static ExtentTest test;
     public static ExtentReports extent;
+    public static String storestring;
+
+    public static Properties prop = new Properties();
+
+
+
 
     @BeforeSuite
-    public void setUp(){
+    public void setUp() {
         driver = new ChromeDriver();
         extent = new ExtentReports();
         driver.manage().window().maximize();
         driver.get("https://dawakportaluat.z1.web.core.windows.net");
-        ExtentSparkReporter extentSparkReporter= new ExtentSparkReporter("target/Dawak.html");
+        ExtentSparkReporter extentSparkReporter = new ExtentSparkReporter("target/Dawak.html");
         extent.attachReporter(extentSparkReporter);
     }
 
-
-
+    public static String propertyfile(String PropFileName, String stringname) throws IOException {
+        try {
+            FileInputStream fis = new FileInputStream("./target/" + PropFileName + ".properties");
+            prop.load(fis);
+            storestring = prop.getProperty(stringname);
+        } catch (Exception e) {
+            System.out.println("File Not Found :" + e.getMessage());
+        }
+        return storestring;
+    }
 
     public static String screenshot(String filename) throws IOException {
         TakesScreenshot ts = (TakesScreenshot) driver;
         File obj = ts.getScreenshotAs(OutputType.FILE);
-        String distination=new File("target//" + filename + ".PNG").getAbsolutePath();
+        String destination = new File("target//" + filename + ".PNG").getAbsolutePath();
         Files.copy(obj, new File("./target//" + filename + ".PNG"));
-
-        return distination;
-
-
-
-
+        return destination;
     }
 
     @AfterMethod
     public void getResult(ITestResult result) throws Exception {
         if (result.getStatus() == ITestResult.FAILURE) {
-            test.log(Status.FAIL, MarkupHelper.createLabel(result.getName() +"Test case failed", ExtentColor.RED));
+            test.log(Status.FAIL, MarkupHelper.createLabel(result.getName() + "Test case failed", ExtentColor.RED));
             test.fail(result.getThrowable());
-            String distination=screenshot("faileds screenshot");
-
-          //  System.out.println(path);
-            test.fail(result.getThrowable()).addScreenCaptureFromPath(distination);
-            //screenshot("failed screenshot");
-
+            String destination = screenshot("Failed Scenario Screenshot");
+            test.fail(result.getThrowable()).addScreenCaptureFromPath(destination);
         } else if (result.getStatus() == ITestResult.SUCCESS) {
             test.log(Status.PASS, MarkupHelper.createLabel(result.getName() + "Test case passed", ExtentColor.GREEN));
         } else {
