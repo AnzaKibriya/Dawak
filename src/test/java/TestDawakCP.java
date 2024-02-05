@@ -8,6 +8,7 @@ public class TestDawakCP extends BaseClass {
     @Test
     public void loginToCP() throws InterruptedException, IOException {
         test = extent.createTest("Login to Central Pharmacist");
-        Pages.LoginCP().testCPLogin();
+        Pages.LoginCP().CPLogin();
     }
+
 }

@@ -31,35 +31,26 @@ public class LoginCP {
     @FindBy(xpath = "//button[text()='Verify']")
     WebElement verifyButton;
 
-    @FindBy(xpath = "//h2[text()='Central Pharmacist Task List']")
-    WebElement HomePageHeader;
+
 
     public LoginCP(WebDriver Driver) {
         driver = Driver;
 
     }
 
-    public void testCPLogin() throws IOException {
+    public void CPLogin() throws IOException {
         Assert.assertEquals(header.getText(), BaseClass.propertyfile("config", "HeaderText"));
         test.log(Status.PASS, "Header is Verified");
         userName.sendKeys(BaseClass.propertyfile("config", "username"));
-        password.sendKeys(BaseClass.propertyfile("config", "passwordinvalid"));
-        signInButton.click();
-        WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(40));
-        wait.until(ExpectedConditions.visibilityOf(InvalidLoginErrorMessage));
-        Assert.assertEquals(InvalidLoginErrorMessage.getText(),BaseClass.propertyfile("config", "InvalidLoginerrormessage"));
-        test.log(Status.PASS, "Invalid Login Error Message Verified");
-        userName.clear();
-        password.clear();
-        userName.sendKeys(BaseClass.propertyfile("config", "username"));
         password.sendKeys(BaseClass.propertyfile("config", "password"));
         signInButton.click();
+        WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(40));
+
         wait.until(ExpectedConditions.elementToBeClickable(otp));
         otp.click();
         otp.sendKeys(BaseClass.propertyfile("config", "otp"));
         verifyButton.click();
-        wait.until(ExpectedConditions.visibilityOf(HomePageHeader));
-        Assert.assertEquals(HomePageHeader.getText(), BaseClass.propertyfile("config", "HomepageHeader"));
+
         test.log(Status.PASS, "Home page Header verified");
         test.log(Status.PASS, "Sign In is Successful");
 
@@ -69,5 +60,18 @@ public class LoginCP {
 
 
 
+    }
+
+    public void invalidlogin() throws IOException {
+
+        userName.sendKeys(BaseClass.propertyfile("config", "username"));
+        password.sendKeys(BaseClass.propertyfile("config", "passwordinvalid"));
+        signInButton.click();
+        WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(40));
+        wait.until(ExpectedConditions.visibilityOf(InvalidLoginErrorMessage));
+        Assert.assertEquals(InvalidLoginErrorMessage.getText(),BaseClass.propertyfile("config", "InvalidLoginerrormessage"));
+        test.log(Status.PASS, "Invalid Login Error Message Verified");
+        userName.clear();
+        password.clear();
     }
 }

@@ -38,7 +38,7 @@ public class BaseClass {
         driver = new ChromeDriver();
         extent = new ExtentReports();
         driver.manage().window().maximize();
-        driver.get("https://dawakportaluat.z1.web.core.windows.net");
+        driver.get("https://dawakportaluat.z1.web.core.windows.net/#/auth/login");
         ExtentSparkReporter extentSparkReporter = new ExtentSparkReporter("target/Dawak.html");
         extent.attachReporter(extentSparkReporter);
     }
@@ -81,6 +81,6 @@ public class BaseClass {
     @AfterSuite
     public void tearDown() {
         extent.flush();
-        driver.quit();
+       // driver.quit();
     }
 }
