@@ -10,4 +10,10 @@ public class Pages {
         return pg;
     }
 
+    public static OrderDetails OrderDetails() {
+        OrderDetails pg = new OrderDetails(BaseClass.driver);
+        PageFactory.initElements(BaseClass.driver, pg);
+        return pg;
+    }
+
 }
