@@ -2,10 +2,7 @@ package Pages;
 
 import Helper.BaseClass;
 import com.aventstack.extentreports.Status;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
@@ -55,12 +52,8 @@ public class Home {
         WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(130));
         wait.until(ExpectedConditions.visibilityOf(HomePageHeader));
         Assert.assertEquals(HomePageHeader.getText(), BaseClass.propertyfile("config", "HomepageHeader"));
-       // Thread.sleep(3000);
         wait.until(ExpectedConditions.invisibilityOf(Loader));
-
-        // wait.until(ExpectedConditions.textToBePresentInElement(Search));
         String Encountertext=Encounter.getText();
-        //wait.until(ExpectedConditions.visibilityOf(Search));
         Search.sendKeys(Encountertext);
         test.log(Status.PASS, "text searched");
         wait.until(ExpectedConditions.visibilityOf(VerifyEncounter));
@@ -73,10 +66,20 @@ public class Home {
         wait.until(ExpectedConditions.invisibilityOf(Loader));
         JavascriptExecutor Inprogress = (JavascriptExecutor) driver;
         Inprogress.executeScript("arguments[0].click();", InprogressTabButton);
+        wait.until(ExpectedConditions.visibilityOf(Loader));
         wait.until(ExpectedConditions.invisibilityOf(Loader));
         Search.sendKeys(Encountertext);
-        test.log(Status.PASS, "text searched");
         wait.until(ExpectedConditions.invisibilityOf(Loader));
+        test.log(Status.PASS, "text searched");
+        Search.clear();
+        Search.sendKeys(Encountertext);
+        wait.until(ExpectedConditions.invisibilityOf(Loader));
+        Search.sendKeys(Keys.BACK_SPACE);
+        Search.sendKeys(Keys.chord(Keys.CONTROL, "z"));
+        Assert.assertEquals(VerifyEncounter.getText(),Encountertext);
+        test.log(Status.PASS, "Encounter text verified in progress tab");
+        Assert.assertEquals(TaskName.getText(),BaseClass.propertyfile("config", "TaskName"));
+        test.log(Status.PASS, "TaskName text Verified progress tab");
 
 
 

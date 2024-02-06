@@ -81,6 +81,6 @@ public class BaseClass {
     @AfterSuite
     public void tearDown() {
         extent.flush();
-       // driver.quit();
+       driver.quit();
     }
 }
