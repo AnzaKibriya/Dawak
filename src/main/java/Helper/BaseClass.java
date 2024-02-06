@@ -7,10 +7,7 @@ import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.google.common.io.Files;
-import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.time.Duration;
@@ -25,6 +22,7 @@ import org.testng.annotations.BeforeSuite;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
 
@@ -42,18 +40,18 @@ public class BaseClass {
         driver = new ChromeDriver();
         extent = new ExtentReports();
         wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(30));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
         driver.get("https://dawakportaluat.z1.web.core.windows.net/#/auth/login");
         ExtentSparkReporter extentSparkReporter = new ExtentSparkReporter("target/Dawak.html");
         extent.attachReporter(extentSparkReporter);
     }
 
-    public static String propertyFile(String PropFileName, String stringname) throws IOException {
+    public static String propertyFile(String PropFileName, String stringName) {
         try {
             FileInputStream fis = new FileInputStream("./target/" + PropFileName + ".properties");
             prop.load(fis);
-            storestring = prop.getProperty(stringname);
+            storestring = prop.getProperty(stringName);
         } catch (Exception e) {
             System.out.println("File Not Found :" + e.getMessage());
         }
@@ -69,9 +67,9 @@ public class BaseClass {
     }
 
     public static void waitForLoaderInvisibility() {
-        WebElement loaderElement = driver.findElement(By.xpath("//ngx-spinner//img"));
-        if (loaderElement.isDisplayed()) {
-            wait.until(ExpectedConditions.invisibilityOf(loaderElement));
+        List<WebElement> loaderElement = driver.findElements(By.xpath("//ngx-spinner//img"));
+        if (!loaderElement.isEmpty()) {
+            wait.until(ExpectedConditions.invisibilityOfAllElements(loaderElement));
         }
     }
 
@@ -89,6 +87,9 @@ public class BaseClass {
                     MarkupHelper.createLabel(result.getName() + "Test case skipped", ExtentColor.ORANGE));
             test.skip(result.getThrowable());
         }
+    }
+    public static JavascriptExecutor javascriptExecutor(){
+        return (JavascriptExecutor) driver;
     }
 
     @AfterSuite
