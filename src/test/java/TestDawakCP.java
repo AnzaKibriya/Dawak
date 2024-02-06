@@ -1,14 +1,21 @@
 import Helper.BaseClass;
 import Pages.Pages;
 import org.testng.annotations.Test;
-import Enum.PendingMedicineInformationEnum;
+
+import java.io.IOException;
 
 public class TestDawakCP extends BaseClass {
-    PendingMedicineInformationEnum pendingMedicineInformationEnum;
     @Test
-    public void loginToCP() throws InterruptedException {
+    public void verifyCPLogin()throws IOException {
         test = extent.createTest("Login to Central Pharmacist");
-        Pages.LoginCP().testCPLogin();
-        Pages.OrderDetails().verifyOrderDetailTable();
+        Pages.LoginCP().invalidCPLogin();
+        Pages.LoginCP().CPLogin();
     }
+     @Test
+    public void verifyMakingOrderInProgress() throws IOException {
+        test = extent.createTest("Verify Making Order In Progress State");
+        Pages.Home().verifyHomePageHeader();
+        Pages.Home().SearchForOrder();
+        Pages.Home().moveOrderToInProgressStateAndVerify();
+     }
 }
