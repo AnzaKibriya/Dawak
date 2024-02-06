@@ -47,9 +47,9 @@ public class OrderDetails {
 //                 .getResourceAsStream("/test.json")))) {
 //             TestModel[] result = new Gson().fromJson(reader, TestModel[].class);
 //             for (int i=2; i <=ele.size();i++){
-////                 String AB = result[i-2].getName();
+//                 String AB = result[i-2].getNDC_Code();
 //                 String ABC = ele.get(i).getText();
-////                 Assert.assertEquals(ABC, AB);
+//                 Assert.assertEquals(ABC, AB);
 //             }
 //         } catch (IOException ignored) {
 //         }
