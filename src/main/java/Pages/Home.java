@@ -3,86 +3,66 @@ package Pages;
 import Helper.BaseClass;
 import com.aventstack.extentreports.Status;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.FindBys;
-import org.openqa.selenium.support.pagefactory.ElementLocator;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.io.IOException;
 
 import static Helper.BaseClass.test;
+import static Helper.BaseClass.waitForLoaderInvisibility;
 
 public class Home {
     WebDriver driver;
-
     @FindBy(xpath = "//h2[text()='Central Pharmacist Task List']")
-    WebElement HomePageHeader;
+    WebElement homePageHeader;
 
-
-    @FindBy(xpath= "//tr//td")
-    WebElement Encounter;
-
-    @FindBy( xpath = "//input[@placeholder='Search by Attribute']")
-     WebElement Search;
-
-
-
-    @FindBy(xpath =" //ngx-spinner//img")
-    WebElement Loader;
-    @FindBy(xpath ="//tr//td")
-    WebElement VerifyEncounter;
-    @FindBy( xpath ="//tr/td[2]")
-    WebElement TaskName;
-
-    @FindBy( xpath ="//img[@mattooltip='Assign']")
-    WebElement AssignButton;
-
-    @FindBy( xpath ="//span[text()=' In-Progress ']")
-    WebElement  InprogressTabButton;
-
-
+    @FindBy(xpath = "//*[@id='mat-tab-content-0-0']//tbody/tr/td[1]/span")
+    WebElement encounter;
+    @FindBy(xpath = "//input[@placeholder='Search by Attribute']")
+    WebElement search;
+    @FindBy(xpath = "//tr/td[2]")
+    WebElement taskName;
+    @FindBy(xpath = "//img[@mattooltip='Assign']")
+    WebElement assignButton;
+    @FindBy(xpath = "//span[text()=' In-Progress ']")
+    WebElement inProgressTabButton;
+    String OrderIDText;
 
     public Home(WebDriver Driver) {
         driver = Driver;
     }
-    public void testHome() throws IOException, InterruptedException {
-        WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(130));
-        wait.until(ExpectedConditions.visibilityOf(HomePageHeader));
-        Assert.assertEquals(HomePageHeader.getText(), BaseClass.propertyfile("config", "HomepageHeader"));
-        wait.until(ExpectedConditions.invisibilityOf(Loader));
-        String Encountertext=Encounter.getText();
-        Search.sendKeys(Encountertext);
-        test.log(Status.PASS, "text searched");
-        wait.until(ExpectedConditions.visibilityOf(VerifyEncounter));
-        Assert.assertEquals(VerifyEncounter.getText(),Encountertext);
+
+    public void verifyHomePageHeader() throws IOException {
+        waitForLoaderInvisibility();
+        Assert.assertEquals(homePageHeader.getText(), BaseClass.propertyFile("config", "HomepageHeader"));
+    }
+
+    public void SearchForOrder() throws IOException {
+        OrderIDText = encounter.getText();
+        search.sendKeys(OrderIDText);
+        Assert.assertEquals(encounter.getText(), OrderIDText);
         test.log(Status.PASS, "Encounter text verified");
-        Assert.assertEquals(TaskName.getText(),BaseClass.propertyfile("config", "TaskName"));
+        Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskName"));
         test.log(Status.PASS, "TaskName text Verified");
+    }
+
+    public void moveOrderToInProgressStateAndVerify() throws IOException {
         JavascriptExecutor Assign = (JavascriptExecutor) driver;
-        Assign.executeScript("arguments[0].click();", AssignButton);
-        wait.until(ExpectedConditions.invisibilityOf(Loader));
-        JavascriptExecutor Inprogress = (JavascriptExecutor) driver;
-        Inprogress.executeScript("arguments[0].click();", InprogressTabButton);
-        wait.until(ExpectedConditions.visibilityOf(Loader));
-        wait.until(ExpectedConditions.invisibilityOf(Loader));
-        Search.sendKeys(Encountertext);
-        wait.until(ExpectedConditions.invisibilityOf(Loader));
+        Assign.executeScript("arguments[0].click();", assignButton);
+        JavascriptExecutor inProgress = (JavascriptExecutor) driver;
+        inProgress.executeScript("arguments[0].click();", inProgressTabButton);
+        OrderIDText = encounter.getText();
+        search.sendKeys(OrderIDText);
+        waitForLoaderInvisibility();
         test.log(Status.PASS, "text searched");
-        Search.clear();
-        Search.sendKeys(Encountertext);
-        wait.until(ExpectedConditions.invisibilityOf(Loader));
-        Search.sendKeys(Keys.BACK_SPACE);
-        Search.sendKeys(Keys.chord(Keys.CONTROL, "z"));
-        Assert.assertEquals(VerifyEncounter.getText(),Encountertext);
+        search.clear();
+        search.sendKeys(OrderIDText);
+        waitForLoaderInvisibility();
+        search.sendKeys(Keys.BACK_SPACE);
+        search.sendKeys(Keys.chord(Keys.CONTROL, "z"));
+        Assert.assertEquals(encounter.getText(), OrderIDText);
         test.log(Status.PASS, "Encounter text verified in progress tab");
-        Assert.assertEquals(TaskName.getText(),BaseClass.propertyfile("config", "TaskName"));
+        Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskName"));
         test.log(Status.PASS, "TaskName text Verified progress tab");
-
-
-
-
     }
 }

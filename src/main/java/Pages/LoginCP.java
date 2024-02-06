@@ -2,7 +2,6 @@ package Pages;
 
 import Helper.BaseClass;
 import com.aventstack.extentreports.Status;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -32,44 +31,33 @@ public class LoginCP {
     WebElement verifyButton;
 
 
-
     public LoginCP(WebDriver Driver) {
         driver = Driver;
 
     }
 
     public void CPLogin() throws IOException {
-        Assert.assertEquals(header.getText(), BaseClass.propertyfile("config", "HeaderText"));
+        Assert.assertEquals(header.getText(), BaseClass.propertyFile("config", "HeaderText"));
         test.log(Status.PASS, "Header is Verified");
-        userName.sendKeys(BaseClass.propertyfile("config", "username"));
-        password.sendKeys(BaseClass.propertyfile("config", "password"));
+        userName.sendKeys(BaseClass.propertyFile("config", "username"));
+        password.sendKeys(BaseClass.propertyFile("config", "password"));
         signInButton.click();
         WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(40));
-
         wait.until(ExpectedConditions.elementToBeClickable(otp));
         otp.click();
-        otp.sendKeys(BaseClass.propertyfile("config", "otp"));
+        otp.sendKeys(BaseClass.propertyFile("config", "otp"));
         verifyButton.click();
-
         test.log(Status.PASS, "Home page Header verified");
         test.log(Status.PASS, "Sign In is Successful");
-
-
-
-
-
-
-
     }
 
-    public void invalidlogin() throws IOException {
-
-        userName.sendKeys(BaseClass.propertyfile("config", "username"));
-        password.sendKeys(BaseClass.propertyfile("config", "passwordinvalid"));
+    public void invalidCPLogin() throws IOException {
+        userName.sendKeys(BaseClass.propertyFile("config", "username"));
+        password.sendKeys(BaseClass.propertyFile("config", "passwordinvalid"));
         signInButton.click();
         WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(40));
         wait.until(ExpectedConditions.visibilityOf(InvalidLoginErrorMessage));
-        Assert.assertEquals(InvalidLoginErrorMessage.getText(),BaseClass.propertyfile("config", "InvalidLoginerrormessage"));
+        Assert.assertEquals(InvalidLoginErrorMessage.getText(), BaseClass.propertyFile("config", "InvalidLoginerrormessage"));
         test.log(Status.PASS, "Invalid Login Error Message Verified");
         userName.clear();
         password.clear();
