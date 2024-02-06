@@ -16,7 +16,7 @@ public class Home {
     @FindBy(xpath = "//h2[text()='Central Pharmacist Task List']")
     WebElement homePageHeader;
 
-    @FindBy(xpath = "//*[@id='mat-tab-content-0-0']//tbody/tr/td[1]/span")
+    @FindBy(xpath = "//tr[1]/td[1]/span[1]")
     WebElement encounter;
     @FindBy(xpath = "//input[@placeholder='Search by Attribute']")
     WebElement search;
@@ -52,12 +52,12 @@ public class Home {
         JavascriptExecutor inProgress = (JavascriptExecutor) driver;
         inProgress.executeScript("arguments[0].click();", inProgressTabButton);
         OrderIDText = encounter.getText();
+        System.out.println(OrderIDText);
         search.sendKeys(OrderIDText);
         waitForLoaderInvisibility();
         test.log(Status.PASS, "text searched");
         search.clear();
         search.sendKeys(OrderIDText);
-        waitForLoaderInvisibility();
         search.sendKeys(Keys.BACK_SPACE);
         search.sendKeys(Keys.chord(Keys.CONTROL, "z"));
         Assert.assertEquals(encounter.getText(), OrderIDText);

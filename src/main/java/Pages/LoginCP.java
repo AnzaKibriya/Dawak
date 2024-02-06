@@ -11,7 +11,7 @@ import org.testng.Assert;
 
 import java.io.IOException;
 
-import static Helper.BaseClass.test;
+import static Helper.BaseClass.*;
 
 public class LoginCP {
     WebDriver driver;
@@ -24,7 +24,7 @@ public class LoginCP {
     @FindBy(className = "btn-custom-primary")
     WebElement signInButton;
     @FindBy(xpath = "//div//div[@aria-label='Invalid credentials. Please Login Again']")
-    WebElement InvalidLoginErrorMessage;
+    WebElement invalidLoginErrorMessage;
     @FindBy(name = "otp")
     WebElement otp;
     @FindBy(xpath = "//button[text()='Verify']")
@@ -42,8 +42,7 @@ public class LoginCP {
         userName.sendKeys(BaseClass.propertyFile("config", "username"));
         password.sendKeys(BaseClass.propertyFile("config", "password"));
         signInButton.click();
-        WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(40));
-        wait.until(ExpectedConditions.elementToBeClickable(otp));
+        waitelementToBeClickable();
         otp.click();
         otp.sendKeys(BaseClass.propertyFile("config", "otp"));
         verifyButton.click();
@@ -55,9 +54,8 @@ public class LoginCP {
         userName.sendKeys(BaseClass.propertyFile("config", "username"));
         password.sendKeys(BaseClass.propertyFile("config", "passwordinvalid"));
         signInButton.click();
-        WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(40));
-        wait.until(ExpectedConditions.visibilityOf(InvalidLoginErrorMessage));
-        Assert.assertEquals(InvalidLoginErrorMessage.getText(), BaseClass.propertyFile("config", "InvalidLoginerrormessage"));
+        waitForLoaderInvisibility();
+        Assert.assertEquals(invalidLoginErrorMessage.getText(), BaseClass.propertyFile("config", "InvalidLoginerrormessage"));
         test.log(Status.PASS, "Invalid Login Error Message Verified");
         userName.clear();
         password.clear();

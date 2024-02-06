@@ -75,6 +75,12 @@ public class BaseClass {
         }
     }
 
+    public static void waitelementToBeClickable()
+    {
+        WebElement otpElement=driver.findElement(By.name("otp"));
+        wait.until(ExpectedConditions.elementToBeClickable(otpElement));
+    }
+
     @AfterMethod
     public void getResult(ITestResult result) throws Exception {
         if (result.getStatus() == ITestResult.FAILURE) {
