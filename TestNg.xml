@@ -1,8 +1,0 @@
-<suite name="Dawak">
-    <test name="Central Pharmacist Regression">
-        <classes>
-            <class name="TestDawakCP"/>
-            <class name="TestHome"/>
-        </classes>
-    </test>
-</suite>
