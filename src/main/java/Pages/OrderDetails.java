@@ -33,6 +33,8 @@ public class OrderDetails {
     public void openOrderDetailPage() {
         actionButton.click();
         waitForLoaderInvisibility();
+        waitForLoaderInvisibility();
+
     }
 
     public void verifyOrderDetailTable() {

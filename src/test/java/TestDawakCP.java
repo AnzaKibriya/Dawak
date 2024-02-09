@@ -1,10 +1,12 @@
+import org.testng.annotations.Test;
 import Helper.BaseClass;
 import Pages.Pages;
-import org.testng.annotations.Test;
 
 import java.io.IOException;
 
-public class TestDawakCP extends BaseClass {
+
+public class TestDawakCP extends BaseClass{
+
     @Test(priority = 1)
     public void verifyCPLogin()throws IOException {
         test = extent.createTest("Login to Central Pharmacist");
@@ -20,6 +22,7 @@ public class TestDawakCP extends BaseClass {
      }
      @Test (priority = 3)
     public void verifyOrderDetails(){
+        test = extent.createTest("verify Order Details");
         Pages.OrderDetails().openOrderDetailPage();
         Pages.OrderDetails().verifyOrderDetailTable();
      }
