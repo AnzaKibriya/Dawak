@@ -60,7 +60,7 @@ public class BaseClass {
 
     public static String propertyFile(String PropFileName, String stringName) {
         try {
-            FileInputStream fis = new FileInputStream("./target/" + PropFileName + ".properties");
+            FileInputStream fis = new FileInputStream("./src/main/resources/" + PropFileName + ".properties");
             prop.load(fis);
             storestring = prop.getProperty(stringName);
         } catch (Exception e) {
