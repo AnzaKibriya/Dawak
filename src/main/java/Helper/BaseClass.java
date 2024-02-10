@@ -8,12 +8,14 @@ import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.google.common.io.Files;
 
+import model.LoginApiCall;
+import model.PrescriptionApiCall;
 import okhttp3.*;
-import org.json.JSONObject;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.time.Duration;
+
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
@@ -27,7 +29,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
-
+import java.util.Random;
 
 
 public class BaseClass {
@@ -37,50 +39,26 @@ public class BaseClass {
     public static String storestring;
     public static Properties prop = new Properties();
     public static WebDriverWait wait;
-    OkHttpClient client;
-    String jsonPayload = "{ \"username\": \"purenet@purecs.com\", \"password\": \"purecs@1234\" }";
-
-    String apiUrl = "https://dawak-apim-uat.azure-api.net/dawak-auth/api/auth/purenet/login";
+    public static String prescriptionOrderID = "";
+    public static String accessToken = "";
+    public static OkHttpClient client;
 
     @BeforeSuite
     public void setUp() {
         client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(apiUrl)
-                .post(RequestBody.create(jsonPayload, MediaType.parse("application/json")))
-                .addHeader("Content-Type", "application/json")
-                .build();
-        // Perform the POST request
-        try (Response response = client.newCall(request).execute()) {
-            // Check if the response is successful (status code 2xx)
-            if (response.isSuccessful()) {
-                // Parse the JSON response
-                JSONObject jsonResponse = new JSONObject(response.body().string());
-
-                // Retrieve the access token
-                JSONObject data = jsonResponse.getJSONObject("data");
-                String accessToken = data.getString("access_token");
-
-                // Print the access token
-                System.out.println("Access Token: " + accessToken);
-            } else {
-                // Handle non-successful response
-                System.err.println("Error: " + response.code() + " - " + response.message());
-            }
-
-            driver = new ChromeDriver();
-            extent = new ExtentReports();
-            wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(30));
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-            driver.manage().window().maximize();
-            driver.get("https://dawakportaluat.z1.web.core.windows.net/#/auth/login");
-            ExtentSparkReporter extentSparkReporter = new ExtentSparkReporter("target/Dawak.html");
-            extent.attachReporter(extentSparkReporter);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        accessToken = LoginApiCall.makeLoginApiCall();
+        PrescriptionApiCall.makePrescriptionApiCall(accessToken, generateRandomNumericString());
+        driver = new ChromeDriver();
+        extent = new ExtentReports();
+        wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(30));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().window().maximize();
+        driver.get("https://dawakportaluat.z1.web.core.windows.net/#/auth/login");
+        ExtentSparkReporter extentSparkReporter = new ExtentSparkReporter("target/Dawak.html");
+        extent.attachReporter(extentSparkReporter);
     }
-        public static String propertyFile(String PropFileName, String stringName) {
+
+    public static String propertyFile(String PropFileName, String stringName) {
         try {
             FileInputStream fis = new FileInputStream("./target/" + PropFileName + ".properties");
             prop.load(fis);
@@ -121,8 +99,20 @@ public class BaseClass {
             test.skip(result.getThrowable());
         }
     }
-    public static JavascriptExecutor javascriptExecutor(){
+
+    public static JavascriptExecutor javascriptExecutor() {
         return (JavascriptExecutor) driver;
+    }
+
+    public String generateRandomNumericString() {
+        int length = 10;
+        StringBuilder numericString = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            int digit = random.nextInt(10);
+            prescriptionOrderID = String.valueOf(numericString.append(digit));
+        }
+        return prescriptionOrderID;
     }
 
     @AfterSuite

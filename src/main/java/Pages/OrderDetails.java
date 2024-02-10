@@ -1,19 +1,12 @@
 package Pages;
 
-import com.google.gson.Gson;
-import model.TestModel;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.util.List;
-import java.util.Objects;
 
 import Enum.PendingMedicineInformationEnum;
 
@@ -46,7 +39,7 @@ public class OrderDetails {
             Assert.assertEquals(ABC, CP);
         }
 //         try (Reader reader = new InputStreamReader(Objects.requireNonNull(this.getClass()
-//                 .getResourceAsStream("/test.json")))) {
+//                 .getResourceAsStream("/CreatingOrder.json")))) {
 //             TestModel[] result = new Gson().fromJson(reader, TestModel[].class);
 //             for (int i=2; i <=ele.size();i++){
 //                 String AB = result[i-2].getNDC_Code();
