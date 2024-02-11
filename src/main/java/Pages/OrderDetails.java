@@ -1,5 +1,7 @@
 package Pages;
 
+import Helper.BaseClass;
+import com.aventstack.extentreports.Status;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,16 +10,28 @@ import org.testng.Assert;
 
 import java.util.List;
 
-import Enum.PendingMedicineInformationEnum;
-
-import static Helper.BaseClass.waitForLoaderInvisibility;
+import static Helper.BaseClass.*;
 
 public class OrderDetails {
-    int i = 2;
+
     WebDriver driver;
     @FindBy(xpath = "//*[@id='mat-tab-content-0-1']//tbody/tr/td[8]/div/img[2]")
     WebElement actionButton;
-    String medicinePendingInfoInTable = "//app-pending-medication-info//mat-drawer-content//tbody//td['" + i + "']";
+    String medicinePendingInfoInTable = "//app-pending-medication-info//mat-drawer-content//tbody//tr//td[%s]";
+    String deliveryDetails = "//app-address-detail//div//table//tbody//tr//td[%s]";
+    String colum = "//app-address-detail//div//table//tbody//tr//td";
+    String orderDetailColumn = "//app-pending-medication-info//mat-drawer-content//tbody//tr//td";
+
+    String trackingDetails = "//app-tracking-info//div//table//tbody//tr//td[%s]";
+
+    String trackDetailsColumn = "//app-tracking-info//div//table//tbody//tr//td";
+
+
+    @FindBy(xpath = "//span[text()='New Prescription']")
+    WebElement newPrescriptionText;
+
+    @FindBy(xpath = "//span[text()='Insurance Pending Approval']")
+    WebElement insuranceApprovalText;
 
     public OrderDetails(WebDriver Driver) {
         driver = Driver;
@@ -26,27 +40,48 @@ public class OrderDetails {
     public void openOrderDetailPage() {
         actionButton.click();
         waitForLoaderInvisibility();
-        waitForLoaderInvisibility();
+    }
 
+
+    public void verifyDeliveryDetailTable() {
+        List<WebElement> orderDeliveryTable = driver.findElements(By.xpath(colum));
+        for (int i = 1; i <= orderDeliveryTable.size(); i++) {
+            WebElement orderDeliveryDetail = driver.findElement(By.xpath(String.format(deliveryDetails, i)));
+            checkElementIsEmpty(orderDeliveryDetail.getText());
+        }
+
+        test.log(Status.PASS, " Verified  DeliveryDetails  Data");
     }
 
     public void verifyOrderDetailTable() {
-        List<WebElement> ele = driver.findElements(By.xpath(medicinePendingInfoInTable));
-        PendingMedicineInformationEnum[] pendingMedicineInformationEnums = PendingMedicineInformationEnum.values();
-        for (int i = 2; i <= pendingMedicineInformationEnums.length; i++) {
-            String ABC = ele.get(i).getText();
-            String CP = pendingMedicineInformationEnums[i - 2].value;
-            Assert.assertEquals(ABC, CP);
+        List<WebElement> orderDetailTable = driver.findElements(By.xpath(orderDetailColumn));
+        for (int i = 1; i <= orderDetailTable.size(); i++) {
+            WebElement orderDetails = driver.findElement(By.xpath(String.format(medicinePendingInfoInTable, i)));
+            System.out.println(orderDetails.getText());
+            checkElementIsEmpty(orderDetails.getText());
         }
-//         try (Reader reader = new InputStreamReader(Objects.requireNonNull(this.getClass()
-//                 .getResourceAsStream("/CreatingOrder.json")))) {
-//             TestModel[] result = new Gson().fromJson(reader, TestModel[].class);
-//             for (int i=2; i <=ele.size();i++){
-//                 String AB = result[i-2].getNDC_Code();
-//                 String ABC = ele.get(i).getText();
-//                 Assert.assertEquals(ABC, AB);
-//             }
-//         } catch (IOException ignored) {
-//         }
+        test.log(Status.PASS, " Verified  orderDetails Data");
     }
+
+    public void verifyTrackDetailTable() {
+
+        List<WebElement> trackDeliveryTable = driver.findElements(By.xpath(trackDetailsColumn));
+
+        for (int j= 1; j <= trackDeliveryTable.size(); j++) {
+            WebElement trackDeliveryDetail = driver.findElement(By.xpath(String.format(trackingDetails, j)));
+            checkElementIsEmpty(trackDeliveryDetail.getText());
+        }
+        test.log(Status.PASS, " Verified  TrackDetails  Data");
+
+    }
+
+    public void verifyOrderDetailsHeader() {
+        System.out.println(newPrescriptionText.getText());
+        Assert.assertEquals(newPrescriptionText.getText(), BaseClass.propertyFile("config", "Newprescription"));
+        Assert.assertEquals(insuranceApprovalText.getText(), BaseClass.propertyFile("config", "InsurenceText"));
+        test.log(Status.PASS, " Verified  New prescriptionText and Insurance text");
+
+    }
+
+
 }

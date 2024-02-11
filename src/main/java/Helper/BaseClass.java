@@ -39,6 +39,8 @@ public class BaseClass {
     public static String storestring;
     public static Properties prop = new Properties();
     public static WebDriverWait wait;
+
+    public static String value;
     public static String prescriptionOrderID = "";
     public static String accessToken = "";
     public static OkHttpClient client;
@@ -83,6 +85,37 @@ public class BaseClass {
             wait.until(ExpectedConditions.invisibilityOfAllElements(loaderElement));
         }
     }
+
+
+
+
+    public static void verifyWebtableData() {
+        for (int i = 3; i <= 7; i++) {
+            value = driver.findElement(By.xpath("//table//tr[1]//td[" + i + "]")).getText();
+            if (value.isEmpty())
+                break;
+        }
+        if (value.isEmpty()) {
+            test.log(Status.FAIL, "WebTable  cell contain  data");
+
+        } else {
+            test.log(Status.PASS, "WebTable  contains data");
+        }
+    }
+
+
+    public static void checkElementIsEmpty(String details) {
+
+        if (details.isEmpty()) {
+            test.log(Status.FAIL, "WebTable  Does not contain data");
+
+        } else {
+            test.log(Status.PASS, "WebTable cell  contains data");
+        }
+
+
+    }
+
 
     @AfterMethod
     public void getResult(ITestResult result) throws Exception {

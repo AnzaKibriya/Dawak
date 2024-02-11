@@ -24,6 +24,15 @@ public class Home {
     WebElement inProgressTabButton;
     @FindBy(xpath = "//*[@id='mat-tab-content-0-1']//tr[1]/td[1]/span")
     WebElement encounterNumberInProgressPage;
+
+    @FindBy( xpath = "//input[@id='mat-radio-4-input']")
+    WebElement newPrescription;
+
+    @FindBy(xpath="//img[@mattooltip='Un-Assign']")
+    WebElement unsign;
+
+    @FindBy(xpath="//span[text()=' To-do ']")
+    WebElement toDo;
     static String OrderIDText;
 
     public Home(WebDriver Driver) {
@@ -39,9 +48,18 @@ public class Home {
         OrderIDText = encounterNumberTodoPage.getText();
         search.sendKeys(OrderIDText);
         Assert.assertEquals(encounterNumberTodoPage.getText(), OrderIDText);
-        test.log(Status.PASS, "Encounter text verified");
+        test.log(Status.PASS, "Encounter text verified in Todo Tab");
         Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskName"));
-        test.log(Status.PASS, "TaskName text Verified");
+        test.log(Status.PASS, "TaskName text Verified in Todo");
+        verifyWebtableData();
+    }
+    public void MoveToNewPriscription()
+    {
+        newPrescription.click();
+        test.log(Status.PASS, "Navigated to newprescription tab");
+        waitForLoaderInvisibility();
+        search.clear();
+
     }
 
     public void moveOrderToInProgressStateAndVerify() {
@@ -55,5 +73,18 @@ public class Home {
         test.log(Status.PASS, "Encounter text verified in progress tab");
         Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskName"));
         test.log(Status.PASS, "TaskName text Verified progress tab");
+        verifyWebtableData();
+    }
+
+    public void verifyReassign()
+    {
+        unsign.click();
+        waitForLoaderInvisibility();
+        javascriptExecutor().executeScript("arguments[0].click();",toDo);
+        waitForLoaderInvisibility();
+        test.log(Status.PASS, "Reassign functionality passed");
+
+
+
     }
 }

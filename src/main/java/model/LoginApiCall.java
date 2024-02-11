@@ -10,8 +10,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
-
-import static Helper.BaseClass.client;
 import static Helper.BaseClass.*;
 
 public class LoginApiCall {
