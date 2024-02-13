@@ -15,6 +15,8 @@ import static Helper.BaseClass.test;
 
 public class LoginCP {
     WebDriver driver;
+
+
     @FindBy(name = "username")
     WebElement userName;
     @FindBy(name = "password")
@@ -42,13 +44,19 @@ public class LoginCP {
         userName.sendKeys(BaseClass.propertyFile("config", "username"));
         password.sendKeys(BaseClass.propertyFile("config", "password"));
         signInButton.click();
-        WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(40));
+       WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(40));
         wait.until(ExpectedConditions.elementToBeClickable(otp));
         otp.click();
+
+    }
+
+    public void  verifyEnteringOtp()
+    {
         otp.sendKeys(BaseClass.propertyFile("config", "otp"));
         verifyButton.click();
         test.log(Status.PASS, "Home page Header verified");
         test.log(Status.PASS, "Sign In is Successful");
+
     }
 
     public void invalidCPLogin() throws IOException {

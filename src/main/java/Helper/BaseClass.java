@@ -17,7 +17,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.time.Duration;
 
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -31,6 +34,9 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
+import static java.util.concurrent.TimeUnit.MINUTES;
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 
 public class BaseClass {
     public static ChromeDriver driver;
@@ -40,10 +46,12 @@ public class BaseClass {
     public static Properties prop = new Properties();
     public static WebDriverWait wait;
 
-    public static String value;
     public static String prescriptionOrderID = "";
     public static String accessToken = "";
     public static OkHttpClient client;
+
+    public static String loginWindow;
+
 
     @BeforeSuite
     public void setUp() {
@@ -52,9 +60,10 @@ public class BaseClass {
         PrescriptionApiCall.makePrescriptionApiCall(accessToken, generateRandomNumericString());
         driver = new ChromeDriver();
         extent = new ExtentReports();
-        wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(30));
+        wait = new WebDriverWait(driver, java.time.Duration.ofMinutes(5));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
+        loginWindow = driver.getWindowHandle();
         driver.get("https://dawakportaluat.z1.web.core.windows.net/#/auth/login");
         ExtentSparkReporter extentSparkReporter = new ExtentSparkReporter("target/Dawak.html");
         extent.attachReporter(extentSparkReporter);
@@ -80,26 +89,10 @@ public class BaseClass {
     }
 
     public static void waitForLoaderInvisibility() {
+
         List<WebElement> loaderElement = driver.findElements(By.xpath("//ngx-spinner//img"));
         if (!loaderElement.isEmpty()) {
             wait.until(ExpectedConditions.invisibilityOfAllElements(loaderElement));
-        }
-    }
-
-
-
-
-    public static void verifyWebtableData() {
-        for (int i = 3; i <= 7; i++) {
-            value = driver.findElement(By.xpath("//table//tr[1]//td[" + i + "]")).getText();
-            if (value.isEmpty())
-                break;
-        }
-        if (value.isEmpty()) {
-            test.log(Status.FAIL, "WebTable  cell contain  data");
-
-        } else {
-            test.log(Status.PASS, "WebTable  contains data");
         }
     }
 
@@ -109,6 +102,7 @@ public class BaseClass {
         if (details.isEmpty()) {
             test.log(Status.FAIL, "WebTable  Does not contain data");
 
+            Assert.fail("No Data present");
         } else {
             test.log(Status.PASS, "WebTable cell  contains data");
         }

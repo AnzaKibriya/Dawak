@@ -15,10 +15,12 @@ public class Pages {
         PageFactory.initElements(BaseClass.driver, pg);
         return pg;
     }
+
     public static Home Home() {
         Home pg = new Home(BaseClass.driver);
         PageFactory.initElements(BaseClass.driver, pg);
         return pg;
     }
+
 
 }

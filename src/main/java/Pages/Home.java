@@ -6,10 +6,14 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+
 import static Helper.BaseClass.*;
+import static Pages.Common.verifyWebtableData;
 
 public class Home {
     WebDriver driver;
+
+
     @FindBy(xpath = "//h2[text()='Central Pharmacist Task List']")
     WebElement homePageHeader;
     @FindBy(xpath = "//*[@id='mat-tab-content-0-0']//tbody/tr/td[1]/span")
@@ -25,13 +29,13 @@ public class Home {
     @FindBy(xpath = "//*[@id='mat-tab-content-0-1']//tr[1]/td[1]/span")
     WebElement encounterNumberInProgressPage;
 
-    @FindBy( xpath = "//input[@id='mat-radio-4-input']")
+    @FindBy(xpath = "//input[@id='mat-radio-4-input']")
     WebElement newPrescription;
 
-    @FindBy(xpath="//img[@mattooltip='Un-Assign']")
+    @FindBy(xpath = "//img[@mattooltip='Un-Assign']")
     WebElement unsign;
 
-    @FindBy(xpath="//span[text()=' To-do ']")
+    @FindBy(xpath = "//span[text()=' To-do ']")
     WebElement toDo;
     static String OrderIDText;
 
@@ -51,14 +55,15 @@ public class Home {
         test.log(Status.PASS, "Encounter text verified in Todo Tab");
         Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskName"));
         test.log(Status.PASS, "TaskName text Verified in Todo");
-        verifyWebtableData();
+
     }
-    public void MoveToNewPriscription()
-    {
+
+    public void MoveToNewPriscription() {
         newPrescription.click();
         test.log(Status.PASS, "Navigated to newprescription tab");
         waitForLoaderInvisibility();
         search.clear();
+
 
     }
 
@@ -76,14 +81,12 @@ public class Home {
         verifyWebtableData();
     }
 
-    public void verifyReassign()
-    {
+    public void verifyReassign() {
         unsign.click();
         waitForLoaderInvisibility();
-        javascriptExecutor().executeScript("arguments[0].click();",toDo);
+        javascriptExecutor().executeScript("arguments[0].click();", toDo);
         waitForLoaderInvisibility();
         test.log(Status.PASS, "Reassign functionality passed");
-
 
 
     }
