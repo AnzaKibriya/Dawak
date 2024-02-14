@@ -105,11 +105,11 @@ public class BaseClass {
     }
 
     public String generateRandomNumericString() {
-        int length = 10;
+        int length = 9;
         StringBuilder numericString = new StringBuilder();
         Random random = new Random();
         for (int i = 0; i < length; i++) {
-            int digit = random.nextInt(10);
+            int digit = random.nextInt(9);
             prescriptionOrderID = String.valueOf(numericString.append(digit));
         }
         return prescriptionOrderID;
