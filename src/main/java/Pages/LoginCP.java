@@ -11,6 +11,7 @@ import org.testng.Assert;
 
 import java.io.IOException;
 
+import static Helper.BaseClass.otpText;
 import static Helper.BaseClass.test;
 
 public class LoginCP {
@@ -52,7 +53,7 @@ public class LoginCP {
 
     public void  verifyEnteringOtp()
     {
-        otp.sendKeys(BaseClass.propertyFile("config", "otp"));
+        otp.sendKeys(otpText);
         verifyButton.click();
         test.log(Status.PASS, "Home page Header verified");
         test.log(Status.PASS, "Sign In is Successful");

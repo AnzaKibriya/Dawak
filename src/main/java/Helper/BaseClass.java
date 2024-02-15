@@ -1,5 +1,4 @@
 package Helper;
-
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
@@ -7,36 +6,22 @@ import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.google.common.io.Files;
-
 import model.LoginApiCall;
 import model.PrescriptionApiCall;
 import okhttp3.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-
 import java.time.Duration;
-
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
-
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.List;
 import java.util.Properties;
 import java.util.Random;
-
-import static java.util.concurrent.TimeUnit.MINUTES;
-import static java.util.concurrent.TimeUnit.SECONDS;
-
 
 public class BaseClass {
     public static ChromeDriver driver;
@@ -52,6 +37,8 @@ public class BaseClass {
 
     public static String loginWindow;
 
+    public static String otpText;
+
 
     @BeforeSuite
     public void setUp() {
@@ -60,8 +47,8 @@ public class BaseClass {
         PrescriptionApiCall.makePrescriptionApiCall(accessToken, generateRandomNumericString());
         driver = new ChromeDriver();
         extent = new ExtentReports();
-        wait = new WebDriverWait(driver, java.time.Duration.ofMinutes(5));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        wait = new WebDriverWait(driver, java.time.Duration.ofMinutes(6));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         driver.manage().window().maximize();
         loginWindow = driver.getWindowHandle();
         driver.get("https://dawakportaluat.z1.web.core.windows.net/#/auth/login");
@@ -86,28 +73,6 @@ public class BaseClass {
         String destination = new File("target//" + filename + ".PNG").getAbsolutePath();
         Files.copy(obj, new File("./target//" + filename + ".PNG"));
         return destination;
-    }
-
-    public static void waitForLoaderInvisibility() {
-
-        List<WebElement> loaderElement = driver.findElements(By.xpath("//ngx-spinner//img"));
-        if (!loaderElement.isEmpty()) {
-            wait.until(ExpectedConditions.invisibilityOfAllElements(loaderElement));
-        }
-    }
-
-
-    public static void checkElementIsEmpty(String details) {
-
-        if (details.isEmpty()) {
-            test.log(Status.FAIL, "WebTable  Does not contain data");
-
-            Assert.fail("No Data present");
-        } else {
-            test.log(Status.PASS, "WebTable cell  contains data");
-        }
-
-
     }
 
 
