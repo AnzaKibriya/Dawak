@@ -58,6 +58,7 @@ public class LoginCP {
         test.log(Status.PASS, "Home page Header verified");
         test.log(Status.PASS, "Sign In is Successful");
 
+
     }
 
     public void invalidCPLogin() throws IOException {

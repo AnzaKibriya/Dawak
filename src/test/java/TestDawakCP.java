@@ -1,13 +1,11 @@
 import Helper.BaseClass;
 import Pages.Pages;
 import org.testng.annotations.Test;
-
-import java.awt.*;
 import java.io.IOException;
 
 public class TestDawakCP extends BaseClass {
     @Test(priority = 1)
-    public void verifyCPLogin() throws IOException, InterruptedException {
+    public void verifyCPLogin() throws IOException {
         test = extent.createTest("Login to Central Pharmacist");
         Pages.LoginCP().invalidCPLogin();
         Pages.LoginCP().CPLogin();
@@ -42,7 +40,7 @@ public class TestDawakCP extends BaseClass {
     }
 
 
-    @Test(priority = 5)
+   @Test(priority = 5)
     public void verifyInprogressColumnData() {
 
         test = extent.createTest("Verify Data present in in Todo or Inprogress column");
@@ -50,7 +48,7 @@ public class TestDawakCP extends BaseClass {
 
     }
 
-    @Test(priority = 6)
+   @Test(priority = 6)
     public void verifyunassignfunctionality() {
         test = extent.createTest("Verify unassign functinality");
         Pages.Home().verifyReassign();
@@ -58,19 +56,24 @@ public class TestDawakCP extends BaseClass {
         Pages.Home().moveOrderToInProgressStateAndVerify();
     }
 
-    @Test(priority = 7)
-    public void verifyOrderDetails() throws IOException {
+   @Test(priority = 7)
+    public void verifyOrderDetails()  {
         test = extent.createTest("Verify order details data and Header text ");
         Pages.OrderDetails().openOrderDetailPage();
-        Pages.OrderDetails().verifyDeliveryDetailTable();
-        Pages.OrderDetails().verifyOrderDetailTable();
-        Pages.OrderDetails().verifyOrderDetailsHeader();
-        Pages.OrderDetails().verifyBasicInfo();
-        Pages.OrderDetails().verifyTrackDetailTable();
-        Pages.OrderDetails().verifyViewDetails();
-        Pages.OrderDetails().verifyRemovefunctionlity();
+       Pages.OrderDetails().verifyDeliveryDetailTable();
+       Pages.OrderDetails().verifyBasicInfo();
+       Pages.OrderDetails().verifyOrderDetailTable();
+      Pages.OrderDetails().verifyOrderDetailsHeader();
+       Pages.OrderDetails().verifyTrackDetailTable();
+       Pages.OrderDetails().verifyViewDetails();
+       Pages.OrderDetails().verifyRemovefunctionlity();
 
-    }
+
+
+
+
+
+   }
 
     @Test(priority = 8)
     public void verifyInsurenceApproval() throws InterruptedException {
@@ -78,7 +81,6 @@ public class TestDawakCP extends BaseClass {
 
         Pages.OrderDetails().verifySendInsurenceApproval();
         Pages.OrderDetails().verifySavingDrugDetails();
-
 
     }
 }

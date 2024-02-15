@@ -68,11 +68,13 @@ public class BaseClass {
     }
 
     public static String screenshot(String filename) throws IOException {
+
         TakesScreenshot ts = (TakesScreenshot) driver;
         File obj = ts.getScreenshotAs(OutputType.FILE);
         String destination = new File("target//" + filename + ".PNG").getAbsolutePath();
         Files.copy(obj, new File("./target//" + filename + ".PNG"));
         return destination;
+
     }
 
 

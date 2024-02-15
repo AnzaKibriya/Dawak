@@ -60,6 +60,8 @@ public class Home {
         test.log(Status.PASS, "Navigated to newprescription tab");
         Pages.Common().waitForLoaderInvisibility();
         search.clear();
+        Pages.Common().waitForLoaderInvisibility();
+
 
     }
 

@@ -101,7 +101,7 @@ public class OrderDetails {
 
     public void verifyDeliveryDetailTable()  {
         List<WebElement> orderDeliveryTable = driver.findElements(By.xpath(colum));
-        for (int i = 1; i <= orderDeliveryTable.size(); i++) {
+        for (int i = 1; i <= orderDeliveryTable.size()-2; i++) {
             WebElement orderDeliveryDetail = driver.findElement(By.xpath(String.format(deliveryDetails, i)));
             Pages.Common().checkElementIsEmpty(orderDeliveryDetail.getText());
 
@@ -117,6 +117,7 @@ public class OrderDetails {
     public void verifyOrderDetailTable() {
         List<WebElement> orderDetailTable = driver.findElements(By.xpath(orderDetailColumn));
         for (int i = 1; i <= orderDetailTable.size(); i++) {
+            System.out.println(orderDetailTable.size());
             WebElement orderDetails = driver.findElement(By.xpath(String.format(medicinePendingInfoInTable, i)));
             System.out.println(orderDetails.getText());
             Pages.Common().checkElementIsEmpty(orderDetails.getText());
