@@ -27,6 +27,7 @@ public class OrderDetails {
     String trackDetailsColumn = "//app-tracking-info//div//table//tbody//tr[1]//td";
     String viewDetails = "//mat-drawer/div/div/div[2]/div[3]//div[%s]";
     String basicInfoDetails = "//*[@id='multiCollapseExample1']/div/div/div[%s]//div/following-sibling::div";
+    String contactInfoTable="//*[@id='multiCollapseExample2']/div/div/div[%s]/div[2]";
     @FindBy(xpath = "//span[text()='New Prescription']")
     WebElement newPrescriptionText;
 
@@ -89,6 +90,9 @@ public class OrderDetails {
     @FindBy(xpath = "//span[normalize-space()='Co Pay']")
     WebElement coPay;
 
+    @FindBy( xpath = "//div[@class='custom-class-for-accordion-con collapse-div-header']")
+    WebElement contactInfoButton;
+
     public OrderDetails(WebDriver Driver) {
         driver = Driver;
     }
@@ -128,6 +132,7 @@ public class OrderDetails {
 
     public void verifyTrackDetailTable() {
 
+
         List<WebElement> trackDeliveryTable = driver.findElements(By.xpath(trackDetailsColumn));
         System.out.println(trackDeliveryTable.size());
         for (int j = 1; j <= trackDeliveryTable.size(); j++) {
@@ -150,6 +155,18 @@ public class OrderDetails {
             Pages.Common().checkElementIsEmpty(basicDetails.getText());
         }
         test.log(Status.PASS, " Verified  BasicInfo Data");
+    }
+
+    public void contactInfoDataTable()
+    {
+        contactInfoButton.click();
+        for (int i = 1; i <=2; i++) {
+            WebElement contactDetails = driver.findElement(By.xpath(String.format(contactInfoTable, i)));
+            System.out.println(contactDetails.getText());
+            Pages.Common().checkElementIsEmpty(contactDetails.getText());
+        }
+        test.log(Status.PASS, " Verified  contactinfoDatable Data");
+
     }
 
     public void verifyOrderDetailsHeader() {

@@ -1,6 +1,7 @@
 import Helper.BaseClass;
 import Pages.Pages;
 import org.testng.annotations.Test;
+
 import java.io.IOException;
 
 public class TestDawakCP extends BaseClass {
@@ -40,7 +41,7 @@ public class TestDawakCP extends BaseClass {
     }
 
 
-   @Test(priority = 5)
+    @Test(priority = 5)
     public void verifyInprogressColumnData() {
 
         test = extent.createTest("Verify Data present in in Todo or Inprogress column");
@@ -48,7 +49,7 @@ public class TestDawakCP extends BaseClass {
 
     }
 
-   @Test(priority = 6)
+    @Test(priority = 6)
     public void verifyunassignfunctionality() {
         test = extent.createTest("Verify unassign functinality");
         Pages.Home().verifyReassign();
@@ -56,24 +57,21 @@ public class TestDawakCP extends BaseClass {
         Pages.Home().moveOrderToInProgressStateAndVerify();
     }
 
-   @Test(priority = 7)
-    public void verifyOrderDetails()  {
+    @Test(priority = 7)
+    public void verifyOrderDetails() {
         test = extent.createTest("Verify order details data and Header text ");
         Pages.OrderDetails().openOrderDetailPage();
-       Pages.OrderDetails().verifyDeliveryDetailTable();
-       Pages.OrderDetails().verifyBasicInfo();
-       Pages.OrderDetails().verifyOrderDetailTable();
-      Pages.OrderDetails().verifyOrderDetailsHeader();
-       Pages.OrderDetails().verifyTrackDetailTable();
-       Pages.OrderDetails().verifyViewDetails();
-       Pages.OrderDetails().verifyRemovefunctionlity();
+        Pages.OrderDetails().verifyDeliveryDetailTable();
+        Pages.OrderDetails().verifyBasicInfo();
+        Pages.OrderDetails().contactInfoDataTable();
+        Pages.OrderDetails().verifyOrderDetailTable();
+        Pages.OrderDetails().verifyOrderDetailsHeader();
+        Pages.OrderDetails().verifyTrackDetailTable();
+        Pages.OrderDetails().verifyViewDetails();
+        Pages.OrderDetails().verifyRemovefunctionlity();
+    }
 
 
-
-
-
-
-   }
 
     @Test(priority = 8)
     public void verifyInsurenceApproval() throws InterruptedException {
