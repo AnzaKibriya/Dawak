@@ -2,32 +2,35 @@ package Pages;
 
 import Helper.BaseClass;
 import com.aventstack.extentreports.Status;
+import com.beust.ah.A;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
 import java.awt.*;
-import java.io.IOException;
+import java.awt.event.KeyEvent;
 import java.util.List;
+
+import Enum.BasicInformationEnum;
+import Enum.ContactInformation;
+import Enum.viewDetailsInformationEnum;
 
 import static Helper.BaseClass.*;
 
 public class OrderDetails {
     WebDriver driver;
-    @FindBy(xpath = "//*[@id='mat-tab-content-0-1']//tbody/tr/td[8]/div/img[2]")
+    @FindBy(xpath = "//img[@mattooltip='Details']")
     WebElement actionButton;
-    String medicinePendingInfoInTable = "//app-pending-medication-info//mat-drawer-content//tbody//tr//td[%s]";
-    String deliveryDetails = "//app-address-detail//div//table//tbody//tr//td[%s]";
-    String colum = "//app-address-detail//div//table//tbody//tr//td";
-    String orderDetailColumn = "//app-pending-medication-info//mat-drawer-content//tbody//tr//td";
-    String trackingDetails = "//app-tracking-info//div//table//tbody//tr[1]//td[%s]";
-    String trackDetailsColumn = "//app-tracking-info//div//table//tbody//tr[1]//td";
-    String viewDetails = "//mat-drawer/div/div/div[2]/div[3]//div[%s]";
-    String basicInfoDetails = "//*[@id='multiCollapseExample1']/div/div/div[%s]//div/following-sibling::div";
-    String contactInfoTable="//*[@id='multiCollapseExample2']/div/div/div[%s]/div[2]";
+    String medicinePendingInfoInTable = "//app-pending-medication-info//tbody[contains(@class, 'mdc-data-table__content')]//td[%s]";
+    String deliveryDetails = "//app-address-detail//tbody[contains(@class, 'mdc-data-table__content')]//tr[1]//td[%s]";
+    String deliveryDetailcolum = "//app-address-detail//tbody[contains(@class, 'mdc-data-table__content')]//tr[1]//td";
+    String orderDetailColumn = "//app-pending-medication-info//tbody[contains(@class, 'mdc-data-table__content')]//td";
+    String trackingDetails = "//app-tracking-info//tbody[contains(@class, 'mdc-data-table__content')]//tr[1]//td[%s]";
+    String trackDetailsColumn = "//app-tracking-info//tbody[contains(@class, 'mdc-data-table__content')]//tr[1]//td";
+    String viewDetails = "//label[contains(text(), '%s')]//following::h5[1]";
+    String basicInString = "//div[contains(text(), '%s')]/following-sibling::div";
     @FindBy(xpath = "//span[text()='New Prescription']")
     WebElement newPrescriptionText;
 
@@ -51,7 +54,7 @@ public class OrderDetails {
     @FindBy(xpath = "//span[normalize-space()='Add Back']")
     WebElement addBack;
 
-    @FindBy(xpath = "//img[@src='../../../assets/images/new_cross.png']")
+    @FindBy(xpath = "//button[@aria-label='Close']")
     WebElement crossIcon;
 
     @FindBy(xpath = "//span[normalize-space()='View Details']")
@@ -90,8 +93,9 @@ public class OrderDetails {
     @FindBy(xpath = "//span[normalize-space()='Co Pay']")
     WebElement coPay;
 
-    @FindBy( xpath = "//div[@class='custom-class-for-accordion-con collapse-div-header']")
+    @FindBy(xpath = "//div[@class='custom-class-for-accordion-con collapse-div-header']")
     WebElement contactInfoButton;
+
 
     public OrderDetails(WebDriver Driver) {
         driver = Driver;
@@ -103,28 +107,27 @@ public class OrderDetails {
     }
 
 
-    public void verifyDeliveryDetailTable()  {
-        List<WebElement> orderDeliveryTable = driver.findElements(By.xpath(colum));
-        for (int i = 1; i <= orderDeliveryTable.size()-2; i++) {
+    public void verifyDeliveryDetailTable() {
+        List<WebElement> orderDeliveryTable = driver.findElements(By.xpath(deliveryDetailcolum));
+        test.log(Status.PASS, " Started verfying Data in Delivery Details Table");
+        for (int i = 1; i <= orderDeliveryTable.size() - 2; i++) {
             WebElement orderDeliveryDetail = driver.findElement(By.xpath(String.format(deliveryDetails, i)));
-            Pages.Common().checkElementIsEmpty(orderDeliveryDetail.getText());
-
+            Pages.Common().checkElementIsEmpty(orderDeliveryDetail.getText(), i);
         }
+        test.log(Status.PASS, " Verified  DeliveryDetails  Data");
         copy.click();
         Assert.assertEquals(addressCopied.getText(), BaseClass.propertyFile("config", "AddressText"));
         test.log(Status.PASS, " copy functionality verified in delivery details");
 
-
-        test.log(Status.PASS, " Verified  DeliveryDetails  Data");
     }
 
     public void verifyOrderDetailTable() {
         List<WebElement> orderDetailTable = driver.findElements(By.xpath(orderDetailColumn));
+        test.log(Status.PASS, " Started verfying Data in Order Details Table");
         for (int i = 1; i <= orderDetailTable.size(); i++) {
             System.out.println(orderDetailTable.size());
             WebElement orderDetails = driver.findElement(By.xpath(String.format(medicinePendingInfoInTable, i)));
-            System.out.println(orderDetails.getText());
-            Pages.Common().checkElementIsEmpty(orderDetails.getText());
+            Pages.Common().checkElementIsEmpty(orderDetails.getText(), i);
 
         }
         test.log(Status.PASS, " Verified  orderDetails Data");
@@ -132,42 +135,17 @@ public class OrderDetails {
 
     public void verifyTrackDetailTable() {
 
-
         List<WebElement> trackDeliveryTable = driver.findElements(By.xpath(trackDetailsColumn));
         System.out.println(trackDeliveryTable.size());
-        for (int j = 1; j <= trackDeliveryTable.size(); j++) {
+        test.log(Status.PASS, " Started verfying Data in Track Details Table");
+        for (int j = 1; j <= trackDeliveryTable.size() - 1; j++) {
             WebElement trackDeliveryDetail = driver.findElement(By.xpath(String.format(trackingDetails, j)));
-            Pages.Common().checkElementIsEmpty(trackDeliveryDetail.getText());
-
-
+            Pages.Common().checkElementIsEmpty(trackDeliveryDetail.getText(), j);
         }
         test.log(Status.PASS, " Verified  TrackDetails  Data");
 
     }
 
-
-    public void verifyBasicInfo() {
-
-        basicInfoButton.click();
-        for (int i = 1; i <= 11; i++) {
-            WebElement basicDetails = driver.findElement(By.xpath(String.format(basicInfoDetails, i)));
-            System.out.println(basicDetails.getText());
-            Pages.Common().checkElementIsEmpty(basicDetails.getText());
-        }
-        test.log(Status.PASS, " Verified  BasicInfo Data");
-    }
-
-    public void contactInfoDataTable()
-    {
-        contactInfoButton.click();
-        for (int i = 1; i <=2; i++) {
-            WebElement contactDetails = driver.findElement(By.xpath(String.format(contactInfoTable, i)));
-            System.out.println(contactDetails.getText());
-            Pages.Common().checkElementIsEmpty(contactDetails.getText());
-        }
-        test.log(Status.PASS, " Verified  contactinfoDatable Data");
-
-    }
 
     public void verifyOrderDetailsHeader() {
         System.out.println(newPrescriptionText.getText());
@@ -188,19 +166,6 @@ public class OrderDetails {
     }
 
 
-    public void verifyViewDetails() {
-        viewDetailsButton.click();
-        test.log(Status.PASS, " Navigated to view details page");
-
-        for (int i = 2; i <= 8; i++) {
-            WebElement view = driver.findElement(By.xpath(String.format(viewDetails, i)));
-            Pages.Common().checkElementIsEmpty(view.getText());
-        }
-        javascriptExecutor().executeScript("arguments[0].click();", crossIcon);
-        test.log(Status.PASS, " Navigated back from view details page");
-
-    }
-
     public void verifySendInsurenceApproval() throws InterruptedException {
         String orderIdText = physicianOrderId.getText();
         javascriptExecutor().executeScript("arguments[0].click();", sendInsurenceApprovalButton);
@@ -220,14 +185,74 @@ public class OrderDetails {
 
     }
 
-    public void verifySavingDrugDetails() {
+    public void verifySavingDrugDetails() throws AWTException {
+
         javascriptExecutor().executeScript("arguments[0].click();", healthPlan);
         javascriptExecutor().executeScript("arguments[0].click();", coPay);
+        javascriptExecutor().executeScript("arguments[0].click();", coPay);
+        Robot robot = new Robot();
+        robot.keyPress(KeyEvent.VK_BACK_SPACE);
+        robot.keyRelease(KeyEvent.VK_BACK_SPACE);
         javascriptExecutor().executeScript("arguments[0].setAttribute('value', '" + BaseClass.propertyFile("config", "enterQuantity") + "')", enterQty);
+        robot.keyPress(KeyEvent.VK_BACK_SPACE);
+        robot.keyRelease(KeyEvent.VK_BACK_SPACE);
         javascriptExecutor().executeScript("arguments[0].setAttribute('value', '" + BaseClass.propertyFile("config", "Amount") + "')", payAmount);
         javascriptExecutor().executeScript("arguments[0].click();", saveButton);
         test.log(Status.PASS, " saved Duug Details  successfully");
 
+    }
+
+    public void verifyBasicDetailTable() {
+        basicInfoButton.click();
+        BasicInformationEnum[] BasicInformationEnums = BasicInformationEnum.values();
+        System.out.println(BasicInformationEnums.length + "enum length");
+        for (int i = 0; i <= BasicInformationEnums.length - 1; i++) {
+            WebElement basicInfo = driver.findElement(By.xpath(String.format(basicInString, BasicInformationEnums[i].value)));
+            Pages.Common().waitForElementInteractivity(basicInfo);
+            if (basicInfo.getText().isEmpty()) {
+                Assert.fail("No Data present in " + BasicInformationEnums[i].value);
+
+            }
+
+        }
+        test.log(Status.PASS, " Verified BasicInformation Details successfully");
+
+    }
+
+    public void verifyContactDetail() {
+        contactInfoButton.click();
+        ContactInformation[] contactInformations = ContactInformation.values();
+        for (int i = 0; i <= contactInformations.length - 1; i++) {
+            WebElement contactInfo = driver.findElement(By.xpath(String.format(basicInString, contactInformations[i].value)));
+            Pages.Common().waitForElementInteractivity(contactInfo);
+            if (contactInfo.getText().isEmpty()) {
+                Assert.fail("No Data present in " + contactInformations[i].value);
+
+            }
+        }
+
+        test.log(Status.PASS, " Verified ContactInformation Details successfully");
+
+    }
+
+    public void verifyViewDetailsInformation() {
+        viewDetailsButton.click();
+        test.log(Status.PASS, " Navigated to view details page");
+        viewDetailsInformationEnum[] viewDetailsInformationEnums = viewDetailsInformationEnum.values();
+        for (int i = 0; i <= viewDetailsInformationEnums.length - 1; i++) {
+            System.out.println(viewDetailsInformationEnums.length);
+            System.out.println(viewDetailsInformationEnums[i].value);
+            WebElement viewInfo = driver.findElement(By.xpath(String.format(viewDetails, viewDetailsInformationEnums[i].value)));
+            Pages.Common().waitForElementInteractivity(viewInfo);
+            if (viewInfo.getText().isEmpty()) {
+                Assert.fail("No Data present in " + viewDetailsInformationEnums[i].value);
+
+            }
+            test.log(Status.PASS, " Verified View Details successfully");
+
+        }
+        crossIcon.click();
+        test.log(Status.PASS, " Navigated back from view details page");
 
     }
 

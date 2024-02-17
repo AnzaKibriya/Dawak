@@ -40,6 +40,8 @@ public class BaseClass {
     public static String otpText;
 
 
+
+
     @BeforeSuite
     public void setUp() {
         client = new OkHttpClient();
@@ -112,6 +114,6 @@ public class BaseClass {
     @AfterSuite
     public void tearDown() {
         extent.flush();
-        driver.quit();
+        //driver.quit();
     }
 }

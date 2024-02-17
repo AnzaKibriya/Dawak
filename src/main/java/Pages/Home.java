@@ -51,7 +51,7 @@ public class Home {
         Assert.assertEquals(encounterNumberTodoPage.getText(), OrderIDText);
         test.log(Status.PASS, "Encounter text verified in Todo Tab");
         Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskName"));
-        test.log(Status.PASS, "TaskName text Verified in Todo");
+        test.log(Status.PASS, "TaskName text Verified in Todo Tab");
 
     }
 
@@ -73,17 +73,19 @@ public class Home {
     }
     public void moveOrderToInProgressStateAndVerify() {
         javascriptExecutor().executeScript("arguments[0].click();", assignButton);
+        test.log(Status.PASS, "successfully clicked on  assignButton");
         Pages.Common().waitForLoaderInvisibility();
+        test.log(Status.PASS, "Navigated to  in Inprogress tab");
         javascriptExecutor().executeScript("arguments[0].click();", inProgressTabButton);
         Pages.Common().waitForLoaderInvisibility();
         wait.until(ExpectedConditions.visibilityOf(encounterNumberInProgressPage));
         search.sendKeys(OrderIDText);
         Assert.assertEquals(encounterNumberInProgressPage.getText(), OrderIDText);
-        test.log(Status.PASS, "Encounter text verified in progress tab");
+        test.log(Status.PASS, "Encounter text verified in Inprogress tab");
         Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskName"));
-        test.log(Status.PASS, "TaskName text Verified progress tab");
-
+        test.log(Status.PASS, "TaskName text Verified in Inprogress tab");
     }
+
 
     public void verifyReassign() {
         unAssign.click();

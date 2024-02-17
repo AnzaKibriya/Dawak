@@ -5,6 +5,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 import org.testng.Assert;
 
+import java.time.Duration;
 import java.util.List;
 
 import static Helper.BaseClass.*;
@@ -29,29 +30,34 @@ public class Common {
 
 
     public void verifyWebtableData() {
-        for (int i = 3; i <= 7; i++) {
+        for (int i =1; i <= 7; i++) {
             value = driver.findElement(By.xpath(String.format(taskTable, i))).getText();
-            if (value.isEmpty())
-                break;
-        }
-        if (value.isEmpty()) {
-            Assert.fail("Webtable cell does not contain data");
 
-        } else {
-            test.log(Status.PASS, "WebTable  contains data");
+            if (value.isEmpty()) {
+                Assert.fail("Webtable cell does not contain" + i + " data");
+
+            } else {
+                test.log(Status.PASS, "WebTable  contains data in " + i + " column ");
+            }
         }
     }
 
-    public void checkElementIsEmpty(String details) {
+    public void checkElementIsEmpty(String details,int h) {
 
         if (details.isEmpty()) {
 
-            Assert.fail("No Data present in webTable cell");
+            Assert.fail("No Data present in  1 row and "+h+" column webTable cell");
 
 
         } else {
-            test.log(Status.PASS, "WebTable cell  contains data");
+            test.log(Status.PASS, "WebTable cell contains data in 1 row "+h+" column");
         }
+
+    }
+
+    public void  waitForElementInteractivity(WebElement element)  {
+        wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(60));
+        wait.until(ExpectedConditions.visibilityOf(element));
     }
     public void waitForLoaderInvisibility() {
 
