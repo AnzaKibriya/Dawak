@@ -34,5 +34,11 @@ public class Pages {
         return pg;
     }
 
+    public static AndroidAppLogin AndroidAppLogin() {
+        AndroidAppLogin pg = new AndroidAppLogin(BaseClass.androidDriver);
+        PageFactory.initElements(BaseClass.androidDriver, pg);
+        return pg;
+    }
+
 
 }

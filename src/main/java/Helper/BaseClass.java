@@ -7,12 +7,17 @@ import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.google.common.io.Files;
+import io.appium.java_client.Setting;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.options.UiAutomator2Options;
 import model.LoginApiCall;
 import model.PrescriptionApiCall;
 import okhttp3.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Duration;
 
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -28,30 +33,38 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.Random;
 
+import static Helper.AndroidDriverCapabilities.getAPKOptions;
+
 public class BaseClass {
     public static ChromeDriver driver;
     public static ExtentTest test;
     public static ExtentReports extent;
     public static String storestring;
     public static Properties prop;
-    public static WebDriverWait wait;
+    public static WebDriverWait mobileWait;
+    public static WebDriverWait webWait;
     public static String prescriptionOrderID = "";
     public static String accessToken = "";
     public static OkHttpClient client;
     public static String loginWindow;
     public static String otpText;
     public static SoftAssert softAssert;
+    public static AndroidDriver androidDriver;
+    public static UiAutomator2Options options;
 
     @BeforeSuite
-    public void setUp() {
+    public void setUp() throws MalformedURLException {
         client = new OkHttpClient();
         accessToken = LoginApiCall.makeLoginApiCall();
         PrescriptionApiCall.makePrescriptionApiCall(accessToken, generateRandomNumericString());
-        prop = new Properties();
+        androidDriver = new AndroidDriver(new URL("http://localhost:4723"), getAPKOptions());
+        androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver = new ChromeDriver();
         softAssert = new SoftAssert();
         extent = new ExtentReports();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+        prop = new Properties();
+        webWait = new WebDriverWait(driver, Duration.ofSeconds(40));
+        mobileWait = new WebDriverWait(androidDriver, Duration.ofSeconds(40));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         driver.manage().window().maximize();
         loginWindow = driver.getWindowHandle();
@@ -115,6 +128,7 @@ public class BaseClass {
     @AfterSuite
     public void tearDown() {
         extent.flush();
+        androidDriver.quit();
         driver.quit();
     }
 }

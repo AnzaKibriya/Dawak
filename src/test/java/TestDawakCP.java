@@ -13,7 +13,6 @@ public class TestDawakCP extends BaseClass {
         Pages.LoginCP().CPLogin();
         Pages.Mailinator().verifyOtp();
         Pages.LoginCP().verifyEnteringOtp();
-
     }
 
     @Test(priority = 2)
@@ -64,12 +63,11 @@ public class TestDawakCP extends BaseClass {
         Pages.OrderDetails().verifyTrackDetailTable();
         Pages.OrderDetails().verifyViewDetailsInformation();
         Pages.OrderDetails().verifyRemoveFunctionality();
-
     }
 
     @Test(priority = 8)
     public void verifyInsuranceApproval() throws InterruptedException, AWTException {
-        test = extent.createTest("Verify Insurance Approval functionality ");
+        test = extent.createTest("Verify Insurance Approval functionality");
         Pages.OrderDetails().verifySendInsuranceApproval();
         Pages.OrderDetails().verifySavingDrugDetails();
     }

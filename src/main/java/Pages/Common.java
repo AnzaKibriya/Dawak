@@ -51,22 +51,21 @@ public class Common {
     }
 
     public void waitForElementInteractivity(WebElement element) {
-        wait = new WebDriverWait(driver, ofSeconds(60));
-        wait.until(ExpectedConditions.visibilityOf(element));
+        webWait = new WebDriverWait(driver, ofSeconds(60));
+        webWait.until(ExpectedConditions.visibilityOf(element));
     }
 
     public void waitForLoaderInvisibility() {
         List<WebElement> loaderElement = driver.findElements(By.xpath(loader));
         if (!loaderElement.isEmpty()) {
-            wait.until(ExpectedConditions.invisibilityOfAllElements(loaderElement));
+            webWait.until(ExpectedConditions.invisibilityOfAllElements(loaderElement));
         }
     }
 
     public void waitForJustNowElementVisibility() {
         WebElement justNow = driver.findElement(By.xpath(justNowText));
-        wait = new WebDriverWait(driver, ofSeconds(60));
-        wait.until(ExpectedConditions.visibilityOf(justNow));
-
+        webWait = new WebDriverWait(driver, ofSeconds(60));
+        webWait.until(ExpectedConditions.visibilityOf(justNow));
     }
 
 

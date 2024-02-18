@@ -76,7 +76,7 @@ public class Home {
         test.log(Status.PASS, "Navigated to  in Inprogress tab");
         javascriptExecutor().executeScript("arguments[0].click();", inProgressTabButton);
         Pages.Common().waitForLoaderInvisibility();
-        wait.until(ExpectedConditions.visibilityOf(encounterNumberInProgressPage));
+        webWait.until(ExpectedConditions.visibilityOf(encounterNumberInProgressPage));
         search.sendKeys(OrderIDText);
         Assert.assertEquals(encounterNumberInProgressPage.getText(), OrderIDText);
         test.log(Status.PASS, "Encounter text verified in Inprogress tab");
