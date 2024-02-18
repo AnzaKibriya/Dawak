@@ -59,5 +59,11 @@
             <artifactId>json</artifactId>
             <version>20160212</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/io.appium/java-client -->
+        <dependency>
+            <groupId>io.appium</groupId>
+            <artifactId>java-client</artifactId>
+            <version>9.0.0</version>
+        </dependency>
     </dependencies>
 </project>

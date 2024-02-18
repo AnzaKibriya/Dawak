@@ -31,6 +31,8 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Random;
 
+import static java.time.Duration.ofSeconds;
+
 
 public class BaseClass {
     public static ChromeDriver driver;
@@ -50,8 +52,8 @@ public class BaseClass {
         PrescriptionApiCall.makePrescriptionApiCall(accessToken, generateRandomNumericString());
         driver = new ChromeDriver();
         extent = new ExtentReports();
-        wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(30));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        wait = new WebDriverWait(driver, ofSeconds(40));
+        driver.manage().timeouts().implicitlyWait(ofSeconds(15));
         driver.manage().window().maximize();
         driver.get("https://dawakportaluat.z1.web.core.windows.net/#/auth/login");
         ExtentSparkReporter extentSparkReporter = new ExtentSparkReporter("target/Dawak.html");

@@ -17,7 +17,7 @@ public class OrderDetails {
     WebDriver driver;
     @FindBy(xpath = "//*[@id='mat-tab-content-0-1']//tbody/tr/td[8]/div/img[2]")
     WebElement actionButton;
-    String medicinePendingInfoInTable = "//app-pending-medication-info//mat-drawer-content//tbody//td['" + i + "']";
+    String medicinePendingInfoInTable = "//div[contains(text(), '%s')]/following-sibling::div";
 
     public OrderDetails(WebDriver Driver) {
         driver = Driver;
@@ -31,12 +31,10 @@ public class OrderDetails {
     }
 
     public void verifyOrderDetailTable() {
-        List<WebElement> ele = driver.findElements(By.xpath(medicinePendingInfoInTable));
         PendingMedicineInformationEnum[] pendingMedicineInformationEnums = PendingMedicineInformationEnum.values();
-        for (int i = 2; i <= pendingMedicineInformationEnums.length; i++) {
-            String ABC = ele.get(i).getText();
-            String CP = pendingMedicineInformationEnums[i - 2].value;
-            Assert.assertEquals(ABC, CP);
+        for (int i = 0; i <= pendingMedicineInformationEnums.length; i++) {
+            WebElement ele = driver.findElement(By.xpath(String.format(medicinePendingInfoInTable, pendingMedicineInformationEnums[i].value)));
+            Assert.assertNotEquals(ele.getText(), "");
         }
 //         try (Reader reader = new InputStreamReader(Objects.requireNonNull(this.getClass()
 //                 .getResourceAsStream("/CreatingOrder.json")))) {

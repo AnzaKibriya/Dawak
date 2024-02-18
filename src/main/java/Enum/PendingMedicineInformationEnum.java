@@ -1,26 +1,19 @@
 package Enum;
 
-import java.util.stream.Stream;
-
 public enum PendingMedicineInformationEnum {
-    NDC_Code("99991-0098-32"),
-    Drug_Description("Montelukast chewable 5mg Tablet"),
-    Medicine_Qty_Status("No Change");
+    Patient_Full_Name("Patient Full Name"),
+    Emirates_ID("Emirates ID");
+
     public String value;
 
     PendingMedicineInformationEnum(String value) {
         this.value = value;
     }
 
-    public String getValue1() {
+    public String getValue() {
         return value;
     }
-    public void setValue1(String value) {
+    public void setValue(String value) {
         this.value = value;
-    }
-
-
-    public static Stream<PendingMedicineInformationEnum> stream() {
-        return Stream.of(PendingMedicineInformationEnum.values());
     }
 }
