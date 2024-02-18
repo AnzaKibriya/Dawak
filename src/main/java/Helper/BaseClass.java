@@ -1,4 +1,5 @@
 package Helper;
+
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
@@ -11,12 +12,16 @@ import model.PrescriptionApiCall;
 import okhttp3.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+
 import java.time.Duration;
+
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
+import org.testng.asserts.SoftAssert;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -28,29 +33,26 @@ public class BaseClass {
     public static ExtentTest test;
     public static ExtentReports extent;
     public static String storestring;
-    public static Properties prop = new Properties();
+    public static Properties prop;
     public static WebDriverWait wait;
-
     public static String prescriptionOrderID = "";
     public static String accessToken = "";
     public static OkHttpClient client;
-
     public static String loginWindow;
-
     public static String otpText;
-
-
-
+    public static SoftAssert softAssert;
 
     @BeforeSuite
     public void setUp() {
         client = new OkHttpClient();
         accessToken = LoginApiCall.makeLoginApiCall();
         PrescriptionApiCall.makePrescriptionApiCall(accessToken, generateRandomNumericString());
+        prop = new Properties();
         driver = new ChromeDriver();
+        softAssert = new SoftAssert();
         extent = new ExtentReports();
-        wait = new WebDriverWait(driver, java.time.Duration.ofMinutes(6));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(40));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         driver.manage().window().maximize();
         loginWindow = driver.getWindowHandle();
         driver.get("https://dawakportaluat.z1.web.core.windows.net/#/auth/login");
@@ -78,7 +80,6 @@ public class BaseClass {
         return destination;
 
     }
-
 
     @AfterMethod
     public void getResult(ITestResult result) throws Exception {
@@ -114,6 +115,6 @@ public class BaseClass {
     @AfterSuite
     public void tearDown() {
         extent.flush();
-        //driver.quit();
+        driver.quit();
     }
 }

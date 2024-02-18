@@ -5,11 +5,11 @@
         "lastName": "Kibriya",
         "dob": "12/12/1997",
         "patGender": "Female",
-        "phoneNumber": "971592403030",
-        "mrn": "241901",
-        "cmrn": "241901",
-        "eid": "784199129012902",
-        "passportNumber": "241901",
+        "phoneNumber": "971525050111",
+        "mrn": "241902",
+        "cmrn": "241902",
+        "eid": "784199129012903",
+        "passportNumber": "241902",
         "mrnAssigningAuthority": {
             "code": "1",
             "value": "Medical Authority"
@@ -48,10 +48,10 @@
         }
     },
     "order": {
-        "parentFin": "24020501",
-        "physicianEncounterId": "24020501",
-        "physicianOrderDate": "25/12/2023 15:30:00",
-        "orderVisitDate": "25/12/2023 15:30:00",
+        "parentFin": "140220253",
+        "physicianEncounterId": "",
+        "physicianOrderDate": "",
+        "orderVisitDate": "",
         "orderLocation": {
             "code": "MF5598",
             "value": "SEHA_Dawak"
@@ -62,12 +62,12 @@
         },
         "medications": [
             {
-                "physicianOrderId": "24020501",
+                "physicianOrderId": "1402202612",
                 "ndcCode": "99991-0098-32",
                 "drugDescription": "Montelukast chewable 5mg Tablet"
             },
             {
-                "physicianOrderId": "24020502",
+                "physicianOrderId": "1402202713",
                 "ndcCode": "10003-0000-30",
                 "drugDescription": "metFormin 500mg Tablet"
             }

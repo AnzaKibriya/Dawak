@@ -4,11 +4,13 @@ import com.aventstack.extentreports.Status;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 
 import java.time.Duration;
 import java.util.List;
 
 import static Helper.BaseClass.*;
+import static java.time.Duration.ofSeconds;
 
 public class Common {
 
@@ -20,7 +22,7 @@ public class Common {
 
     String justNowText = "//td[contains(text(),'just now')]";
 
-    String loader="//ngx-spinner//img";
+    String loader = "//ngx-spinner//img";
 
 
     public Common(WebDriver Driver) {
@@ -29,48 +31,41 @@ public class Common {
     }
 
 
-    public void verifyWebtableData() {
-        for (int i =1; i <= 7; i++) {
+    public void verifyWebTableData() {
+        for (int i = 1; i <= 7; i++) {
             value = driver.findElement(By.xpath(String.format(taskTable, i))).getText();
-
             if (value.isEmpty()) {
-                Assert.fail("Webtable cell does not contain" + i + " data");
-
+                softAssert.fail("Webtable cell does not contain" + i + " data");
             } else {
                 test.log(Status.PASS, "WebTable  contains data in " + i + " column ");
             }
         }
     }
 
-    public void checkElementIsEmpty(String details,int h) {
-
+    public void checkElementIsEmpty(String details, int h) {
         if (details.isEmpty()) {
-
-            Assert.fail("No Data present in  1 row and "+h+" column webTable cell");
-
-
+            softAssert.fail("No Data present in  1 row and " + h + " column webTable cell");
         } else {
-            test.log(Status.PASS, "WebTable cell contains data in 1 row "+h+" column");
+            test.log(Status.PASS, "WebTable cell contains data in 1 row " + h + " column");
         }
-
     }
 
-    public void  waitForElementInteractivity(WebElement element)  {
-        wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(60));
+    public void waitForElementInteractivity(WebElement element) {
+        wait = new WebDriverWait(driver, ofSeconds(60));
         wait.until(ExpectedConditions.visibilityOf(element));
     }
-    public void waitForLoaderInvisibility() {
 
+    public void waitForLoaderInvisibility() {
         List<WebElement> loaderElement = driver.findElements(By.xpath(loader));
         if (!loaderElement.isEmpty()) {
             wait.until(ExpectedConditions.invisibilityOfAllElements(loaderElement));
         }
     }
 
-    public void waitForJustnowElementvisibility() {
-        WebElement justnow = driver.findElement(By.xpath(justNowText));
-        wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(60));
-        wait.until(ExpectedConditions.visibilityOf(justnow));
+    public void waitForJustNowElementVisibility() {
+        WebElement justNow = driver.findElement(By.xpath(justNowText));
+        wait = new WebDriverWait(driver, ofSeconds(60));
+        wait.until(ExpectedConditions.visibilityOf(justNow));
 
     }
 
@@ -78,7 +73,6 @@ public class Common {
     public void waitForDetailedButtonClickable() throws InterruptedException {
         Thread.sleep(360000);        //6 min
         driver.getCurrentUrl();
-
     }
 
 }

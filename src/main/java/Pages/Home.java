@@ -55,7 +55,7 @@ public class Home {
 
     }
 
-    public void MoveToNewPriscription() {
+    public void moveToNewPrescription() {
         newPrescription.click();
         test.log(Status.PASS, "Navigated to newprescription tab");
         Pages.Common().waitForLoaderInvisibility();
@@ -67,9 +67,7 @@ public class Home {
 
     public void verifyDataInWebTable()
     {
-        Pages.Common().verifyWebtableData();
-
-
+        Pages.Common().verifyWebTableData();
     }
     public void moveOrderToInProgressStateAndVerify() {
         javascriptExecutor().executeScript("arguments[0].click();", assignButton);

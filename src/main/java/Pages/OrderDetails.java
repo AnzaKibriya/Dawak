@@ -146,7 +146,6 @@ public class OrderDetails {
 
     }
 
-
     public void verifyOrderDetailsHeader() {
         System.out.println(newPrescriptionText.getText());
         Assert.assertEquals(newPrescriptionText.getText(), BaseClass.propertyFile("config", "Newprescription"));
@@ -155,38 +154,32 @@ public class OrderDetails {
 
     }
 
-
-    public void verifyRemovefunctionlity() {
+    public void verifyRemoveFunctionality() {
         javascriptExecutor().executeScript("arguments[0].click();", removeButton);
         leaveComment.sendKeys("these");
         submitButton.click();
         Pages.Common().waitForLoaderInvisibility();
         addBack.click();
-
     }
 
-
-    public void verifySendInsurenceApproval() throws InterruptedException {
+    public void verifySendInsuranceApproval() throws InterruptedException {
         String orderIdText = physicianOrderId.getText();
         javascriptExecutor().executeScript("arguments[0].click();", sendInsurenceApprovalButton);
-        test.log(Status.PASS, " order sent for insurence Approval");
+        test.log(Status.PASS, " order sent for insurance Approval");
         Pages.Common().waitForLoaderInvisibility();
         javascriptExecutor().executeScript("arguments[0].click();", insurenceInprogressButton);
         Pages.Common().waitForLoaderInvisibility();
         String numberOnly = orderIdText.replaceAll("[^0-9]", "");
         search.sendKeys(numberOnly);
-        test.log(Status.PASS, " Verified Insurence approval request in Insurence inprogress");
+        test.log(Status.PASS, " Verified Insurance approval request in Insurance in progress");
         details.click();
         Pages.Common().waitForDetailedButtonClickable();
         if (viewDetailsButton.isEnabled())
             viewDetailsButton.click();
-        test.log(Status.PASS, " viewDetailed button clicked successfully");
-
-
+        test.log(Status.PASS, " View Detail button gets clicked successfully");
     }
 
     public void verifySavingDrugDetails() throws AWTException {
-
         javascriptExecutor().executeScript("arguments[0].click();", healthPlan);
         javascriptExecutor().executeScript("arguments[0].click();", coPay);
         javascriptExecutor().executeScript("arguments[0].click();", coPay);
@@ -198,8 +191,7 @@ public class OrderDetails {
         robot.keyRelease(KeyEvent.VK_BACK_SPACE);
         javascriptExecutor().executeScript("arguments[0].setAttribute('value', '" + BaseClass.propertyFile("config", "Amount") + "')", payAmount);
         javascriptExecutor().executeScript("arguments[0].click();", saveButton);
-        test.log(Status.PASS, " saved Duug Details  successfully");
-
+        test.log(Status.PASS, " Drug Details gets saved successfully");
     }
 
     public void verifyBasicDetailTable() {
@@ -211,12 +203,9 @@ public class OrderDetails {
             Pages.Common().waitForElementInteractivity(basicInfo);
             if (basicInfo.getText().isEmpty()) {
                 Assert.fail("No Data present in " + BasicInformationEnums[i].value);
-
             }
-
         }
-        test.log(Status.PASS, " Verified BasicInformation Details successfully");
-
+        test.log(Status.PASS, " Verified Basic Information Details successfully");
     }
 
     public void verifyContactDetail() {
@@ -227,10 +216,8 @@ public class OrderDetails {
             Pages.Common().waitForElementInteractivity(contactInfo);
             if (contactInfo.getText().isEmpty()) {
                 Assert.fail("No Data present in " + contactInformations[i].value);
-
             }
         }
-
         test.log(Status.PASS, " Verified ContactInformation Details successfully");
 
     }
@@ -240,21 +227,16 @@ public class OrderDetails {
         test.log(Status.PASS, " Navigated to view details page");
         viewDetailsInformationEnum[] viewDetailsInformationEnums = viewDetailsInformationEnum.values();
         for (int i = 0; i <= viewDetailsInformationEnums.length - 1; i++) {
-            System.out.println(viewDetailsInformationEnums.length);
-            System.out.println(viewDetailsInformationEnums[i].value);
             WebElement viewInfo = driver.findElement(By.xpath(String.format(viewDetails, viewDetailsInformationEnums[i].value)));
+            Pages.Common().waitForLoaderInvisibility();
             Pages.Common().waitForElementInteractivity(viewInfo);
             if (viewInfo.getText().isEmpty()) {
                 Assert.fail("No Data present in " + viewDetailsInformationEnums[i].value);
 
             }
             test.log(Status.PASS, " Verified View Details successfully");
-
         }
         crossIcon.click();
         test.log(Status.PASS, " Navigated back from view details page");
-
     }
-
-
 }

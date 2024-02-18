@@ -11,7 +11,7 @@ public class TestDawakCP extends BaseClass {
         test = extent.createTest("Login to Central Pharmacist");
         Pages.LoginCP().invalidCPLogin();
         Pages.LoginCP().CPLogin();
-        Pages.Mailinator().verifyOtp(
+        Pages.Mailinator().verifyOtp();
         Pages.LoginCP().verifyEnteringOtp();
 
     }
@@ -26,33 +26,27 @@ public class TestDawakCP extends BaseClass {
 
     @Test(priority = 3)
     public void verifyTodoColumnData() {
-
         test = extent.createTest("Verify Data present in Todo  column");
         Pages.Home().verifyDataInWebTable();
-
     }
 
     @Test(priority = 4)
     public void verifyMakingOrderInProgress() {
         test = extent.createTest("Verify Making Order In Progress State");
-        Pages.Home().MoveToNewPriscription();
+        Pages.Home().moveToNewPrescription();
         Pages.Home().SearchForOrder();
         Pages.Home().moveOrderToInProgressStateAndVerify();
-
     }
 
-
     @Test(priority = 5)
-    public void verifyInprogressColumnData() {
-
-        test = extent.createTest("Verify Data present in  Inprogress column");
+    public void verifyInProgressColumnData() {
+        test = extent.createTest("Verify Data present in  In-progress column");
         Pages.Home().verifyDataInWebTable();
-
     }
 
     @Test(priority = 6)
-    public void verifyunassignfunctionality() {
-        test = extent.createTest("Verify unassign functinality");
+    public void verifyUnAssignFunctionality() {
+        test = extent.createTest("Verify un-assign functionality");
         Pages.Home().verifyReassign();
         Pages.Home().SearchForOrder();
         Pages.Home().moveOrderToInProgressStateAndVerify();
@@ -69,16 +63,14 @@ public class TestDawakCP extends BaseClass {
         Pages.OrderDetails().verifyOrderDetailsHeader();
         Pages.OrderDetails().verifyTrackDetailTable();
         Pages.OrderDetails().verifyViewDetailsInformation();
-        Pages.OrderDetails().verifyRemovefunctionlity();
-
+        Pages.OrderDetails().verifyRemoveFunctionality();
 
     }
 
     @Test(priority = 8)
-    public void verifyInsurenceApproval() throws InterruptedException, AWTException {
-        test = extent.createTest("Verify Insurence Approval functionality ");
-        Pages.OrderDetails().verifySendInsurenceApproval();
+    public void verifyInsuranceApproval() throws InterruptedException, AWTException {
+        test = extent.createTest("Verify Insurance Approval functionality ");
+        Pages.OrderDetails().verifySendInsuranceApproval();
         Pages.OrderDetails().verifySavingDrugDetails();
-
     }
 }
