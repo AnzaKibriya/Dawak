@@ -15,10 +15,24 @@ public class Pages {
         PageFactory.initElements(BaseClass.driver, pg);
         return pg;
     }
+
     public static Home Home() {
         Home pg = new Home(BaseClass.driver);
         PageFactory.initElements(BaseClass.driver, pg);
         return pg;
     }
+
+    public static Common Common() {
+        Common pg = new Common(BaseClass.driver);
+        PageFactory.initElements(BaseClass.driver, pg);
+        return pg;
+    }
+
+    public static Mailinator Mailinator() {
+        Mailinator pg = new Mailinator(BaseClass.driver);
+        PageFactory.initElements(BaseClass.driver, pg);
+        return pg;
+    }
+
 
 }

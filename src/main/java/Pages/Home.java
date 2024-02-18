@@ -1,5 +1,4 @@
 package Pages;
-
 import Helper.BaseClass;
 import com.aventstack.extentreports.Status;
 import org.openqa.selenium.*;
@@ -10,6 +9,8 @@ import static Helper.BaseClass.*;
 
 public class Home {
     WebDriver driver;
+
+
     @FindBy(xpath = "//h2[text()='Central Pharmacist Task List']")
     WebElement homePageHeader;
     @FindBy(xpath = "//*[@id='mat-tab-content-0-0']//tbody/tr/td[1]/span")
@@ -24,6 +25,15 @@ public class Home {
     WebElement inProgressTabButton;
     @FindBy(xpath = "//*[@id='mat-tab-content-0-1']//tr[1]/td[1]/span")
     WebElement encounterNumberInProgressPage;
+
+    @FindBy(xpath = "//input[@id='mat-radio-4-input']")
+    WebElement newPrescription;
+
+    @FindBy(xpath = "//img[@mattooltip='Un-Assign']")
+    WebElement unAssign;
+
+    @FindBy(xpath = "//span[text()=' To-do ']")
+    WebElement toDo;
     static String OrderIDText;
 
     public Home(WebDriver Driver) {
@@ -31,7 +41,7 @@ public class Home {
     }
 
     public void verifyHomePageHeader() {
-        waitForLoaderInvisibility();
+        Pages.Common().waitForLoaderInvisibility();
         Assert.assertEquals(homePageHeader.getText(), BaseClass.propertyFile("config", "HomepageHeader"));
     }
 
@@ -39,21 +49,49 @@ public class Home {
         OrderIDText = encounterNumberTodoPage.getText();
         search.sendKeys(OrderIDText);
         Assert.assertEquals(encounterNumberTodoPage.getText(), OrderIDText);
-        test.log(Status.PASS, "Encounter text verified");
+        test.log(Status.PASS, "Encounter text verified in Todo Tab");
         Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskName"));
-        test.log(Status.PASS, "TaskName text Verified");
+        test.log(Status.PASS, "TaskName text Verified in Todo Tab");
+
     }
 
+    public void MoveToNewPriscription() {
+        newPrescription.click();
+        test.log(Status.PASS, "Navigated to newprescription tab");
+        Pages.Common().waitForLoaderInvisibility();
+        search.clear();
+
+
+    }
+
+
+    public void verifyDataInWebTable()
+    {
+        Pages.Common().verifyWebtableData();
+
+
+    }
     public void moveOrderToInProgressStateAndVerify() {
         javascriptExecutor().executeScript("arguments[0].click();", assignButton);
-        waitForLoaderInvisibility();
+        test.log(Status.PASS, "successfully clicked on  assignButton");
+        Pages.Common().waitForLoaderInvisibility();
+        test.log(Status.PASS, "Navigated to  in Inprogress tab");
         javascriptExecutor().executeScript("arguments[0].click();", inProgressTabButton);
-        waitForLoaderInvisibility();
+        Pages.Common().waitForLoaderInvisibility();
         wait.until(ExpectedConditions.visibilityOf(encounterNumberInProgressPage));
         search.sendKeys(OrderIDText);
         Assert.assertEquals(encounterNumberInProgressPage.getText(), OrderIDText);
-        test.log(Status.PASS, "Encounter text verified in progress tab");
+        test.log(Status.PASS, "Encounter text verified in Inprogress tab");
         Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskName"));
-        test.log(Status.PASS, "TaskName text Verified progress tab");
+        test.log(Status.PASS, "TaskName text Verified in Inprogress tab");
+    }
+
+
+    public void verifyReassign() {
+        unAssign.click();
+        Pages.Common().waitForLoaderInvisibility();
+        javascriptExecutor().executeScript("arguments[0].click();", toDo);
+        Pages.Common().waitForLoaderInvisibility();
+        test.log(Status.PASS, "Reassign functionality passed");
     }
 }

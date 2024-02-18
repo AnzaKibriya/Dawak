@@ -1,5 +1,4 @@
 package Helper;
-
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
@@ -7,30 +6,22 @@ import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.google.common.io.Files;
-
 import model.LoginApiCall;
 import model.PrescriptionApiCall;
 import okhttp3.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
-
 import java.time.Duration;
-
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
-
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.List;
 import java.util.Properties;
 import java.util.Random;
-
 
 public class BaseClass {
     public static ChromeDriver driver;
@@ -39,9 +30,17 @@ public class BaseClass {
     public static String storestring;
     public static Properties prop = new Properties();
     public static WebDriverWait wait;
+
     public static String prescriptionOrderID = "";
     public static String accessToken = "";
     public static OkHttpClient client;
+
+    public static String loginWindow;
+
+    public static String otpText;
+
+
+
 
     @BeforeSuite
     public void setUp() {
@@ -50,9 +49,10 @@ public class BaseClass {
         PrescriptionApiCall.makePrescriptionApiCall(accessToken, generateRandomNumericString());
         driver = new ChromeDriver();
         extent = new ExtentReports();
-        wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(30));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        wait = new WebDriverWait(driver, java.time.Duration.ofMinutes(6));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         driver.manage().window().maximize();
+        loginWindow = driver.getWindowHandle();
         driver.get("https://dawakportaluat.z1.web.core.windows.net/#/auth/login");
         ExtentSparkReporter extentSparkReporter = new ExtentSparkReporter("target/Dawak.html");
         extent.attachReporter(extentSparkReporter);
@@ -70,19 +70,15 @@ public class BaseClass {
     }
 
     public static String screenshot(String filename) throws IOException {
+
         TakesScreenshot ts = (TakesScreenshot) driver;
         File obj = ts.getScreenshotAs(OutputType.FILE);
         String destination = new File("target//" + filename + ".PNG").getAbsolutePath();
         Files.copy(obj, new File("./target//" + filename + ".PNG"));
         return destination;
+
     }
 
-    public static void waitForLoaderInvisibility() {
-        List<WebElement> loaderElement = driver.findElements(By.xpath("//ngx-spinner//img"));
-        if (!loaderElement.isEmpty()) {
-            wait.until(ExpectedConditions.invisibilityOfAllElements(loaderElement));
-        }
-    }
 
     @AfterMethod
     public void getResult(ITestResult result) throws Exception {
@@ -118,6 +114,6 @@ public class BaseClass {
     @AfterSuite
     public void tearDown() {
         extent.flush();
-        driver.quit();
+        //driver.quit();
     }
 }
