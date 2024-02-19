@@ -22,8 +22,8 @@ public class Pages {
         return pg;
     }
 
-    public static Common Common() {
-        Common pg = new Common(BaseClass.driver);
+    public static WebCommon Common() {
+        WebCommon pg = new WebCommon(BaseClass.driver);
         PageFactory.initElements(BaseClass.driver, pg);
         return pg;
     }
@@ -40,5 +40,16 @@ public class Pages {
         return pg;
     }
 
+    public static DawakAppLandingPage DawakAppLandingPage() {
+        DawakAppLandingPage pg = new DawakAppLandingPage(BaseClass.androidDriver);
+        PageFactory.initElements(BaseClass.androidDriver, pg);
+        return pg;
+    }
+
+    public static MobileCommon MobileCommon() {
+        MobileCommon pg = new MobileCommon(BaseClass.androidDriver);
+        PageFactory.initElements(BaseClass.androidDriver, pg);
+        return pg;
+    }
 
 }

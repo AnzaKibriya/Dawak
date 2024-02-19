@@ -5,13 +5,13 @@ import java.nio.file.Path;
 
 public class AndroidDriverCapabilities {
     public static UiAutomator2Options getAPKOptions() {
-        String apkPath = Path.of(System.getProperty("user.dir"), "/src/main/resources/app-uat-debug.apk").toString();
+        String apkPath = Path.of(System.getProperty("user.dir"), "/src/main/resources/app-qa-debug.apk").toString();
         UiAutomator2Options options = new UiAutomator2Options();
         options.setPlatformName("Android")
                 .setAvd("Pixel_6_API_34")
                 .setAutomationName("UiAutomator2")
                 .setDeviceName("Pixel 6 API 34")
-                .setAppPackage("ae.purehealth.dawak")
+                .setAppPackage("ae.purehealth.dawak.qa")
                 .setAppActivity("ae.purehealth.dawak.ui.splash.SplashActivity")
                 .setApp(apkPath)
                 .autoGrantPermissions()

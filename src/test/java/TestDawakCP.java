@@ -1,11 +1,16 @@
 import Helper.BaseClass;
 import Pages.Pages;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.awt.*;
 import java.io.IOException;
 
 public class TestDawakCP extends BaseClass {
+    @BeforeClass
+    public void getURL(){
+
+    }
     @Test(priority = 1)
     public void verifyCPLogin() throws IOException {
         test = extent.createTest("Login to Central Pharmacist");

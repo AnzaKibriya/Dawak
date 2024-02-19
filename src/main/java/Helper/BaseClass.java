@@ -50,15 +50,13 @@ public class BaseClass {
     public static String otpText;
     public static SoftAssert softAssert;
     public static AndroidDriver androidDriver;
-    public static UiAutomator2Options options;
-
     @BeforeSuite
     public void setUp() throws MalformedURLException {
         client = new OkHttpClient();
         accessToken = LoginApiCall.makeLoginApiCall();
         PrescriptionApiCall.makePrescriptionApiCall(accessToken, generateRandomNumericString());
         androidDriver = new AndroidDriver(new URL("http://localhost:4723"), getAPKOptions());
-        androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
         driver = new ChromeDriver();
         softAssert = new SoftAssert();
         extent = new ExtentReports();
@@ -85,13 +83,11 @@ public class BaseClass {
     }
 
     public static String screenshot(String filename) throws IOException {
-
         TakesScreenshot ts = (TakesScreenshot) driver;
         File obj = ts.getScreenshotAs(OutputType.FILE);
         String destination = new File("target//" + filename + ".PNG").getAbsolutePath();
         Files.copy(obj, new File("./target//" + filename + ".PNG"));
         return destination;
-
     }
 
     @AfterMethod
