@@ -181,11 +181,12 @@ public class OrderDetails {
     public void verifySavingDrugDetails() throws AWTException {
         javascriptExecutor().executeScript("arguments[0].click();", healthPlan);
         javascriptExecutor().executeScript("arguments[0].click();", coPay);
-        javascriptExecutor().executeScript("arguments[0].click();", coPay);
+        javascriptExecutor().executeScript("arguments[0].click();", enterQty);
         Robot robot = new Robot();
         robot.keyPress(KeyEvent.VK_BACK_SPACE);
         robot.keyRelease(KeyEvent.VK_BACK_SPACE);
         javascriptExecutor().executeScript("arguments[0].setAttribute('value', '" + BaseClass.propertyFile("config", "enterQuantity") + "')", enterQty);
+        javascriptExecutor().executeScript("arguments[0].click();", payAmount);
         robot.keyPress(KeyEvent.VK_BACK_SPACE);
         robot.keyRelease(KeyEvent.VK_BACK_SPACE);
         javascriptExecutor().executeScript("arguments[0].setAttribute('value', '" + BaseClass.propertyFile("config", "Amount") + "')", payAmount);

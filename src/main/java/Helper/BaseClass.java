@@ -56,9 +56,9 @@ public class BaseClass {
     public void setUp() throws MalformedURLException {
         client = new OkHttpClient();
         accessToken = LoginApiCall.makeLoginApiCall();
-        PrescriptionApiCall.makePrescriptionApiCall(accessToken, generateRandomNumericString());
-        androidDriver = new AndroidDriver(new URL("http://localhost:4723"), getAPKOptions());
-        androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+       PrescriptionApiCall.makePrescriptionApiCall(accessToken, generateRandomNumericString());
+       androidDriver = new AndroidDriver(new URL(BaseClass.propertyFile("config", "LocalHosturl")), getAPKOptions());
+       androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver = new ChromeDriver();
         softAssert = new SoftAssert();
         extent = new ExtentReports();
@@ -68,7 +68,7 @@ public class BaseClass {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         driver.manage().window().maximize();
         loginWindow = driver.getWindowHandle();
-        driver.get("https://dawakportaluat.z1.web.core.windows.net/#/auth/login");
+        driver.get(BaseClass.propertyFile("config", "DawakportalUrl"));
         ExtentSparkReporter extentSparkReporter = new ExtentSparkReporter("target/Dawak.html");
         extent.attachReporter(extentSparkReporter);
     }

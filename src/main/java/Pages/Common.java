@@ -51,7 +51,7 @@ public class Common {
     }
 
     public void waitForElementInteractivity(WebElement element) {
-        webWait = new WebDriverWait(driver, ofSeconds(60));
+        webWait = new WebDriverWait(driver, ofSeconds(200));
         webWait.until(ExpectedConditions.visibilityOf(element));
     }
 

@@ -1,5 +1,6 @@
 package model;
 
+import Helper.BaseClass;
 import com.google.gson.Gson;
 import okhttp3.MediaType;
 import okhttp3.Request;
@@ -13,7 +14,8 @@ import java.io.Reader;
 import static Helper.BaseClass.*;
 
 public class LoginApiCall {
-    static String apiUrl = "https://dawak-apim-uat.azure-api.net/dawak-auth/api/auth/purenet/login";
+    static String apiUrl = BaseClass.propertyFile("config", "LOginApiUrl");
+            ;
     public static String makeLoginApiCall() {
         try{
             MediaType mediaType = MediaType.parse("application/json");
