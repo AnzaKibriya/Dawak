@@ -5,10 +5,13 @@ import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
+import static Helper.BaseClass.mobileWait;
 import static Helper.BaseClass.webWait;
+import static java.time.Duration.ofSeconds;
 
 public class MobileCommon {
     AndroidDriver androidDriver;

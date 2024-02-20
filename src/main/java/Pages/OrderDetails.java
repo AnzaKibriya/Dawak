@@ -62,8 +62,8 @@ public class OrderDetails {
     @FindBy(xpath = "//span[normalize-space()='Send Insurance for Approval']")
     WebElement sendInsurenceApprovalButton;
 
-    @FindBy(xpath = "//h5[text()=' Order Details ']")
-    WebElement physicianOrderId;
+//    @FindBy(xpath = "//h5[text()=' Order Details ']")
+//    WebElement physicianOrderId;
 
     @FindBy(xpath = "//span[text()=' Insurance In-Progress ']")
     WebElement insurenceInprogressButton;
@@ -122,7 +122,7 @@ public class OrderDetails {
 
     public void verifyOrderDetailTable() {
         List<WebElement> orderDetailTable = driver.findElements(By.xpath(orderDetailColumn));
-        test.log(Status.PASS, " Started verfying Data in Order Details Table");
+        test.log(Status.PASS, " Started verifying Data in Order Details Table");
         for (int i = 1; i <= orderDetailTable.size(); i++) {
             System.out.println(orderDetailTable.size());
             WebElement orderDetails = driver.findElement(By.xpath(String.format(medicinePendingInfoInTable, i)));
@@ -162,14 +162,12 @@ public class OrderDetails {
     }
 
     public void verifySendInsuranceApproval() throws InterruptedException {
-        String orderIdText = physicianOrderId.getText();
         javascriptExecutor().executeScript("arguments[0].click();", sendInsurenceApprovalButton);
         test.log(Status.PASS, " order sent for insurance Approval");
         Pages.Common().waitForLoaderInvisibility();
         javascriptExecutor().executeScript("arguments[0].click();", insurenceInprogressButton);
         Pages.Common().waitForLoaderInvisibility();
-        String numberOnly = orderIdText.replaceAll("[^0-9]", "");
-        search.sendKeys(numberOnly);
+        search.sendKeys(prescriptionOrderID);
         test.log(Status.PASS, " Verified Insurance approval request in Insurance in progress");
         details.click();
         Pages.Common().waitForDetailedButtonClickable();

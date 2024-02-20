@@ -43,7 +43,7 @@ public class BaseClass {
     public static Properties prop;
     public static WebDriverWait mobileWait;
     public static WebDriverWait webWait;
-    public static String prescriptionOrderID = "";
+    public static String prescriptionOrderID;
     public static String accessToken = "";
     public static OkHttpClient client;
     public static String loginWindow;
@@ -54,15 +54,16 @@ public class BaseClass {
     public void setUp() throws MalformedURLException {
         client = new OkHttpClient();
         accessToken = LoginApiCall.makeLoginApiCall();
-        PrescriptionApiCall.makePrescriptionApiCall(accessToken, generateRandomNumericString());
+        prescriptionOrderID = generateRandomNumericString();
+        PrescriptionApiCall.makePrescriptionApiCall(accessToken, prescriptionOrderID);
         androidDriver = new AndroidDriver(new URL("http://localhost:4723"), getAPKOptions());
         androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
         driver = new ChromeDriver();
         softAssert = new SoftAssert();
         extent = new ExtentReports();
         prop = new Properties();
-        webWait = new WebDriverWait(driver, Duration.ofSeconds(40));
-        mobileWait = new WebDriverWait(androidDriver, Duration.ofSeconds(40));
+        webWait = new WebDriverWait(driver, Duration.ofSeconds(50));
+        mobileWait = new WebDriverWait(androidDriver, Duration.ofSeconds(70));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         driver.manage().window().maximize();
         loginWindow = driver.getWindowHandle();

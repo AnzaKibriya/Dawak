@@ -7,10 +7,7 @@ import java.awt.*;
 import java.io.IOException;
 
 public class TestDawakCP extends BaseClass {
-    @BeforeClass
-    public void getURL(){
 
-    }
     @Test(priority = 1)
     public void verifyCPLogin() throws IOException {
         test = extent.createTest("Login to Central Pharmacist");
@@ -21,7 +18,7 @@ public class TestDawakCP extends BaseClass {
     }
 
     @Test(priority = 2)
-    public void verifyOrderInTOdo() {
+    public void verifyOrderInTOdo() throws InterruptedException {
         test = extent.createTest("Verify Making Order In TODO");
         Pages.Home().verifyHomePageHeader();
         Pages.Home().SearchForOrder();
@@ -35,7 +32,7 @@ public class TestDawakCP extends BaseClass {
     }
 
     @Test(priority = 4)
-    public void verifyMakingOrderInProgress() {
+    public void verifyMakingOrderInProgress() throws InterruptedException {
         test = extent.createTest("Verify Making Order In Progress State");
         Pages.Home().moveToNewPrescription();
         Pages.Home().SearchForOrder();
@@ -49,9 +46,9 @@ public class TestDawakCP extends BaseClass {
     }
 
     @Test(priority = 6)
-    public void verifyUnAssignFunctionality() {
+    public void verifyUnAssignFunctionality() throws InterruptedException {
         test = extent.createTest("Verify un-assign functionality");
-        Pages.Home().verifyReassign();
+        Pages.Home().verifyReAssign();
         Pages.Home().SearchForOrder();
         Pages.Home().moveOrderToInProgressStateAndVerify();
     }
