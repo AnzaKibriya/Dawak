@@ -37,6 +37,9 @@ public class Home {
     @FindBy(xpath = "//span[text()=' To-do ']")
     WebElement toDo;
 
+    @FindBy(xpath = "//div[text()=' 1 – 1 of 1 ']")
+    WebElement OneOfOne;
+
 
     public Home(WebDriver Driver) {
         driver = Driver;
@@ -47,24 +50,22 @@ public class Home {
         Assert.assertEquals(homePageHeader.getText(), BaseClass.propertyFile("config", "HomepageHeader"));
     }
 
-    public void SearchForOrder() throws InterruptedException {
-       Thread.sleep(9000);
+    public void SearchForOrder()  {
+       // orderId ="2345234517";
+     //  Thread.sleep(9000);
+        Pages.Common().waitForLoaderInvisibility();
         search.sendKeys(prescriptionOrderID);
-        System.out.println(prescriptionOrderID);
         Assert.assertEquals(encounterNumberTodoPage.getText(), prescriptionOrderID);
         test.log(Status.PASS, "Encounter text verified in Todo Tab");
         Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskName"));
         test.log(Status.PASS, "TaskName text Verified in Todo Tab");
     }
 
-    public void moveToNewPrescription() throws InterruptedException {
+    public void moveToNewPrescription()  {
         newPrescription.click();
         test.log(Status.PASS, "Navigated to new Prescription tab");
         Pages.Common().waitForLoaderInvisibility();
         search.clear();
-        Pages.Common().WaitforElementsInteractions();
-
-
 
     }
 

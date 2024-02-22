@@ -70,6 +70,12 @@ public class Pages {
         return pg;
     }
 
+    public static Logout Logout() {
+        Logout pg = new Logout(BaseClass.driver);
+        PageFactory.initElements(BaseClass.driver, pg);
+        return pg;
+    }
+
 
 
 }

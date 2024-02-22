@@ -54,6 +54,11 @@ public class WebCommon {
         webWait.until(ExpectedConditions.visibilityOf(element));
     }
 
+    public void waitForElementTOBEClickable(WebElement element) {
+        webWait = new WebDriverWait(driver, ofSeconds(60));
+        webWait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
     public void waitForLoaderInvisibility() {
         List<WebElement> loaderElement = driver.findElements(By.xpath(loader));
         if (!loaderElement.isEmpty()) {

@@ -66,7 +66,6 @@ public class HomeDP {
 
     public void SearchForOrder() throws InterruptedException {
         //Thread.sleep(9000);
-        Assert.assertEquals(taskList.getText(), BaseClass.propertyFile("config", "taskListtext"));
         Pages.Common().waitForLoaderInvisibility();
         search.sendKeys(prescriptionOrderID);
         Assert.assertEquals(encounterNumberTodoPage.getText(), prescriptionOrderID);

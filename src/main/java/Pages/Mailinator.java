@@ -35,4 +35,18 @@ public class Mailinator {
         otpText = numberOnly.substring(0, 4);
         driver.switchTo().window(loginWindow);
     }
+
+    public void verifyDpOtp() {
+        WebDriver str = driver.switchTo().newWindow(WindowType.TAB);
+        str.get(BaseClass.propertyFile("config", "mailinatorurlDP"));
+        String window = str.getWindowHandle();
+        driver.switchTo().window(window);
+        Pages.Common().waitForJustNowElementVisibility();
+        justNow.click();
+        driver.switchTo().frame("html_msg_body");
+        String emailText = mailinatorText.getText();
+        String numberOnly = emailText.replaceAll("[^0-9]", "");
+        otpText = numberOnly.substring(0, 4);
+        driver.switchTo().window(loginWindow);
+    }
 }

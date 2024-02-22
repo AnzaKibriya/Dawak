@@ -10,10 +10,11 @@ import static Helper.BaseClass.extent;
 public class TestDawakDP extends BaseClass {
 
     @Test(priority = 1)
-    public void verifyCPLogin() throws IOException {
+    public void verifyCPLogin()  {
         test = extent.createTest("Login to DP Portal");
         Pages.LoginDP().DPLogin();
-        Pages.LoginDP().verifyEnteringOtp();
+     Pages.Mailinator().verifyDpOtp();
+      Pages.LoginDP().verifyEnteringOtp();
     }
 
     @Test(priority = 2)
@@ -33,14 +34,20 @@ public class TestDawakDP extends BaseClass {
 
     }
 
-    @Test(priority = 4)
+   @Test(priority = 4)
     public void  verifyOrderDespencing() throws InterruptedException {
         test = extent.createTest("Verify Making Order In Despencing TAB");
 
         Pages.OrderDetailsDP().dispencingOrder();
         Pages.HomeDP().verifyOrderInDispensingInProgress();
         Pages.OrderDetailsDP().ordrReadyForDelivery();
+    }
 
+    @Test(priority = 5)
+    public  void  verifyLogoutFunctionality()
+    {
+        test = extent.createTest("Logout Functionality");
+        Pages.Logout().verifyLogout();
 
 
     }

@@ -24,6 +24,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeSuite;
 import org.testng.asserts.SoftAssert;
 
@@ -55,18 +56,18 @@ public class BaseClass {
 
     @BeforeSuite
     public void setUp() throws MalformedURLException {
-        client = new OkHttpClient();
-       accessToken = LoginApiCall.makeLoginApiCall();
-        prescriptionOrderID = generateRandomNumericString();
-        PrescriptionApiCall.makePrescriptionApiCall(accessToken, prescriptionOrderID);
-        androidDriver = new AndroidDriver(new URL("http://localhost:4723"), getAPKOptions());
-        androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
+       // client = new OkHttpClient();
+      // accessToken = LoginApiCall.makeLoginApiCall();
+       // prescriptionOrderID = generateRandomNumericString();
+      //  PrescriptionApiCall.makePrescriptionApiCall(accessToken, prescriptionOrderID);
+       // androidDriver = new AndroidDriver(new URL("http://localhost:4723"), getAPKOptions());
+       // androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
         driver = new ChromeDriver();
         softAssert = new SoftAssert();
         extent = new ExtentReports();
         prop = new Properties();
         webWait = new WebDriverWait(driver, Duration.ofSeconds(50));
-       mobileWait = new WebDriverWait(androidDriver, Duration.ofSeconds(70));
+       //mobileWait = new WebDriverWait(androidDriver, Duration.ofSeconds(70));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         driver.manage().window().maximize();
         loginWindow = driver.getWindowHandle();
@@ -128,7 +129,7 @@ public class BaseClass {
     @AfterSuite
     public void tearDown() {
         extent.flush();
-        androidDriver.quit();
-        driver.quit();
+       // androidDriver.quit();
+      //  driver.quit();
     }
 }

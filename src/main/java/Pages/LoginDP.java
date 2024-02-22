@@ -36,6 +36,7 @@ WebDriver driver;
     }
 
     public void DPLogin() {
+        Pages.Common().waitForElementInteractivity(header);
         Assert.assertEquals(header.getText(), BaseClass.propertyFile("config", "HeaderText"));
         test.log(Status.PASS, "Header is Verified");
         userName.sendKeys(BaseClass.propertyFile("config", "usernameDP"));
@@ -48,7 +49,7 @@ WebDriver driver;
     }
     public void  verifyEnteringOtp()
     {
-        otp.sendKeys(otpText);
+        otp.sendKeys("1234");
         verifyButton.click();
         test.log(Status.PASS, "Home page Header verified");
         test.log(Status.PASS, "Sign In is Successful");
