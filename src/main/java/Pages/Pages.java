@@ -52,4 +52,24 @@ public class Pages {
         return pg;
     }
 
+    public static LoginDP LoginDP() {
+        LoginDP pg = new LoginDP(BaseClass.driver);
+        PageFactory.initElements(BaseClass.driver, pg);
+        return pg;
+    }
+
+    public static HomeDP HomeDP() {
+        HomeDP pg = new HomeDP(BaseClass.driver);
+        PageFactory.initElements(BaseClass.driver, pg);
+        return pg;
+    }
+
+    public static OrderDetailsDP OrderDetailsDP() {
+        OrderDetailsDP pg = new OrderDetailsDP(BaseClass.driver);
+        PageFactory.initElements(BaseClass.driver, pg);
+        return pg;
+    }
+
+
+
 }

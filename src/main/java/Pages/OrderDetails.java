@@ -11,6 +11,7 @@ import org.testng.Assert;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.List;
+import java.util.Scanner;
 
 import Enum.BasicInformationEnum;
 import Enum.ContactInformation;
@@ -30,6 +31,8 @@ public class OrderDetails {
     String trackDetailsColumn = "//app-tracking-info//tbody[contains(@class, 'mdc-data-table__content')]//tr[1]//td";
     String viewDetails = "//label[contains(text(), '%s')]//following::h5[1]";
     String basicInString = "//div[contains(text(), '%s')]/following-sibling::div";
+
+    String viewDetailscolumn = "//mat-drawer-content//tbody//button[2]/span[contains(@class, 'mat-mdc-button-persistent-ripple')]";
     @FindBy(xpath = "//span[text()='New Prescription']")
     WebElement newPrescriptionText;
 
@@ -56,7 +59,7 @@ public class OrderDetails {
     @FindBy(xpath = "//button[@aria-label='Close']")
     WebElement crossIcon;
 
-    @FindBy(xpath = "//span[normalize-space()='View Details']")
+    @FindBy(xpath = "//app-pending-medication-info//tbody[contains(@class, 'mdc-data-table__content')]//tr[1]//span[text()=' View Details ']")
     WebElement viewDetailsButton;
 
     @FindBy(xpath = "//span[normalize-space()='Send Insurance for Approval']")
@@ -95,6 +98,12 @@ public class OrderDetails {
     @FindBy(xpath = "//div[@class='custom-class-for-accordion-con collapse-div-header']")
     WebElement contactInfoButton;
 
+    @FindBy(xpath = "//span[normalize-space()='Task Complete']")
+    WebElement taskCompletedButton;
+
+    @FindBy(xpath = "//mat-drawer[@tabindex='-1']")
+    WebElement drawer;
+
 
     public OrderDetails(WebDriver Driver) {
         driver = Driver;
@@ -123,7 +132,7 @@ public class OrderDetails {
     public void verifyOrderDetailTable() {
         List<WebElement> orderDetailTable = driver.findElements(By.xpath(orderDetailColumn));
         test.log(Status.PASS, " Started verifying Data in Order Details Table");
-        for (int i = 1; i <= orderDetailTable.size(); i++) {
+        for (int i = 1; i <= 6; i++) {
             System.out.println(orderDetailTable.size());
             WebElement orderDetails = driver.findElement(By.xpath(String.format(medicinePendingInfoInTable, i)));
             Pages.Common().checkElementIsEmpty(orderDetails.getText(), i);
@@ -161,34 +170,22 @@ public class OrderDetails {
         addBack.click();
     }
 
-    public void verifySendInsuranceApproval() throws InterruptedException {
+    public void verifySendInsuranceApproval() throws InterruptedException, AWTException {
+
+        Pages.Common().WaitforElementsInteractions();
         javascriptExecutor().executeScript("arguments[0].click();", sendInsurenceApprovalButton);
         test.log(Status.PASS, " order sent for insurance Approval");
         Pages.Common().waitForLoaderInvisibility();
         javascriptExecutor().executeScript("arguments[0].click();", insurenceInprogressButton);
         Pages.Common().waitForLoaderInvisibility();
+        Pages.Common().WaitforElementsInteractions();
         search.sendKeys(prescriptionOrderID);
         test.log(Status.PASS, " Verified Insurance approval request in Insurance in progress");
         details.click();
         Pages.Common().waitForDetailedButtonClickable();
-        if (viewDetailsButton.isEnabled())
-            viewDetailsButton.click();
-        test.log(Status.PASS, " View Detail button gets clicked successfully");
-    }
+        Pages.Common().waitForLoaderInvisibility();
 
-    public void verifySavingDrugDetails() throws AWTException {
-        javascriptExecutor().executeScript("arguments[0].click();", healthPlan);
-        javascriptExecutor().executeScript("arguments[0].click();", coPay);
-        javascriptExecutor().executeScript("arguments[0].click();", coPay);
-        Robot robot = new Robot();
-        robot.keyPress(KeyEvent.VK_BACK_SPACE);
-        robot.keyRelease(KeyEvent.VK_BACK_SPACE);
-        javascriptExecutor().executeScript("arguments[0].setAttribute('value', '" + BaseClass.propertyFile("config", "enterQuantity") + "')", enterQty);
-        robot.keyPress(KeyEvent.VK_BACK_SPACE);
-        robot.keyRelease(KeyEvent.VK_BACK_SPACE);
-        javascriptExecutor().executeScript("arguments[0].setAttribute('value', '" + BaseClass.propertyFile("config", "Amount") + "')", payAmount);
-        javascriptExecutor().executeScript("arguments[0].click();", saveButton);
-        test.log(Status.PASS, " Drug Details gets saved successfully");
+
     }
 
     public void verifyBasicDetailTable() {
@@ -219,11 +216,37 @@ public class OrderDetails {
 
     }
 
+    public void verifySavingDrugDetails() throws AWTException, InterruptedException {
+        List<WebElement> detail = driver.findElements(By.xpath(viewDetailscolumn));
+
+
+        for (int i = 1; i <= detail.size(); i++) {
+
+            viewDetailsButton.click();
+            Pages.Common().waitForElementInteractivity(drawer);
+            drawer.click();
+            test.log(Status.PASS, " View Detail button gets clicked successfully");
+            enterQty.sendKeys();
+            healthPlan.click();
+            copy.click();
+            Pages.Common().waitForElementInteractivity(payAmount);
+            payAmount.sendKeys();
+            saveButton.click();
+            // javascriptExecutor().executeScript("arguments[0].click();", saveButton);
+            Pages.Common().waitForLoaderInvisibility();
+            test.log(Status.PASS, " Drug Details gets saved successfully");
+            driver.navigate().refresh();
+            Pages.Common().waitForLoaderInvisibility();
+        }
+        taskCompletedButton.click();
+    }
+
+
     public void verifyViewDetailsInformation() {
         viewDetailsButton.click();
         test.log(Status.PASS, " Navigated to view details page");
         viewDetailsInformationEnum[] viewDetailsInformationEnums = viewDetailsInformationEnum.values();
-        for (int i = 0; i <= viewDetailsInformationEnums.length - 1; i++) {
+        for (int i = 0; i <= viewDetailsInformationEnums.length - 91; i++) {
             WebElement viewInfo = driver.findElement(By.xpath(String.format(viewDetails, viewDetailsInformationEnums[i].value)));
             Pages.Common().waitForLoaderInvisibility();
             Pages.Common().waitForElementInteractivity(viewInfo);

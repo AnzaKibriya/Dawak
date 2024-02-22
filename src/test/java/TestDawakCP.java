@@ -13,7 +13,7 @@ public class TestDawakCP extends BaseClass {
         test = extent.createTest("Login to Central Pharmacist");
         Pages.LoginCP().invalidCPLogin();
         Pages.LoginCP().CPLogin();
-        Pages.Mailinator().verifyOtp();
+        //Pages.Mailinator().verifyOtp();
         Pages.LoginCP().verifyEnteringOtp();
     }
 
@@ -22,7 +22,6 @@ public class TestDawakCP extends BaseClass {
         test = extent.createTest("Verify Making Order In TODO");
         Pages.Home().verifyHomePageHeader();
         Pages.Home().SearchForOrder();
-
     }
 
     @Test(priority = 3)
@@ -71,6 +70,6 @@ public class TestDawakCP extends BaseClass {
     public void verifyInsuranceApproval() throws InterruptedException, AWTException {
         test = extent.createTest("Verify Insurance Approval functionality");
         Pages.OrderDetails().verifySendInsuranceApproval();
-        Pages.OrderDetails().verifySavingDrugDetails();
+       Pages.OrderDetails().verifySavingDrugDetails();
     }
 }

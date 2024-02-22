@@ -4,6 +4,8 @@ import com.aventstack.extentreports.Status;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.*;
 
+import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.util.List;
 
 import static Helper.BaseClass.*;
@@ -66,9 +68,17 @@ public class WebCommon {
     }
 
 
-    public void waitForDetailedButtonClickable() throws InterruptedException {
+    public void waitForDetailedButtonClickable() throws InterruptedException, AWTException {
         Thread.sleep(360000);        //6 min
         driver.getCurrentUrl();
+        Robot robot=new Robot();
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_R);
+    }
+
+    public void  WaitforElementsInteractions() throws InterruptedException {
+        Thread.sleep(2000);
+
     }
 
 }
