@@ -9,7 +9,7 @@ import java.io.IOException;
 public class TestDawakCP extends BaseClass {
 
     @Test(priority = 1)
-    public void verifyCPLogin() throws IOException{
+    public void verifyCPLogin() throws IOException {
         test = extent.createTest("Login to Central Pharmacist");
         Pages.LoginCP().invalidCPLogin();
         Pages.LoginCP().CPLogin();
@@ -22,7 +22,6 @@ public class TestDawakCP extends BaseClass {
         test = extent.createTest("Verify Making Order In TODO");
         Pages.Home().verifyHomePageHeader();
         Pages.Home().SearchForOrder();
-
     }
 
     @Test(priority = 3)
@@ -45,33 +44,41 @@ public class TestDawakCP extends BaseClass {
         Pages.Home().verifyDataInWebTable();
     }
 
-    @Test(priority = 6)
+   /* @Test(priority = 6)
     public void verifyUnAssignFunctionality() throws InterruptedException {
         test = extent.createTest("Verify un-assign functionality");
         Pages.Home().verifyReAssign();
         Pages.Home().SearchForOrder();
         Pages.Home().moveOrderToInProgressStateAndVerify();
-    }
+    }*/
 
     @Test(priority = 7)
-    public void verifyOrderDetails() {
+    public void verifyOrderDetails() throws InterruptedException {
         test = extent.createTest("Verify order details data and Header text ");
         Pages.OrderDetails().openOrderDetailPage();
-//        Pages.OrderDetails().verifyDeliveryDetailTable();
-//        Pages.OrderDetails().verifyBasicDetailTable();
-//        Pages.OrderDetails().verifyContactDetail();
-//        Pages.OrderDetails().verifyOrderDetailTable();
-//        Pages.OrderDetails().verifyOrderDetailsHeader();
-//        Pages.OrderDetails().verifyTrackDetailTable();
-//        Pages.OrderDetails().verifyViewDetailsInformation();
-//        Pages.OrderDetails().verifyRemoveFunctionality();
+        Pages.OrderDetails().verifyDeliveryDetailTable();
+        Pages.OrderDetails().verifyBasicDetailTable();
+        Pages.OrderDetails().verifyContactDetail();
+        Pages.OrderDetails().verifyOrderDetailTable();
+        Pages.OrderDetails().verifyOrderDetailsHeader();
+        Pages.OrderDetails().verifyTrackDetailTable();
+        Pages.OrderDetails().verifyViewDetailsInformation();
+        Pages.OrderDetails().verifyRemoveFunctionality();
     }
 
     @Test(priority = 8)
     public void verifyInsuranceApproval() throws InterruptedException, AWTException {
         test = extent.createTest("Verify Insurance Approval functionality");
         Pages.OrderDetails().verifySendInsuranceApproval();
-        Pages.OrderDetails().verifySavingDrugDetails();
-        Pages.WebCommon().clickLogOut();
+        Pages.OrderDetails().verifyDrug();
+    }
+
+    @Test(priority = 9)
+    public  void  verifyLogoutFunctionality()
+    {
+        test = extent.createTest("Logout Functionality");
+        Pages.Logout().verifyLogout();
+
+
     }
 }

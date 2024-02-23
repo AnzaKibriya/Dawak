@@ -1,10 +1,14 @@
 package Pages;
 
 import com.aventstack.extentreports.Status;
-import org.openqa.selenium.*;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.awt.*;
+import java.awt.event.*;
 import java.util.List;
 
 import static Helper.BaseClass.*;
@@ -21,8 +25,6 @@ public class WebCommon {
     String justNowText = "//td[contains(text(),'just now')]";
 
     String loader = "//ngx-spinner//img";
-    @FindBy(xpath = "//app-sidebar//l//p[contains(text(), \"Logout\")]")
-    WebElement logOut;
 
 
     public WebCommon(WebDriver Driver) {
@@ -55,6 +57,11 @@ public class WebCommon {
         webWait.until(ExpectedConditions.visibilityOf(element));
     }
 
+    public void waitForElementTOBEClickable(WebElement element) {
+        webWait = new WebDriverWait(driver, ofSeconds(60));
+        webWait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
     public void waitForLoaderInvisibility() {
         List<WebElement> loaderElement = driver.findElements(By.xpath(loader));
         if (!loaderElement.isEmpty()) {
@@ -69,18 +76,17 @@ public class WebCommon {
     }
 
 
-    public void waitForDetailedButtonClickable() throws InterruptedException {
-        Thread.sleep(10000);
+    public void waitForDetailedButtonClickable() throws InterruptedException{
+        Thread.sleep(360000);        //6 min
         driver.getCurrentUrl();
+        Robot robot=new Robot();
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_R);
     }
 
-    public void WaitforElementsInteractions() throws InterruptedException {
-        Thread.sleep(5000);
+    public void  WaitforElementsInteractions() throws InterruptedException {
+        Thread.sleep(2000);
 
-    }
-
-    public void clickLogOut() {
-        logOut.click();
     }
 
 }

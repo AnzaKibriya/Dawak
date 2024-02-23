@@ -4,11 +4,13 @@ import Helper.BaseClass;
 import com.aventstack.extentreports.Status;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import static Helper.BaseClass.otpText;
 import static Helper.BaseClass.test;
 
 public class LoginDP {
@@ -29,11 +31,12 @@ public class LoginDP {
     WebElement verifyButton;
 
     public LoginDP(WebDriver Driver) {
-        driver = Driver;
+        driver=Driver;
 
     }
 
     public void DPLogin() {
+        Pages.WebCommon().waitForElementInteractivity(header);
         Assert.assertEquals(header.getText(), BaseClass.propertyFile("config", "HeaderText"));
         test.log(Status.PASS, "Header is Verified");
         userName.sendKeys(BaseClass.propertyFile("config", "usernameDP"));
@@ -44,8 +47,8 @@ public class LoginDP {
         otp.click();
 
     }
-
-    public void verifyEnteringOtp() {
+    public void  verifyEnteringOtp()
+    {
         otp.sendKeys("1234");
         verifyButton.click();
         test.log(Status.PASS, "Home page Header verified");

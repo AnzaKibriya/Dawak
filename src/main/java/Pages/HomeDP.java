@@ -1,4 +1,5 @@
 package Pages;
+
 import Helper.BaseClass;
 import com.aventstack.extentreports.Status;
 import org.openqa.selenium.WebDriver;
@@ -14,6 +15,7 @@ import java.awt.event.KeyEvent;
 
 import static Helper.BaseClass.*;
 import static Helper.BaseClass.webWait;
+
 public class HomeDP {
     WebDriver driver;
 
@@ -103,5 +105,6 @@ public class HomeDP {
 
 
     }
-
 }
+
+
