@@ -23,17 +23,22 @@ public class OrderDetails {
     WebElement actionButton;
     String medicinePendingInfoInTable = "//app-pending-medication-info//tbody[contains(@class, 'mdc-data-table__content')]//td[%s]";
     String deliveryDetails = "//app-address-detail//tbody[contains(@class, 'mdc-data-table__content')]//tr[1]//td[%s]";
-    String deliveryDetailColum = "//app-address-detail//tbody[contains(@class, 'mdc-data-table__content')]//tr[1]//td";
+    String deliveryDetailcolum = "//app-address-detail//tbody[contains(@class, 'mdc-data-table__content')]//tr[1]//td";
     String orderDetailColumn = "//app-pending-medication-info//tbody[contains(@class, 'mdc-data-table__content')]//td";
     String trackingDetails = "//app-tracking-info//tbody[contains(@class, 'mdc-data-table__content')]//tr[1]//td[%s]";
     String trackDetailsColumn = "//app-tracking-info//tbody[contains(@class, 'mdc-data-table__content')]//tr[1]//td";
     String viewDetails = "//label[contains(text(), '%s')]//following::h5[1]";
     String basicInString = "//div[contains(text(), '%s')]/following-sibling::div";
-    String viewDetailsColumn = "//mat-drawer-content//tbody//button[2]/span[contains(@class, 'mat-mdc-button-persistent-ripple')]";
+
+    String viewDetailscolumn = "//mat-drawer-content//tbody//button[2]/span[contains(@class, 'mat-mdc-button-persistent-ripple')]";
+
+
     String healthPlan = "(//mat-label[text()='Health Plans'])[%s]";
     String enterQty = "(//input[@placeholder='Enter Qty'])[%s]";
     String payAmount = "(//input[@placeholder='Enter Co-Pay Amount in AED'])[%s]";
     String saveButton = ("(//span[normalize-space()='Save'])[%s]");
+
+
     @FindBy(xpath = "//span[text()='New Prescription']")
     WebElement newPrescriptionText;
 
@@ -57,11 +62,15 @@ public class OrderDetails {
     @FindBy(xpath = "//span[normalize-space()='Add Back']")
     WebElement addBack;
 
-    @FindBy(xpath = "//button[@aria-label='Close']")
+    @FindBy(xpath = "//img[@src='../../../assets/images/new_cross.png']")
     WebElement crossIcon;
+
+    @FindBy(xpath = "//app-pending-medication-info//tbody[contains(@class, 'mdc-data-table__content')]//tr[1]//span[text()=' View Details ']")
+    WebElement viewDetailsButton;
 
     @FindBy(xpath = "//span[normalize-space()='Send Insurance for Approval']")
     WebElement sendInsurenceApprovalButton;
+
 
     @FindBy(xpath = "//span[text()=' Insurance In-Progress ']")
     WebElement insurenceInprogressButton;
@@ -74,6 +83,7 @@ public class OrderDetails {
 
     @FindBy(xpath = "//h5[text()='Basic Info']")
     WebElement basicInfoButton;
+
     @FindBy(xpath = "//span[normalize-space()='Co Pay']")
     WebElement coPay;
 
@@ -83,8 +93,12 @@ public class OrderDetails {
     @FindBy(xpath = "//span[normalize-space()='Task Complete']")
     WebElement taskCompletedButton;
 
-    @FindBy(xpath = "(//mat-drawer-content//tbody//button[2])[1]")
-    WebElement viewDetailsButton;
+    @FindBy(xpath = "(//mat-drawer[@tabindex='-1'])[2]")
+    WebElement drawer;
+
+    @FindBy(xpath = "//app-task-list//table//tr[1]//td[1]")
+    WebElement encounterNumberInProgressPage;
+
 
     public OrderDetails(WebDriver Driver) {
         driver = Driver;
@@ -97,8 +111,8 @@ public class OrderDetails {
 
 
     public void verifyDeliveryDetailTable() {
-        List<WebElement> orderDeliveryTable = driver.findElements(By.xpath(deliveryDetailColum));
-        test.log(Status.PASS, " Started verifying Data in Delivery Details Table");
+        List<WebElement> orderDeliveryTable = driver.findElements(By.xpath(deliveryDetailcolum));
+        test.log(Status.PASS, " Started verfying Data in Delivery Details Table");
         for (int i = 1; i <= orderDeliveryTable.size() - 2; i++) {
             WebElement orderDeliveryDetail = driver.findElement(By.xpath(String.format(deliveryDetails, i)));
             Pages.WebCommon().checkElementIsEmpty(orderDeliveryDetail.getText(), i);
@@ -113,7 +127,7 @@ public class OrderDetails {
     public void verifyOrderDetailTable() {
         List<WebElement> orderDetailTable = driver.findElements(By.xpath(orderDetailColumn));
         test.log(Status.PASS, " Started verifying Data in Order Details Table");
-        for (int i = 1; i <= orderDetailTable.size(); i++) {
+        for (int i = 1; i <= 6; i++) {
             System.out.println(orderDetailTable.size());
             WebElement orderDetails = driver.findElement(By.xpath(String.format(medicinePendingInfoInTable, i)));
             Pages.WebCommon().checkElementIsEmpty(orderDetails.getText(), i);
@@ -126,7 +140,7 @@ public class OrderDetails {
 
         List<WebElement> trackDeliveryTable = driver.findElements(By.xpath(trackDetailsColumn));
         System.out.println(trackDeliveryTable.size());
-        test.log(Status.PASS, " Started verifying Data in Track Details Table");
+        test.log(Status.PASS, " Started verfying Data in Track Details Table");
         for (int j = 1; j <= trackDeliveryTable.size() - 1; j++) {
             WebElement trackDeliveryDetail = driver.findElement(By.xpath(String.format(trackingDetails, j)));
             Pages.WebCommon().checkElementIsEmpty(trackDeliveryDetail.getText(), j);
@@ -137,8 +151,8 @@ public class OrderDetails {
 
     public void verifyOrderDetailsHeader() {
         System.out.println(newPrescriptionText.getText());
-        Assert.assertEquals(newPrescriptionText.getText(), BaseClass.propertyFile("config", "New prescription"));
-        Assert.assertEquals(insuranceApprovalText.getText(), BaseClass.propertyFile("config", "Insurance Text"));
+        Assert.assertEquals(newPrescriptionText.getText(), BaseClass.propertyFile("config", "Newprescription"));
+        Assert.assertEquals(insuranceApprovalText.getText(), BaseClass.propertyFile("config", "InsurenceText"));
         test.log(Status.PASS, " Verified  New prescriptionText and Insurance text");
 
     }
@@ -149,47 +163,26 @@ public class OrderDetails {
         submitButton.click();
         Pages.WebCommon().waitForLoaderInvisibility();
         addBack.click();
+
     }
 
-    public void verifySendInsuranceApproval() throws InterruptedException {
+    public void verifySendInsuranceApproval() throws InterruptedException, AWTException {
+
+        Pages.WebCommon().waitForLoaderInvisibility();
         javascriptExecutor().executeScript("arguments[0].click();", sendInsurenceApprovalButton);
         test.log(Status.PASS, " order sent for insurance Approval");
         Pages.WebCommon().waitForLoaderInvisibility();
         javascriptExecutor().executeScript("arguments[0].click();", insurenceInprogressButton);
         Pages.WebCommon().waitForLoaderInvisibility();
+        driver.getCurrentUrl();
+        Assert.assertEquals(driver.getCurrentUrl(), BaseClass.propertyFile("config", "InsuurenceInprogressUrl"));
+        Pages.WebCommon().waitForLoaderInvisibility();
         search.sendKeys(prescriptionOrderID);
         test.log(Status.PASS, " Verified Insurance approval request in Insurance in progress");
-        Pages.WebCommon().WaitforElementsInteractions();
         details.click();
         Pages.WebCommon().waitForDetailedButtonClickable();
-        if (viewDetailsButton.isEnabled())
-            viewDetailsButton.isEnabled();
-        test.log(Status.PASS, " View Detail button gets clicked successfully");
-    }
-
-    public void verifySavingDrugDetails() throws InterruptedException {
-
-        List<WebElement> detail = driver.findElements(By.xpath(viewDetailsColumn));
-        for (int i = 1; i <= detail.size(); i++) {
-            javascriptExecutor().executeScript("arguments[0].click();", viewDetailsButton);
-            test.log(Status.PASS, " View Detail button gets clicked successfully");
-            Pages.WebCommon().WaitforElementsInteractions();
-            WebElement enterQuantity = driver.findElement(By.xpath(String.format(enterQty, i)));
-            enterQuantity.sendKeys("2");
-            WebElement clickHealthPlan = driver.findElement(By.xpath(String.format(healthPlan, i)));
-            clickHealthPlan.click();
-            coPay.click();
-            WebElement enterPaymentAmount = driver.findElement(By.xpath(String.format(payAmount, i)));
-            enterPaymentAmount.sendKeys("2");
-            WebElement clickSaveBtn = driver.findElement(By.xpath(String.format(saveButton, i)));
-            clickSaveBtn.click();
-            Pages.WebCommon().waitForLoaderInvisibility();
-            test.log(Status.PASS, " Drug Details gets saved successfully");
-            driver.navigate().refresh();
-            Pages.WebCommon().waitForLoaderInvisibility();
-        }
-        taskCompletedButton.click();
         Pages.WebCommon().waitForLoaderInvisibility();
+
 
     }
 
@@ -221,11 +214,12 @@ public class OrderDetails {
 
     }
 
-    public void verifyViewDetailsInformation() {
+
+    public void verifyViewDetailsInformation()  {
         viewDetailsButton.click();
         test.log(Status.PASS, " Navigated to view details page");
         viewDetailsInformationEnum[] viewDetailsInformationEnums = viewDetailsInformationEnum.values();
-        for (int i = 0; i <= viewDetailsInformationEnums.length - 1; i++) {
+        for (int i = 0; i <= viewDetailsInformationEnums.length - 91; i++) {
             WebElement viewInfo = driver.findElement(By.xpath(String.format(viewDetails, viewDetailsInformationEnums[i].value)));
             Pages.WebCommon().waitForLoaderInvisibility();
             Pages.WebCommon().waitForElementInteractivity(viewInfo);
@@ -237,5 +231,30 @@ public class OrderDetails {
         }
         crossIcon.click();
         test.log(Status.PASS, " Navigated back from view details page");
+    }
+
+
+    public void verifyDrug() throws InterruptedException {
+
+        List<WebElement> detail = driver.findElements(By.xpath(viewDetailscolumn));
+        for (int i = 1; i <= detail.size(); i++) {
+            javascriptExecutor().executeScript("arguments[0].click();", viewDetailsButton);
+            Pages.WebCommon().WaitforElementsInteractions();
+            test.log(Status.PASS, " View Detail button gets clicked successfully");
+            WebElement enterQuantity = driver.findElement(By.xpath(String.format(enterQty , i)));
+            enterQuantity.sendKeys(BaseClass.propertyFile("config", "enterQuantity"));
+            WebElement clickHealthPlan = driver.findElement(By.xpath(String.format(healthPlan , i)));
+            clickHealthPlan.click();
+            coPay.click();
+            WebElement enterPaymentAmount = driver.findElement(By.xpath(String.format(payAmount , i)));
+            enterPaymentAmount.sendKeys(BaseClass.propertyFile("config", "Amount"));
+            WebElement clickSaveBtn = driver.findElement(By.xpath(String.format(saveButton , i)));
+            clickSaveBtn.click();
+            Pages.WebCommon().waitForLoaderInvisibility();
+            test.log(Status.PASS, " Drug Details gets saved successfully");
+            driver.navigate().refresh();
+            Pages.WebCommon().waitForLoaderInvisibility();
+        }
+        taskCompletedButton.click();
     }
 }

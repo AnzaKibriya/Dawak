@@ -2,10 +2,8 @@ package Pages;
 
 import Helper.BaseClass;
 import com.aventstack.extentreports.Status;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import com.aventstack.extentreports.Status;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -15,7 +13,8 @@ import org.testng.Assert;
 import static Helper.BaseClass.javascriptExecutor;
 import static Helper.BaseClass.test;
 
-public class OrderDetailsDP  {
+public class OrderDetailsDP {
+
     WebDriver driver;
 
     @FindBy(xpath = "//span[normalize-space()='Dispensing Started']")
@@ -32,22 +31,31 @@ public class OrderDetailsDP  {
 
     public OrderDetailsDP(WebDriver Driver) {
 
-        driver=Driver;
+        driver = Driver;
     }
 
 
-    public  void  dispencingOrder() throws InterruptedException {
+    public void dispencingOrder() throws InterruptedException {
         Pages.WebCommon().waitForLoaderInvisibility();
-        Pages.WebCommon().WaitforElementsInteractions();
-        javascriptExecutor().executeScript("arguments[0].scrollIntoView(true);", dispencingOrder);
-        javascriptExecutor().executeScript("arguments[0].click();", dispencingOrder);
+        try {
+
+            Pages.WebCommon().WaitforElementsInteractions();
+            javascriptExecutor().executeScript("window.scrollBy(0, 500);"); // Scroll down by 500 pixels
+            javascriptExecutor().executeScript("arguments[0].scrollIntoView(true);", dispencingOrder);
+            dispencingOrder.click();
+
+        } catch (StaleElementReferenceException e) {
+
+        }
+
+
         Pages.WebCommon().waitForLoaderInvisibility();
         test.log(Status.PASS, "Navigated to Detail page and clicked on Despencing started");
 
 
     }
 
-    public void ordrReadyForDelivery() throws InterruptedException {
+    public void ordrReadyForDelivery () throws InterruptedException {
         Pages.WebCommon().waitForLoaderInvisibility();
         Pages.WebCommon().WaitforElementsInteractions();
         javascriptExecutor().executeScript("arguments[0].click();", readyForDelivery);

@@ -43,7 +43,7 @@ public class LoginCP {
         userName.sendKeys(BaseClass.propertyFile("config", "username"));
         password.sendKeys(BaseClass.propertyFile("config", "password"));
         signInButton.click();
-       WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(40));
+        WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(40));
         wait.until(ExpectedConditions.elementToBeClickable(otp));
         otp.click();
     }
@@ -67,5 +67,4 @@ public class LoginCP {
         userName.clear();
         password.clear();
     }
-
 }
