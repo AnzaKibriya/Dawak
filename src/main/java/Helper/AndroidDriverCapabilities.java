@@ -2,6 +2,7 @@ package Helper;
 
 import io.appium.java_client.android.options.UiAutomator2Options;
 import java.nio.file.Path;
+import java.time.Duration;
 
 public class AndroidDriverCapabilities {
     public static UiAutomator2Options getAPKOptions() {
@@ -15,6 +16,7 @@ public class AndroidDriverCapabilities {
                 .setAppActivity("ae.purehealth.dawak.ui.splash.SplashActivity")
                 .setApp(apkPath)
                 .autoGrantPermissions()
+                .setNewCommandTimeout(Duration.ofMinutes(25))
                 .setNoReset(false);
         options.setCapability("appium:settings[ignoreUnimportantViews]", true);
         return options;

@@ -2,6 +2,7 @@ package Pages;
 
 import com.aventstack.extentreports.Status;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.*;
 
 import java.util.List;
@@ -20,6 +21,8 @@ public class WebCommon {
     String justNowText = "//td[contains(text(),'just now')]";
 
     String loader = "//ngx-spinner//img";
+    @FindBy(xpath = "//app-sidebar//l//p[contains(text(), \"Logout\")]")
+    WebElement logOut;
 
 
     public WebCommon(WebDriver Driver) {
@@ -67,8 +70,17 @@ public class WebCommon {
 
 
     public void waitForDetailedButtonClickable() throws InterruptedException {
-        Thread.sleep(360000);        //6 min
+        Thread.sleep(10000);
         driver.getCurrentUrl();
+    }
+
+    public void WaitforElementsInteractions() throws InterruptedException {
+        Thread.sleep(5000);
+
+    }
+
+    public void clickLogOut() {
+        logOut.click();
     }
 
 }

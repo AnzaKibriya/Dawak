@@ -9,13 +9,19 @@ public class TestDawakApp extends BaseClass {
         Pages.AndroidAppLogin().handleSplashScreens();
         Pages.AndroidAppLogin().loginToDawakApp();
     }
+
     @Test(priority = 2)
-    public void verifyPrescription() {
+    public void verifyPrescription() throws InterruptedException {
+        test = extent.createTest("Login to Dawak App 2");
         Pages.DawakAppLandingPage().openActivePrescription();
         Pages.DawakAppLandingPage().verifyPrescriptionID();
     }
     @Test(priority = 3)
     public void sendPrescriptionForDelivery() {
+        test = extent.createTest("Login to Dawak App 3");
         Pages.DawakAppLandingPage().deliverMedicine();
-    }
+}
+//        Pages.DawakAppLandingPage().openActivePrescription();
+//        Pages.DawakAppLandingPage().paymentProceed();
+//    }
 }

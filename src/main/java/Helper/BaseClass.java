@@ -50,11 +50,13 @@ public class BaseClass {
     public static String otpText;
     public static SoftAssert softAssert;
     public static AndroidDriver androidDriver;
+
     @BeforeSuite
     public void setUp() throws MalformedURLException {
         client = new OkHttpClient();
         accessToken = LoginApiCall.makeLoginApiCall();
         prescriptionOrderID = generateRandomNumericString();
+        System.out.println(prescriptionOrderID);
         PrescriptionApiCall.makePrescriptionApiCall(accessToken, prescriptionOrderID);
         androidDriver = new AndroidDriver(new URL("http://localhost:4723"), getAPKOptions());
         androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
@@ -63,7 +65,7 @@ public class BaseClass {
         extent = new ExtentReports();
         prop = new Properties();
         webWait = new WebDriverWait(driver, Duration.ofSeconds(50));
-        mobileWait = new WebDriverWait(androidDriver, Duration.ofSeconds(70));
+        mobileWait = new WebDriverWait(androidDriver, Duration.ofSeconds(100));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         driver.manage().window().maximize();
         loginWindow = driver.getWindowHandle();

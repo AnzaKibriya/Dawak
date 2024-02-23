@@ -27,8 +27,8 @@ public class AndroidAppLogin {
     }
 
     public void loginToDawakApp() {
-        mobileWait.until(ExpectedConditions.elementToBeClickable(userName)).sendKeys("525050111");
-        mobileWait.until(ExpectedConditions.elementToBeClickable(password)).sendKeys("P@ssword1");
+        mobileWait.until(ExpectedConditions.elementToBeClickable(userName)).sendKeys("502201010");//502201010
+        mobileWait.until(ExpectedConditions.elementToBeClickable(password)).sendKeys("Akhil@2929");//Akhil@2929
         mobileWait.until(ExpectedConditions.elementToBeClickable(signInBtn)).click();
         Pages.MobileCommon().waitForLoaderInvisibility();
     }

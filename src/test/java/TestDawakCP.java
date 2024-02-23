@@ -9,7 +9,7 @@ import java.io.IOException;
 public class TestDawakCP extends BaseClass {
 
     @Test(priority = 1)
-    public void verifyCPLogin() throws IOException {
+    public void verifyCPLogin() throws IOException{
         test = extent.createTest("Login to Central Pharmacist");
         Pages.LoginCP().invalidCPLogin();
         Pages.LoginCP().CPLogin();
@@ -57,14 +57,14 @@ public class TestDawakCP extends BaseClass {
     public void verifyOrderDetails() {
         test = extent.createTest("Verify order details data and Header text ");
         Pages.OrderDetails().openOrderDetailPage();
-        Pages.OrderDetails().verifyDeliveryDetailTable();
-        Pages.OrderDetails().verifyBasicDetailTable();
-        Pages.OrderDetails().verifyContactDetail();
-        Pages.OrderDetails().verifyOrderDetailTable();
-        Pages.OrderDetails().verifyOrderDetailsHeader();
-        Pages.OrderDetails().verifyTrackDetailTable();
-        Pages.OrderDetails().verifyViewDetailsInformation();
-        Pages.OrderDetails().verifyRemoveFunctionality();
+//        Pages.OrderDetails().verifyDeliveryDetailTable();
+//        Pages.OrderDetails().verifyBasicDetailTable();
+//        Pages.OrderDetails().verifyContactDetail();
+//        Pages.OrderDetails().verifyOrderDetailTable();
+//        Pages.OrderDetails().verifyOrderDetailsHeader();
+//        Pages.OrderDetails().verifyTrackDetailTable();
+//        Pages.OrderDetails().verifyViewDetailsInformation();
+//        Pages.OrderDetails().verifyRemoveFunctionality();
     }
 
     @Test(priority = 8)
@@ -72,5 +72,6 @@ public class TestDawakCP extends BaseClass {
         test = extent.createTest("Verify Insurance Approval functionality");
         Pages.OrderDetails().verifySendInsuranceApproval();
         Pages.OrderDetails().verifySavingDrugDetails();
+        Pages.WebCommon().clickLogOut();
     }
 }

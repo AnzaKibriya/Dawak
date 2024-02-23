@@ -22,7 +22,7 @@ public class Pages {
         return pg;
     }
 
-    public static WebCommon Common() {
+    public static WebCommon WebCommon() {
         WebCommon pg = new WebCommon(BaseClass.driver);
         PageFactory.initElements(BaseClass.driver, pg);
         return pg;
@@ -49,6 +49,24 @@ public class Pages {
     public static MobileCommon MobileCommon() {
         MobileCommon pg = new MobileCommon(BaseClass.androidDriver);
         PageFactory.initElements(BaseClass.androidDriver, pg);
+        return pg;
+    }
+
+    public static LoginDP LoginDP() {
+        LoginDP pg = new LoginDP(BaseClass.driver);
+        PageFactory.initElements(BaseClass.driver, pg);
+        return pg;
+    }
+
+    public static HomeDP HomeDP() {
+        HomeDP pg = new HomeDP(BaseClass.driver);
+        PageFactory.initElements(BaseClass.driver, pg);
+        return pg;
+    }
+
+    public static OrderDetailsDP OrderDetailsDP() {
+        OrderDetailsDP pg = new OrderDetailsDP(BaseClass.driver);
+        PageFactory.initElements(BaseClass.driver, pg);
         return pg;
     }
 
