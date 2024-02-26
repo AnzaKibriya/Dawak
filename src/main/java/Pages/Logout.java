@@ -11,8 +11,9 @@ import static Helper.BaseClass.test;
 
 public class Logout {
     WebDriver driver;
+
     public Logout(WebDriver Driver) {
-        driver=Driver;
+        driver = Driver;
 
     }
 
@@ -20,9 +21,7 @@ public class Logout {
     WebElement logoutButton;
 
 
-
-    public void verifyLogout()
-    {
+    public void verifyLogout() {
         Pages.WebCommon().waitForLoaderInvisibility();
         javascriptExecutor().executeScript("arguments[0].click();", logoutButton);
         test.log(Status.PASS, " User Logout Out successfully");

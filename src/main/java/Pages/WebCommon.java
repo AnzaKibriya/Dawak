@@ -76,12 +76,12 @@ public class WebCommon {
     }
 
 
-    public void waitForDetailedButtonClickable() throws InterruptedException{
-        Thread.sleep(360000);        //6 min
+    public void waitForDetailedButtonClickable() throws InterruptedException, AWTException {
+        Thread.sleep(7000);        //6 min
         driver.getCurrentUrl();
-        Robot robot=new Robot();
-        robot.keyPress(KeyEvent.VK_CONTROL);
-        robot.keyPress(KeyEvent.VK_R);
+//        Robot robot=new Robot();
+//        robot.keyPress(KeyEvent.VK_CONTROL);
+//        robot.keyPress(KeyEvent.VK_R);
     }
 
     public void  WaitforElementsInteractions() throws InterruptedException {

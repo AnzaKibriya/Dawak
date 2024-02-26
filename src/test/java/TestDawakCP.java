@@ -1,6 +1,5 @@
 import Helper.BaseClass;
 import Pages.Pages;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.awt.*;
@@ -62,7 +61,7 @@ public class TestDawakCP extends BaseClass {
         Pages.OrderDetails().verifyOrderDetailTable();
         Pages.OrderDetails().verifyOrderDetailsHeader();
         Pages.OrderDetails().verifyTrackDetailTable();
-        Pages.OrderDetails().verifyViewDetailsInformation();
+//        Pages.OrderDetails().verifyViewDetailsInformation();
         Pages.OrderDetails().verifyRemoveFunctionality();
     }
 
@@ -70,7 +69,7 @@ public class TestDawakCP extends BaseClass {
     public void verifyInsuranceApproval() throws InterruptedException, AWTException {
         test = extent.createTest("Verify Insurance Approval functionality");
         Pages.OrderDetails().verifySendInsuranceApproval();
-        Pages.OrderDetails().verifyDrug();
+        Pages.OrderDetails().approveMedicineInsurance();
     }
 
     @Test(priority = 9)

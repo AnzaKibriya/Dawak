@@ -9,15 +9,16 @@
             <class name="TestDawakCP"/>
         </classes>
     </test>
-    <test name="Dispencing Portal Regression">
-        <classes>
-            <class name="TestDawakDP"/>
-        </classes>
-    </test>
 
     <test name="Dawak App COD flow">
         <classes>
             <class name="TestDawakAppPaymentFlow"/>
         </classes>
     </test>
+
+    <test name="Dispencing Portal Regression">
+    <classes>
+        <class name="TestDawakDP"/>
+    </classes>
+</test>
 </suite>

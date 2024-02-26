@@ -49,7 +49,6 @@ public class DawakAppLandingPage {
     public void paymentProceed(){
         mobileWait.until(ExpectedConditions.elementToBeClickable(proceedBtn)).click();
         Pages.MobileCommon().waitForLoaderInvisibility();
-        mobileWait.until(ExpectedConditions.elementToBeClickable(creditCardOption)).click();
         androidDriver.findElement(AppiumBy.androidUIAutomator("new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().textContains(\"PLACE ORDER\").instance(0))")).click();
     }
 }

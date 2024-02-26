@@ -234,7 +234,7 @@ public class OrderDetails {
     }
 
 
-    public void verifyDrug() throws InterruptedException {
+    public void approveMedicineInsurance() throws InterruptedException {
 
         List<WebElement> detail = driver.findElements(By.xpath(viewDetailscolumn));
         for (int i = 1; i <= detail.size(); i++) {
