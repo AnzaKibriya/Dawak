@@ -1,5 +1,6 @@
 package model;
 
+import Helper.BaseClass;
 import com.google.gson.Gson;
 import okhttp3.*;
 
@@ -14,7 +15,7 @@ import static Helper.BaseClass.client;
 
 public class PrescriptionApiCall {
 
-    private static final String API_URL = "https://dawak-apim-uat.azure-api.net/dawak-portal/api/prescription/new";
+    private static final String API_URL = BaseClass.propertyFile("config", "PrescriptionApiUrl");
 
     public static void makePrescriptionApiCall(String AUTH_TOKEN, String orderID) {
         try {

@@ -8,12 +8,12 @@ public class AndroidDriverCapabilities {
     public static UiAutomator2Options getAPKOptions() {
         String apkPath = Path.of(System.getProperty("user.dir"), "/src/main/resources/app-qa-debug.apk").toString();
         UiAutomator2Options options = new UiAutomator2Options();
-        options.setPlatformName("Android")
-                .setAvd("Pixel_6_API_34")
-                .setAutomationName("UiAutomator2")
-                .setDeviceName("Pixel 6 API 34")
-                .setAppPackage("ae.purehealth.dawak.qa")
-                .setAppActivity("ae.purehealth.dawak.ui.splash.SplashActivity")
+        options.setPlatformName(BaseClass.propertyFile("config", "PlatformName"))
+                .setAvd(BaseClass.propertyFile("config", "Avd"))
+                .setAutomationName(BaseClass.propertyFile("config", "AutomationName"))
+                .setDeviceName(BaseClass.propertyFile("config", "DeviceName"))
+                .setAppPackage(BaseClass.propertyFile("config", "AppPackage"))
+                .setAppActivity(BaseClass.propertyFile("config", "AppActivity"))
                 .setApp(apkPath)
                 .autoGrantPermissions()
                 .setNewCommandTimeout(Duration.ofMinutes(25))
