@@ -17,8 +17,8 @@
     </test>
 
     <test name="Dispencing Portal Regression">
-    <classes>
-        <class name="TestDawakDP"/>
-    </classes>
-</test>
+        <classes>
+            <class name="TestDawakDP"/>
+        </classes>
+    </test>
 </suite>

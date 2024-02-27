@@ -34,7 +34,6 @@ public class OrderDetailsDP {
         Pages.WebCommon().waitForLoaderInvisibility();
         try {
             Pages.WebCommon().waitForElementsInteractions();
-            javascriptExecutor().executeScript("window.scrollBy(0, 500);"); // Scroll down by 500 pixels
             javascriptExecutor().executeScript("arguments[0].scrollIntoView(true);", dispencingOrder);
             dispencingOrder.click();
 

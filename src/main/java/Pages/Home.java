@@ -23,19 +23,16 @@ public class Home {
     WebElement taskName;
     @FindBy(xpath = "//img[@mattooltip='Assign']")
     WebElement assignButton;
-    @FindBy(xpath = "//span[text()=' In-Progress ']")
-    WebElement inProgressTabButton;
+
     @FindBy(xpath = "//*[@id='mat-tab-content-0-1']//tr[1]/td[1]/span")
     WebElement encounterNumberInProgressPage;
 
-    @FindBy(xpath = "//input[@id='mat-radio-4-input']")
-    WebElement newPrescription;
+
 
     @FindBy(xpath = "//img[@mattooltip='Un-Assign']")
     WebElement unAssign;
 
-    @FindBy(xpath = "//span[text()=' To-do ']")
-    WebElement toDo;
+
 
     public Home(WebDriver Driver) {
         driver = Driver;
@@ -55,10 +52,8 @@ public class Home {
         test.log(Status.PASS, "TaskName text Verified in Todo Tab");
     }
 
-    public void moveToNewPrescription() {
-        newPrescription.click();
-        test.log(Status.PASS, "Navigated to new Prescription tab");
-        Pages.WebCommon().waitForLoaderInvisibility();
+    public void clearSearch() {
+
         search.clear();
 
 
@@ -68,12 +63,15 @@ public class Home {
         Pages.WebCommon().verifyWebTableData();
     }
 
-    public void moveOrderToInProgressStateAndVerify() {
+
+
+    public void clickOnAssign()
+    {
+
         javascriptExecutor().executeScript("arguments[0].click();", assignButton);
         test.log(Status.PASS, "successfully clicked on  assignButton");
-        Pages.WebCommon().waitForLoaderInvisibility();
-        test.log(Status.PASS, "Navigated to  in Inprogress tab");
-        javascriptExecutor().executeScript("arguments[0].click();", inProgressTabButton);
+    }
+    public void moveOrderToInProgressStateAndVerify() {
         Pages.WebCommon().waitForLoaderInvisibility();
         webWait.until(ExpectedConditions.visibilityOf(encounterNumberInProgressPage));
         search.sendKeys(prescriptionOrderID);
@@ -85,8 +83,7 @@ public class Home {
 
     public void verifyReAssign() {
         unAssign.click();
-        Pages.WebCommon().waitForLoaderInvisibility();
-        javascriptExecutor().executeScript("arguments[0].click();", toDo);
+        Pages.NavigationsCP().navigateTOTodoTab();
         Pages.WebCommon().waitForLoaderInvisibility();
         test.log(Status.PASS, "Reassign functionality passed");
     }

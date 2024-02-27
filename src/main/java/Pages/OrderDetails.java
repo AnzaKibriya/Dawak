@@ -18,8 +18,7 @@ import static Helper.BaseClass.*;
 
 public class OrderDetails {
     WebDriver driver;
-    @FindBy(xpath = "//img[@mattooltip='Details']")
-    WebElement actionButton;
+
     String medicinePendingInfoInTable = "//app-pending-medication-info//tbody[contains(@class, 'mdc-data-table__content')]//td[%s]";
     String deliveryDetails = "//app-address-detail//tbody[contains(@class, 'mdc-data-table__content')]//tr[1]//td[%s]";
     String deliveryDetailcolum = "//app-address-detail//tbody[contains(@class, 'mdc-data-table__content')]//tr[1]//td";
@@ -71,8 +70,6 @@ public class OrderDetails {
     WebElement sendInsurenceApprovalButton;
 
 
-    @FindBy(xpath = "//span[text()=' Insurance In-Progress ']")
-    WebElement insurenceInprogressButton;
 
     @FindBy(xpath = "//input[@placeholder='Search by Attribute']")
     WebElement search;
@@ -102,12 +99,6 @@ public class OrderDetails {
     public OrderDetails(WebDriver Driver) {
         driver = Driver;
     }
-
-    public void openOrderDetailPage() {
-        actionButton.click();
-        Pages.WebCommon().waitForLoaderInvisibility();
-    }
-
 
     public void verifyDeliveryDetailTable() {
         List<WebElement> orderDeliveryTable = driver.findElements(By.xpath(deliveryDetailcolum));
@@ -165,13 +156,16 @@ public class OrderDetails {
 
     }
 
-    public void verifySendInsuranceApproval() throws InterruptedException {
+    public  void clickOnSendInsurenceApproval() throws InterruptedException {
         Pages.WebCommon().waitForLoaderInvisibility();
+        Pages.WebCommon().waitForElementsInteractions();
         javascriptExecutor().executeScript("arguments[0].click();", sendInsurenceApprovalButton);
         test.log(Status.PASS, " order sent for insurance Approval");
         Pages.WebCommon().waitForLoaderInvisibility();
-        Pages.WebCommon().waitForElementsInteractions();
-        javascriptExecutor().executeScript("arguments[0].click();", insurenceInprogressButton);
+    }
+
+    public void verifySendInsuranceApproval() throws InterruptedException {
+
         Pages.WebCommon().waitForLoaderInvisibility();
         driver.getCurrentUrl();
         Assert.assertEquals(driver.getCurrentUrl(), BaseClass.propertyFile("config", "InsuurenceInprogressUrl"));

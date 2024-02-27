@@ -23,14 +23,10 @@ public class HomeDP {
     @FindBy(xpath = "//tr/td[2]")
     WebElement taskName;
 
-    @FindBy(xpath = "//a[text()='Task List ']")
-    WebElement taskList;
-
     @FindBy(xpath = "//i[@mattooltip='Assign']")
     WebElement assignButton;
 
-    @FindBy(xpath = "//span[text()=' In-Progress ']")
-    WebElement inProgressTabButton;
+
     @FindBy(xpath = "//*[@id='mat-tab-content-0-1']//tr[1]/td[1]/span")
     WebElement encounterNumberInProgressPage;
 
@@ -41,8 +37,7 @@ public class HomeDP {
     @FindBy(xpath = "//i[@mattooltip='Detail']")
     WebElement detailButton;
 
-    @FindBy(xpath = "//span[text()=' Dispensing In-Progress ']")
-    WebElement dispensingInProgressTab;
+
 
 
 
@@ -65,29 +60,40 @@ public class HomeDP {
         test.log(Status.PASS, "Order verified in TODO TAB");
     }
 
-    public void moveToInprogress() {
+
+    public void clickonAssign()
+    {
         javascriptExecutor().executeScript("arguments[0].click();", assignButton);
         test.log(Status.PASS, "successfully clicked on  assignButton");
-        Pages.WebCommon().waitForLoaderInvisibility();
-        test.log(Status.PASS, "Navigated to  in Inprogress tab");
-        javascriptExecutor().executeScript("arguments[0].click();", inProgressTabButton);
+
+    }
+
+    public void moveToInprogressandVerify() {
         Pages.WebCommon().waitForLoaderInvisibility();
         webWait.until(ExpectedConditions.visibilityOf(encounterNumberInProgressPage));
         search.sendKeys(prescriptionOrderID);
-        Assert.assertEquals(encounterNumberDispensingInProgressPage.getText(), prescriptionOrderID);
+        Assert.assertEquals(encounterNumberDispensingInProgressPage.getText(), BaseClass.propertyFile("config", "Prescriptiontext"));
         test.log(Status.PASS, "Encounter text verified in Inprogress tab");
         Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskNameDP"));
         test.log(Status.PASS, "TaskName text Verified in Inprogress tab");
+    }
+
+    public void clickonDetailButtonInInprogressTab()
+    {
         javascriptExecutor().executeScript("arguments[0].click();", detailButton);
+
     }
 
 
-    public void verifyOrderInDispensingInProgress()
+    public void searchOrderInDispensingInProgress()
     {
-        javascriptExecutor().executeScript("arguments[0].click();", dispensingInProgressTab);
-        Pages.WebCommon().waitForLoaderInvisibility();
-        search.sendKeys(prescriptionOrderID);
+        search.sendKeys(BaseClass.propertyFile("config", "Prescriptiontext"));
+    }
+
+    public void clickDetailButtonInDispensingInprogress()
+    {
         javascriptExecutor().executeScript("arguments[0].click();", detailButton);
+
     }
 }
 

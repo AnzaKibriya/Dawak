@@ -19,19 +19,24 @@ public class TestDawakDP extends BaseClass {
         test = extent.createTest("Verify Making Order In TODO");
         Pages.HomeDP().verifyHomePageHeader();
         Pages.HomeDP().SearchForOrder();
+        Pages.HomeDP().clickonAssign();
     }
 
     @Test(priority = 3)
     public void verifyOrderInProgress() throws InterruptedException, AWTException {
         test = extent.createTest("Verify Making Order In InProgressTAB");
-        Pages.HomeDP().moveToInprogress();
+        Pages.NavigationsDP().navigateTOInprogressTab();
+        Pages.HomeDP().moveToInprogressandVerify();
+        Pages.HomeDP().clickonDetailButtonInInprogressTab();
     }
 
     @Test(priority = 4)
     public void verifyOrderDispensing() throws InterruptedException {
         test = extent.createTest("Verify Making Order In Dispensing TAB");
         Pages.OrderDetailsDP().dispensingOrder();
-        Pages.HomeDP().verifyOrderInDispensingInProgress();
+        Pages.NavigationsDP().navigateTODispensingInProgressTab();
+        Pages.HomeDP().searchOrderInDispensingInProgress();
+        Pages.HomeDP().clickDetailButtonInDispensingInprogress();
         Pages.OrderDetailsDP().orderReadyForDelivery();
     }
 
