@@ -7,8 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.awt.*;
-import java.awt.event.*;
 import java.util.List;
 
 import static Helper.BaseClass.*;
@@ -57,11 +55,6 @@ public class WebCommon {
         webWait.until(ExpectedConditions.visibilityOf(element));
     }
 
-    public void waitForElementTOBEClickable(WebElement element) {
-        webWait = new WebDriverWait(driver, ofSeconds(60));
-        webWait.until(ExpectedConditions.elementToBeClickable(element));
-    }
-
     public void waitForLoaderInvisibility() {
         List<WebElement> loaderElement = driver.findElements(By.xpath(loader));
         if (!loaderElement.isEmpty()) {
@@ -76,17 +69,13 @@ public class WebCommon {
     }
 
 
-    public void waitForDetailedButtonClickable() throws InterruptedException, AWTException {
-        Thread.sleep(7000);        //6 min
+    public void waitForDetailedButtonClickable() throws InterruptedException {
+        Thread.sleep(7000);        //7 seconds
         driver.getCurrentUrl();
-//        Robot robot=new Robot();
-//        robot.keyPress(KeyEvent.VK_CONTROL);
-//        robot.keyPress(KeyEvent.VK_R);
     }
 
-    public void  WaitforElementsInteractions() throws InterruptedException {
+    public void waitForElementsInteractions() throws InterruptedException {
         Thread.sleep(2000);
-
     }
 
 }

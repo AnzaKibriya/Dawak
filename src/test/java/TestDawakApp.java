@@ -16,12 +16,10 @@ public class TestDawakApp extends BaseClass {
         Pages.DawakAppLandingPage().openActivePrescription();
         Pages.DawakAppLandingPage().verifyPrescriptionID();
     }
+
     @Test(priority = 3)
     public void sendPrescriptionForDelivery() {
         test = extent.createTest("Login to Dawak App 3");
         Pages.DawakAppLandingPage().deliverMedicine();
-}
-//        Pages.DawakAppLandingPage().openActivePrescription();
-//        Pages.DawakAppLandingPage().paymentProceed();
-//    }
+    }
 }

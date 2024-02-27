@@ -73,11 +73,8 @@ public class TestDawakCP extends BaseClass {
     }
 
     @Test(priority = 9)
-    public  void  verifyLogoutFunctionality()
-    {
+    public void verifyLogoutFunctionality() {
         test = extent.createTest("Logout Functionality");
         Pages.Logout().verifyLogout();
-
-
     }
 }

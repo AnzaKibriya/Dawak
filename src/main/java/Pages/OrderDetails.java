@@ -8,7 +8,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
-import java.awt.*;
 import java.util.List;
 
 import Enum.BasicInformationEnum;
@@ -166,12 +165,12 @@ public class OrderDetails {
 
     }
 
-    public void verifySendInsuranceApproval() throws InterruptedException, AWTException {
-
+    public void verifySendInsuranceApproval() throws InterruptedException {
         Pages.WebCommon().waitForLoaderInvisibility();
         javascriptExecutor().executeScript("arguments[0].click();", sendInsurenceApprovalButton);
         test.log(Status.PASS, " order sent for insurance Approval");
         Pages.WebCommon().waitForLoaderInvisibility();
+        Pages.WebCommon().waitForElementsInteractions();
         javascriptExecutor().executeScript("arguments[0].click();", insurenceInprogressButton);
         Pages.WebCommon().waitForLoaderInvisibility();
         driver.getCurrentUrl();
@@ -215,7 +214,7 @@ public class OrderDetails {
     }
 
 
-    public void verifyViewDetailsInformation()  {
+    public void verifyViewDetailsInformation() {
         viewDetailsButton.click();
         test.log(Status.PASS, " Navigated to view details page");
         viewDetailsInformationEnum[] viewDetailsInformationEnums = viewDetailsInformationEnum.values();
@@ -239,16 +238,16 @@ public class OrderDetails {
         List<WebElement> detail = driver.findElements(By.xpath(viewDetailscolumn));
         for (int i = 1; i <= detail.size(); i++) {
             javascriptExecutor().executeScript("arguments[0].click();", viewDetailsButton);
-            Pages.WebCommon().WaitforElementsInteractions();
+            Pages.WebCommon().waitForElementsInteractions();
             test.log(Status.PASS, " View Detail button gets clicked successfully");
-            WebElement enterQuantity = driver.findElement(By.xpath(String.format(enterQty , i)));
+            WebElement enterQuantity = driver.findElement(By.xpath(String.format(enterQty, i)));
             enterQuantity.sendKeys(BaseClass.propertyFile("config", "enterQuantity"));
-            WebElement clickHealthPlan = driver.findElement(By.xpath(String.format(healthPlan , i)));
+            WebElement clickHealthPlan = driver.findElement(By.xpath(String.format(healthPlan, i)));
             clickHealthPlan.click();
             coPay.click();
-            WebElement enterPaymentAmount = driver.findElement(By.xpath(String.format(payAmount , i)));
+            WebElement enterPaymentAmount = driver.findElement(By.xpath(String.format(payAmount, i)));
             enterPaymentAmount.sendKeys(BaseClass.propertyFile("config", "Amount"));
-            WebElement clickSaveBtn = driver.findElement(By.xpath(String.format(saveButton , i)));
+            WebElement clickSaveBtn = driver.findElement(By.xpath(String.format(saveButton, i)));
             clickSaveBtn.click();
             Pages.WebCommon().waitForLoaderInvisibility();
             test.log(Status.PASS, " Drug Details gets saved successfully");

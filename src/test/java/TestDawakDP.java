@@ -3,14 +3,11 @@ import Pages.Pages;
 import org.testng.annotations.Test;
 
 import java.awt.*;
-import java.io.IOException;
-
-import static Helper.BaseClass.extent;
 
 public class TestDawakDP extends BaseClass {
 
     @Test(priority = 1)
-    public void verifyCPLogin()  {
+    public void verifyCPLogin() {
         test = extent.createTest("Login to DP Portal");
         Pages.LoginDP().DPLogin();
         Pages.Mailinator().verifyDpOtp();
@@ -22,30 +19,24 @@ public class TestDawakDP extends BaseClass {
         test = extent.createTest("Verify Making Order In TODO");
         Pages.HomeDP().verifyHomePageHeader();
         Pages.HomeDP().SearchForOrder();
-
     }
+
     @Test(priority = 3)
-    public void verifyorderInInprogress() throws InterruptedException, AWTException {
+    public void verifyOrderInProgress() throws InterruptedException, AWTException {
         test = extent.createTest("Verify Making Order In InProgressTAB");
-
-        Pages.HomeDP().moveTOInprogress();
-
-
-
+        Pages.HomeDP().moveToInprogress();
     }
 
     @Test(priority = 4)
-    public void  verifyOrderDespencing() throws InterruptedException {
-        test = extent.createTest("Verify Making Order In Despencing TAB");
-
-        Pages.OrderDetailsDP().dispencingOrder();
+    public void verifyOrderDispensing() throws InterruptedException {
+        test = extent.createTest("Verify Making Order In Dispensing TAB");
+        Pages.OrderDetailsDP().dispensingOrder();
         Pages.HomeDP().verifyOrderInDispensingInProgress();
-        Pages.OrderDetailsDP().ordrReadyForDelivery();
+        Pages.OrderDetailsDP().orderReadyForDelivery();
     }
 
     @Test(priority = 5)
-    public  void  verifyLogoutFunctionality()
-    {
+    public void verifyLogoutFunctionality() {
         test = extent.createTest("Logout Functionality");
         Pages.Logout().verifyLogout();
     }
