@@ -162,6 +162,8 @@ public class OrderDetails {
         javascriptExecutor().executeScript("arguments[0].click();", sendInsurenceApprovalButton);
         test.log(Status.PASS, " order sent for insurance Approval");
         Pages.WebCommon().waitForLoaderInvisibility();
+        Pages.WebCommon().waitForElementsInteractions();
+
     }
 
     public void verifySendInsuranceApproval() throws InterruptedException {

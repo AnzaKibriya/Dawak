@@ -54,6 +54,7 @@ public class Home {
 
     public void clearSearch() {
 
+        Pages.WebCommon().waitForLoaderInvisibility();
         search.clear();
 
 
@@ -73,6 +74,7 @@ public class Home {
     }
     public void moveOrderToInProgressStateAndVerify() {
         Pages.WebCommon().waitForLoaderInvisibility();
+        Pages.WebCommon().waitForLoaderInvisibility();
         webWait.until(ExpectedConditions.visibilityOf(encounterNumberInProgressPage));
         search.sendKeys(prescriptionOrderID);
         Assert.assertEquals(encounterNumberInProgressPage.getText(), prescriptionOrderID);
@@ -83,6 +85,7 @@ public class Home {
 
     public void verifyReAssign() {
         unAssign.click();
+        Pages.WebCommon().waitForLoaderInvisibility();
         Pages.NavigationsCP().navigateTOTodoTab();
         Pages.WebCommon().waitForLoaderInvisibility();
         test.log(Status.PASS, "Reassign functionality passed");

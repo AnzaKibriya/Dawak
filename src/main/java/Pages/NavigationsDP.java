@@ -25,7 +25,6 @@ public class NavigationsDP {
 
     public void navigateTOInprogressTab()
     {
-        Pages.WebCommon().waitForLoaderInvisibility();
         test.log(Status.PASS, "Navigated to  in Inprogress tab");
         javascriptExecutor().executeScript("arguments[0].click();", inProgressTabButton);
 
@@ -34,7 +33,7 @@ public class NavigationsDP {
 
     public void navigateTODispensingInProgressTab()
     {
+        test.log(Status.PASS, "Navigated to  DispensingInProgressTab");
         javascriptExecutor().executeScript("arguments[0].click();", dispensingInProgressTab);
-        Pages.WebCommon().waitForLoaderInvisibility();
     }
 }

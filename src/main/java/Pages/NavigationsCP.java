@@ -3,7 +3,6 @@ package Pages;
 import com.aventstack.extentreports.Status;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
 
 import static Helper.BaseClass.javascriptExecutor;
@@ -35,19 +34,16 @@ public class NavigationsCP {
 
     public void navigateTOTodoTab()
     {
-        Pages.WebCommon().waitForLoaderInvisibility();
         javascriptExecutor().executeScript("arguments[0].click();", toDo);
     }
 
     public void moveToNewPrescription() {
         newPrescription.click();
         test.log(Status.PASS, "Navigated to new Prescription tab");
-        Pages.WebCommon().waitForLoaderInvisibility();
     }
 
     public void navigateTOInprogressTab()
     {
-        Pages.WebCommon().waitForLoaderInvisibility();
         test.log(Status.PASS, "Navigated to  in Inprogress tab");
         javascriptExecutor().executeScript("arguments[0].click();", inProgressTabButton);
 
@@ -61,11 +57,9 @@ public class NavigationsCP {
         Pages.WebCommon().waitForLoaderInvisibility();
     }
 
-    public void navigateTOInsurenceInprogressTab() throws InterruptedException {
-        Pages.WebCommon().waitForElementsInteractions();
+    public void navigateTOInsurenceInprogressTab() {
         javascriptExecutor().executeScript("arguments[0].click();", insurenceInprogressButton);
     }
-
 
 
 }
