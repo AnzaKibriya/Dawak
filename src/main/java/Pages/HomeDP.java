@@ -49,15 +49,18 @@ public class HomeDP {
     public HomeDP(WebDriver Driver) {
         driver=Driver;
     }
-    public void verifyHomePageHeader() {
+    public void verifyHomePageHeader() throws InterruptedException {
         Pages.WebCommon().waitForLoaderInvisibility();
         Assert.assertEquals(homePageHeader.getText(), BaseClass.propertyFile("config", "HomepageHeaderDP"));
         test.log(Status.PASS, "Header is Verified");
+        Pages.WebCommon().waitForElementsInteractions();
+
     }
 
     public void SearchForOrder() {
         Pages.WebCommon().waitForLoaderInvisibility();
         search.sendKeys(prescriptionOrderID);
+        Pages.WebCommon().waitForLoaderInvisibility();
         Assert.assertEquals(encounterNumberTodoPage.getText(), prescriptionOrderID);
         test.log(Status.PASS, "Encounter text verified in Todo Tab");
         Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskNameDP"));
@@ -65,7 +68,7 @@ public class HomeDP {
         test.log(Status.PASS, "Order verified in TODO TAB");
     }
 
-    public void moveToInprogress() {
+    public void moveToInProgress() {
         javascriptExecutor().executeScript("arguments[0].click();", assignButton);
         test.log(Status.PASS, "successfully clicked on  assignButton");
         Pages.WebCommon().waitForLoaderInvisibility();

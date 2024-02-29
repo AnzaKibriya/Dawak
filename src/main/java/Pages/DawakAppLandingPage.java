@@ -28,7 +28,7 @@ public class DawakAppLandingPage {
     By timeSlotDropDown = AppiumBy.androidUIAutomator("new UiSelector().resourceId(\"ae.purehealth.dawak.qa:id/choose_time_slot_v\")");
     By timeSlotCheckBox = AppiumBy.androidUIAutomator("new UiSelector().textContains(\"10:00 PM - 10:30 PM\")");
     By confirmTimeSlotBtn = AppiumBy.id("ae.purehealth.dawak.qa:id/button3");
-    By goToHomeAfterPayment = AppiumBy.androidUIAutomator("new UiSelector().textContains(\"10:00 PM - 10:30 PM\")");
+    By goToHomeAfterPayment = AppiumBy.xpath("//android.widget.Button[@text='GO TO HOME']");
 
 
     public DawakAppLandingPage(AndroidDriver androidDriver) {
@@ -37,9 +37,10 @@ public class DawakAppLandingPage {
 
 
     public void openActivePrescription() throws InterruptedException {
+        Thread.sleep(7000);
         mobileWait.until(ExpectedConditions.elementToBeClickable(activePrescriptionWidget)).click();
         Pages.MobileCommon().waitForLoaderInvisibility();
-        Thread.sleep(2000);
+        Thread.sleep(10000);
     }
 
     public void verifyPrescriptionID() throws InterruptedException {
@@ -67,11 +68,13 @@ public class DawakAppLandingPage {
         scrollObject.put("element", ((RemoteWebElement) element).getId());
         scrollObject.put("percent", "80");
         js.executeScript("mobile: scrollGesture", scrollObject);
+        mobileWait.until(ExpectedConditions.visibilityOfElementLocated(timeSlotCheckBox));
         mobileWait.until(ExpectedConditions.elementToBeClickable(timeSlotCheckBox)).click();
         mobileWait.until(ExpectedConditions.elementToBeClickable(confirmTimeSlotBtn)).click();
         Pages.MobileCommon().waitForLoaderInvisibility();
         androidDriver.findElement(AppiumBy.androidUIAutomator("new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().textContains(\"PLACE ORDER\").instance(0))")).click();
         Pages.MobileCommon().waitForLoaderInvisibility();
+        mobileWait.until(ExpectedConditions.visibilityOfElementLocated(goToHomeAfterPayment));
         mobileWait.until(ExpectedConditions.elementToBeClickable(goToHomeAfterPayment)).click();
     }
 }

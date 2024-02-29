@@ -75,7 +75,7 @@ public class WebCommon {
     }
 
     public void waitForElementsInteractions() throws InterruptedException {
-        Thread.sleep(2000);
+        Thread.sleep(5000);
     }
 
 }

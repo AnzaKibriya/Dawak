@@ -68,11 +68,11 @@ public class OrderDetails {
     WebElement viewDetailsButton;
 
     @FindBy(xpath = "//span[normalize-space()='Send Insurance for Approval']")
-    WebElement sendInsurenceApprovalButton;
+    WebElement sendInsuranceApprovalButton;
 
 
-    @FindBy(xpath = "//span[text()=' Insurance In-Progress ']")
-    WebElement insurenceInprogressButton;
+    @FindBy(xpath = "//span[text()=' Insurance In-Progress ']/ancestor-or-self::span")
+    WebElement insuranceInProgressButton;
 
     @FindBy(xpath = "//input[@placeholder='Search by Attribute']")
     WebElement search;
@@ -167,14 +167,14 @@ public class OrderDetails {
 
     public void verifySendInsuranceApproval() throws InterruptedException {
         Pages.WebCommon().waitForLoaderInvisibility();
-        javascriptExecutor().executeScript("arguments[0].click();", sendInsurenceApprovalButton);
+        javascriptExecutor().executeScript("arguments[0].click();", sendInsuranceApprovalButton);
         test.log(Status.PASS, " order sent for insurance Approval");
         Pages.WebCommon().waitForLoaderInvisibility();
         Pages.WebCommon().waitForElementsInteractions();
-        javascriptExecutor().executeScript("arguments[0].click();", insurenceInprogressButton);
+        javascriptExecutor().executeScript("arguments[0].click();", insuranceInProgressButton);
         Pages.WebCommon().waitForLoaderInvisibility();
         driver.getCurrentUrl();
-        Assert.assertEquals(driver.getCurrentUrl(), BaseClass.propertyFile("config", "InsuurenceInprogressUrl"));
+        Assert.assertEquals(driver.getCurrentUrl(), BaseClass.propertyFile("config", "InsuranceInprogressUrl"));
         Pages.WebCommon().waitForLoaderInvisibility();
         search.sendKeys(prescriptionOrderID);
         test.log(Status.PASS, " Verified Insurance approval request in Insurance in progress");

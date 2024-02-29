@@ -76,4 +76,10 @@ public class Pages {
         return pg;
     }
 
+    public static ReadyForDelivery ReadyForDelivery() {
+        ReadyForDelivery pg = new ReadyForDelivery(BaseClass.driver);
+        PageFactory.initElements(BaseClass.driver, pg);
+        return pg;
+    }
+
 }

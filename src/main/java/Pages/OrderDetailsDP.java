@@ -5,9 +5,9 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import static Helper.BaseClass.javascriptExecutor;
-import static Helper.BaseClass.test;
+import static Helper.BaseClass.*;
 
 public class OrderDetailsDP {
 
@@ -34,15 +34,16 @@ public class OrderDetailsDP {
         Pages.WebCommon().waitForLoaderInvisibility();
         try {
             Pages.WebCommon().waitForElementsInteractions();
-            javascriptExecutor().executeScript("window.scrollBy(0, 500);"); // Scroll down by 500 pixels
+            javascriptExecutor().executeScript("window.scrollBy(0, 700);"); // Scroll down by 500 pixels
             javascriptExecutor().executeScript("arguments[0].scrollIntoView(true);", dispencingOrder);
+            webWait.until(ExpectedConditions.elementToBeClickable(dispencingOrder));
             dispencingOrder.click();
 
         } catch (StaleElementReferenceException e) {
         }
 
         Pages.WebCommon().waitForLoaderInvisibility();
-        test.log(Status.PASS, "Navigated to Detail page and clicked on Despencing started");
+        test.log(Status.PASS, "Navigated to Detail page and clicked on Dispensing started");
     }
 
     public void orderReadyForDelivery() throws InterruptedException {

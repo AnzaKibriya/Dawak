@@ -7,11 +7,12 @@ import java.awt.*;
 public class TestDawakDP extends BaseClass {
 
     @Test(priority = 1)
-    public void verifyCPLogin() {
+    public void verifyDPLogin() throws InterruptedException {
         test = extent.createTest("Login to DP Portal");
         Pages.LoginDP().DPLogin();
         Pages.Mailinator().verifyDpOtp();
         Pages.LoginDP().verifyEnteringOtp();
+//        Pages.ReadyForDelivery().deliveryFunctionality("8664809384");
     }
 
     @Test(priority = 2)
@@ -22,9 +23,9 @@ public class TestDawakDP extends BaseClass {
     }
 
     @Test(priority = 3)
-    public void verifyOrderInProgress() throws InterruptedException, AWTException {
+    public void verifyOrderInProgress()  {
         test = extent.createTest("Verify Making Order In InProgressTAB");
-        Pages.HomeDP().moveToInprogress();
+        Pages.HomeDP().moveToInProgress();
     }
 
     @Test(priority = 4)

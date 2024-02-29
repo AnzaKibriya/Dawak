@@ -10,8 +10,7 @@ import com.google.common.io.Files;
 import io.appium.java_client.Setting;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.options.UiAutomator2Options;
-import model.LoginApiCall;
-import model.PrescriptionApiCall;
+import model.*;
 import okhttp3.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -20,6 +19,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -50,6 +54,7 @@ public class BaseClass {
     public static String otpText;
     public static SoftAssert softAssert;
     public static AndroidDriver androidDriver;
+    public static DevTools devTools;
 
     @BeforeSuite
     public void setUp() throws MalformedURLException {
@@ -58,15 +63,18 @@ public class BaseClass {
         prescriptionOrderID = generateRandomNumericString();
         System.out.println(prescriptionOrderID);
         PrescriptionApiCall.makePrescriptionApiCall(accessToken, prescriptionOrderID);
+//        LoginDpApiCall.makeLoginApiCall();
+//        CreateOtpApiCall.createOtpApiCall();
+//        PutOTPApiCall.OTPApiCall();
         androidDriver = new AndroidDriver(new URL("http://localhost:4723"), getAPKOptions());
-        androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(7));
+        androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         driver = new ChromeDriver();
         softAssert = new SoftAssert();
         extent = new ExtentReports();
         prop = new Properties();
-        webWait = new WebDriverWait(driver, Duration.ofSeconds(50));
-        mobileWait = new WebDriverWait(androidDriver, Duration.ofSeconds(100));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        webWait = new WebDriverWait(driver, Duration.ofSeconds(120));
+        mobileWait = new WebDriverWait(androidDriver, Duration.ofSeconds(120));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         driver.manage().window().maximize();
         loginWindow = driver.getWindowHandle();
         driver.get("https://dawakportaluat.z1.web.core.windows.net/#/auth/login");
