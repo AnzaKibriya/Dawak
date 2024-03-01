@@ -52,8 +52,8 @@ public class HomeDP {
 
     public void SearchForOrder() {
         Pages.WebCommon().waitForLoaderInvisibility();
-        search.sendKeys(BaseClass.propertyFile("config","Prescriptiontext"));
-        Assert.assertEquals(encounterNumberTodoPage.getText(), BaseClass.propertyFile("config","Prescriptiontext"));
+        search.sendKeys(prescriptionOrderID);
+        Assert.assertEquals(encounterNumberTodoPage.getText(), prescriptionOrderID);
         test.log(Status.PASS, "Encounter text verified in Todo Tab");
         Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskNameDP"));
         test.log(Status.PASS, "TaskName text Verified in Todo Tab");
@@ -72,8 +72,8 @@ public class HomeDP {
     public void moveToInprogressandVerify() throws InterruptedException {
         Pages.WebCommon().waitForLoaderInvisibility();
         webWait.until(ExpectedConditions.visibilityOf(encounterNumberInProgressPage));
-        search.sendKeys(BaseClass.propertyFile("config","Prescriptiontext"));
-        Assert.assertEquals(encounterNumberDispensingInProgressPage.getText(), BaseClass.propertyFile("config","Prescriptiontext"));
+        search.sendKeys(prescriptionOrderID);
+        Assert.assertEquals(encounterNumberDispensingInProgressPage.getText(), prescriptionOrderID);
         test.log(Status.PASS, "Encounter text verified in Inprogress tab");
         Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskNameDP"));
         test.log(Status.PASS, "TaskName text Verified in Inprogress tab");
@@ -89,7 +89,7 @@ public class HomeDP {
     public void searchOrderInDispensingInProgress()
     {
         Pages.WebCommon().waitForLoaderInvisibility();
-        search.sendKeys(BaseClass.propertyFile("config","Prescriptiontext"));
+        search.sendKeys(prescriptionOrderID);
     }
 
     public void clickDetailButtonInDispensingInprogress()
