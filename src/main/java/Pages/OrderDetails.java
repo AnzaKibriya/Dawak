@@ -18,8 +18,7 @@ import static Helper.BaseClass.*;
 
 public class OrderDetails {
     WebDriver driver;
-    @FindBy(xpath = "//img[@mattooltip='Details']")
-    WebElement actionButton;
+
     String medicinePendingInfoInTable = "//app-pending-medication-info//tbody[contains(@class, 'mdc-data-table__content')]//td[%s]";
     String deliveryDetails = "//app-address-detail//tbody[contains(@class, 'mdc-data-table__content')]//tr[1]//td[%s]";
     String deliveryDetailcolum = "//app-address-detail//tbody[contains(@class, 'mdc-data-table__content')]//tr[1]//td";
@@ -68,11 +67,9 @@ public class OrderDetails {
     WebElement viewDetailsButton;
 
     @FindBy(xpath = "//span[normalize-space()='Send Insurance for Approval']")
-    WebElement sendInsuranceApprovalButton;
+    WebElement sendInsurenceApprovalButton;
 
 
-    @FindBy(xpath = "//span[text()=' Insurance In-Progress ']/ancestor-or-self::span")
-    WebElement insuranceInProgressButton;
 
     @FindBy(xpath = "//input[@placeholder='Search by Attribute']")
     WebElement search;
@@ -102,12 +99,6 @@ public class OrderDetails {
     public OrderDetails(WebDriver Driver) {
         driver = Driver;
     }
-
-    public void openOrderDetailPage() {
-        actionButton.click();
-        Pages.WebCommon().waitForLoaderInvisibility();
-    }
-
 
     public void verifyDeliveryDetailTable() {
         List<WebElement> orderDeliveryTable = driver.findElements(By.xpath(deliveryDetailcolum));
@@ -165,16 +156,21 @@ public class OrderDetails {
 
     }
 
-    public void verifySendInsuranceApproval() throws InterruptedException {
+    public  void clickOnSendInsurenceApproval() throws InterruptedException {
         Pages.WebCommon().waitForLoaderInvisibility();
-        javascriptExecutor().executeScript("arguments[0].click();", sendInsuranceApprovalButton);
+        Pages.WebCommon().waitForElementsInteractions();
+        javascriptExecutor().executeScript("arguments[0].click();", sendInsurenceApprovalButton);
         test.log(Status.PASS, " order sent for insurance Approval");
         Pages.WebCommon().waitForLoaderInvisibility();
         Pages.WebCommon().waitForElementsInteractions();
-        javascriptExecutor().executeScript("arguments[0].click();", insuranceInProgressButton);
+
+    }
+
+    public void verifySendInsuranceApproval() throws InterruptedException {
+
         Pages.WebCommon().waitForLoaderInvisibility();
         driver.getCurrentUrl();
-        Assert.assertEquals(driver.getCurrentUrl(), BaseClass.propertyFile("config", "InsuranceInprogressUrl"));
+        Assert.assertEquals(driver.getCurrentUrl(), BaseClass.propertyFile("config", "InsuurenceInprogressUrl"));
         Pages.WebCommon().waitForLoaderInvisibility();
         search.sendKeys(prescriptionOrderID);
         test.log(Status.PASS, " Verified Insurance approval request in Insurance in progress");
