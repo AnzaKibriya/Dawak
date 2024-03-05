@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 
 import java.util.List;
@@ -167,10 +168,14 @@ public class OrderDetails {
 
     public void verifySendInsuranceApproval() throws InterruptedException {
         Pages.WebCommon().waitForLoaderInvisibility();
+        Pages.WebCommon().waitForElementsInteractions();
+        javascriptExecutor().executeScript("window.scrollBy(0, 700);"); // Scroll down by 700 pixels
         javascriptExecutor().executeScript("arguments[0].click();", sendInsuranceApprovalButton);
         test.log(Status.PASS, " order sent for insurance Approval");
         Pages.WebCommon().waitForLoaderInvisibility();
         Pages.WebCommon().waitForElementsInteractions();
+        webWait.until(ExpectedConditions.visibilityOf(insuranceInProgressButton));
+        webWait.until(ExpectedConditions.elementToBeClickable(insuranceInProgressButton));
         javascriptExecutor().executeScript("arguments[0].click();", insuranceInProgressButton);
         Pages.WebCommon().waitForLoaderInvisibility();
         driver.getCurrentUrl();

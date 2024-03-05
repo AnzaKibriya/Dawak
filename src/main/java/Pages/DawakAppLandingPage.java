@@ -29,6 +29,7 @@ public class DawakAppLandingPage {
     By timeSlotCheckBox = AppiumBy.androidUIAutomator("new UiSelector().textContains(\"10:00 PM - 10:30 PM\")");
     By confirmTimeSlotBtn = AppiumBy.id("ae.purehealth.dawak.qa:id/button3");
     By goToHomeAfterPayment = AppiumBy.xpath("//android.widget.Button[@text='GO TO HOME']");
+    By placeOrderBtn = AppiumBy.id("ae.purehealth.dawak.qa:id/place_order_btn");
 
 
     public DawakAppLandingPage(AndroidDriver androidDriver) {
@@ -57,7 +58,7 @@ public class DawakAppLandingPage {
         mobileWait.until(ExpectedConditions.elementToBeClickable(goToHomeBtn)).click();
     }
 
-    public void paymentProceed(){
+    public void paymentProceed() throws InterruptedException {
         mobileWait.until(ExpectedConditions.elementToBeClickable(proceedBtn)).click();
         Pages.MobileCommon().waitForLoaderInvisibility();
         mobileWait.until(ExpectedConditions.elementToBeClickable(timeSlotDropDown)).click();
@@ -72,8 +73,18 @@ public class DawakAppLandingPage {
         mobileWait.until(ExpectedConditions.elementToBeClickable(timeSlotCheckBox)).click();
         mobileWait.until(ExpectedConditions.elementToBeClickable(confirmTimeSlotBtn)).click();
         Pages.MobileCommon().waitForLoaderInvisibility();
-        androidDriver.findElement(AppiumBy.androidUIAutomator("new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().textContains(\"PLACE ORDER\").instance(0))")).click();
-        Pages.MobileCommon().waitForLoaderInvisibility();
+        WebElement element1 = (WebElement) androidDriver.findElement(By.id("ae.purehealth.dawak.qa:id/root_view"));
+        JavascriptExecutor js1 = (JavascriptExecutor)androidDriver;
+        HashMap<String, String> scrollObject1 = new HashMap<String, String>();
+        scrollObject1.put("direction", "down");
+        scrollObject1.put("element", ((RemoteWebElement) element1).getId());
+        scrollObject1.put("percent", "80");
+        js1.executeScript("mobile: scrollGesture", scrollObject1);
+        Thread.sleep(5000);
+        mobileWait.until(ExpectedConditions.elementToBeClickable(placeOrderBtn)).click();
+//        androidDriver.findElement(AppiumBy.androidUIAutomator("new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().textContains(\"PLACE ORDER\").instance(0))")).click();
+//        Pages.MobileCommon().waitForLoaderInvisibility();
+        Thread.sleep(3000);
         mobileWait.until(ExpectedConditions.visibilityOfElementLocated(goToHomeAfterPayment));
         mobileWait.until(ExpectedConditions.elementToBeClickable(goToHomeAfterPayment)).click();
     }

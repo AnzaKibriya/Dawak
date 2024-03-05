@@ -67,14 +67,14 @@ public class BaseClass {
 //        CreateOtpApiCall.createOtpApiCall();
 //        PutOTPApiCall.OTPApiCall();
         androidDriver = new AndroidDriver(new URL("http://localhost:4723"), getAPKOptions());
-        androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         driver = new ChromeDriver();
         softAssert = new SoftAssert();
         extent = new ExtentReports();
         prop = new Properties();
         webWait = new WebDriverWait(driver, Duration.ofSeconds(120));
         mobileWait = new WebDriverWait(androidDriver, Duration.ofSeconds(120));
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         driver.manage().window().maximize();
         loginWindow = driver.getWindowHandle();
         driver.get("https://dawakportaluat.z1.web.core.windows.net/#/auth/login");
