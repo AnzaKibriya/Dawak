@@ -32,8 +32,11 @@ public class TestDawakCP extends BaseClass {
     @Test(priority = 4)
     public void verifyMakingOrderInProgress() throws InterruptedException {
         test = extent.createTest("Verify Making Order In Progress State");
-        Pages.Home().moveToNewPrescription();
+        Pages.NavigationsCP().moveToNewPrescription();
+        Pages.Home().clearSearch();
         Pages.Home().SearchForOrder();
+        Pages.Home().clickOnAssign();
+        Pages.NavigationsCP().navigateTOInprogressTab();
         Pages.Home().moveOrderToInProgressStateAndVerify();
     }
 
@@ -54,7 +57,7 @@ public class TestDawakCP extends BaseClass {
     @Test(priority = 7)
     public void verifyOrderDetails() throws InterruptedException {
         test = extent.createTest("Verify order details data and Header text ");
-        Pages.OrderDetails().openOrderDetailPage();
+        Pages.NavigationsCP().openOrderDetailPage();
         Pages.OrderDetails().verifyDeliveryDetailTable();
         Pages.OrderDetails().verifyBasicDetailTable();
         Pages.OrderDetails().verifyContactDetail();
@@ -68,6 +71,8 @@ public class TestDawakCP extends BaseClass {
     @Test(priority = 8)
     public void verifyInsuranceApproval() throws InterruptedException, AWTException {
         test = extent.createTest("Verify Insurance Approval functionality");
+        Pages.OrderDetails().clickOnSendInsurenceApproval();
+        Pages.NavigationsCP().navigateTOInsurenceInprogressTab();
         Pages.OrderDetails().verifySendInsuranceApproval();
         Pages.OrderDetails().approveMedicineInsurance();
     }

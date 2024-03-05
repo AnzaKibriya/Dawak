@@ -82,4 +82,17 @@ public class Pages {
         return pg;
     }
 
+    public static NavigationsCP NavigationsCP() {
+        NavigationsCP pg = new NavigationsCP(BaseClass.driver);
+        PageFactory.initElements(BaseClass.driver, pg);
+        return pg;
+    }
+
+    public static NavigationsDP NavigationsDP() {
+        NavigationsDP pg = new NavigationsDP(BaseClass.driver);
+        PageFactory.initElements(BaseClass.driver, pg);
+        return pg;
+    }
+
+
 }
