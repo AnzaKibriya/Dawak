@@ -20,6 +20,12 @@ public class WebCommon {
 
     String taskTable = "//app-task-list//table/tbody//tr//td[%s]";
 
+    String taskTableDespensingcolumn="//app-dispencing-task-list//table/tbody//tr[1]//td";
+
+    String despensingTaskTable="//app-dispencing-task-list//table/tbody//tr[1]//td[%s]";
+
+
+
     String justNowText = "//td[contains(text(),'just now')]";
 
     String loader = "//ngx-spinner//img";
@@ -41,6 +47,7 @@ public class WebCommon {
             }
         }
     }
+
 
     public void checkElementIsEmpty(String details, int h) {
         if (details.isEmpty()) {

@@ -59,7 +59,7 @@ public class BaseClass {
     @BeforeSuite
     public void setUp() throws MalformedURLException {
         client = new OkHttpClient();
-        accessToken = LoginApiCall.makeLoginApiCall();
+       accessToken = LoginApiCall.makeLoginApiCall();
         prescriptionOrderID = generateRandomNumericString();
         System.out.println(prescriptionOrderID);
         PrescriptionApiCall.makePrescriptionApiCall(accessToken, prescriptionOrderID);
@@ -136,6 +136,6 @@ public class BaseClass {
     public void tearDown() {
         extent.flush();
         androidDriver.quit();
-        driver.quit();
+       driver.quit();
     }
 }
