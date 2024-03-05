@@ -57,15 +57,15 @@ public class HomeDP {
 
     }
 
-    public void SearchForOrder(String ID) {
+    public void SearchForOrder() {
         Pages.WebCommon().waitForLoaderInvisibility();
-        search.sendKeys(ID);
+        search.sendKeys(prescriptionOrderID);
         Pages.WebCommon().waitForLoaderInvisibility();
-//        Assert.assertEquals(encounterNumberTodoPage.getText(), prescriptionOrderID);
+        Assert.assertEquals(encounterNumberTodoPage.getText(), prescriptionOrderID);
         test.log(Status.PASS, "Encounter text verified in Todo Tab");
-//        Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskNameDP"));
-//        test.log(Status.PASS, "TaskName text Verified in Todo Tab");
-//        test.log(Status.PASS, "Order verified in TODO TAB");
+        Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskNameDP"));
+        test.log(Status.PASS, "TaskName text Verified in Todo Tab");
+        test.log(Status.PASS, "Order verified in TODO TAB");
     }
 
     public void moveToInProgress() {

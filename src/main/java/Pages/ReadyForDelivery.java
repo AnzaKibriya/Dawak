@@ -22,7 +22,7 @@ public class ReadyForDelivery {
     public void deliveryFunctionality(String ID) {
         javascriptExecutor().executeScript("arguments[0].click();", readyDelivery);
         Pages.WebCommon().waitForLoaderInvisibility();
-        Pages.HomeDP().SearchForOrder(ID);
+        Pages.HomeDP().SearchForOrder();
         Pages.WebCommon().waitForLoaderInvisibility();
         details.click();
         String getUrl = driver.getCurrentUrl();

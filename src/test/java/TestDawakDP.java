@@ -10,9 +10,9 @@ public class TestDawakDP extends BaseClass {
     public void verifyDPLogin() throws InterruptedException {
         test = extent.createTest("Login to DP Portal");
         Pages.LoginDP().DPLogin();
-//        Pages.Mailinator().verifyDpOtp();
+        Pages.Mailinator().verifyDpOtp();
         Pages.LoginDP().verifyEnteringOtp();
-        Pages.ReadyForDelivery().deliveryFunctionality("8664809384");
+//        Pages.ReadyForDelivery().deliveryFunctionality("23121310");
     }
 
     @Test(priority = 2)
