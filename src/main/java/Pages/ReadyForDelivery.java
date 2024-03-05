@@ -1,12 +1,12 @@
 package Pages;
 
-import model.GetShipaIdApiCall;
+import model.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 
-import static Helper.BaseClass.accessToken;
+import static Helper.BaseClass.javascriptExecutor;
 
 public class ReadyForDelivery {
     WebDriver driver;
@@ -20,18 +20,19 @@ public class ReadyForDelivery {
     }
 
     public void deliveryFunctionality(String ID) {
-//        javascriptExecutor().executeScript("arguments[0].click();", readyDelivery);
-//        Pages.WebCommon().waitForLoaderInvisibility();
-//        Pages.HomeDP().SearchForOrder(ID);
-//        Pages.WebCommon().waitForLoaderInvisibility();
-//        details.click();
-//        String getUrl = driver.getCurrentUrl();
-//        String[] tokens = getUrl.split("/");
-//        GetShipaIdApiCall.setDeliveryID(tokens[tokens.length-2]);
-        GetShipaIdApiCall.makeShipaIdApiCall(accessToken);
-//Iterating here for the next element
-//        for (String a : tokens) {
-//            System.out.println("StringTokenizer Output: " + tokens.length()-1);
-//        }
+        javascriptExecutor().executeScript("arguments[0].click();", readyDelivery);
+        Pages.WebCommon().waitForLoaderInvisibility();
+        Pages.HomeDP().SearchForOrder(ID);
+        Pages.WebCommon().waitForLoaderInvisibility();
+        details.click();
+        String getUrl = driver.getCurrentUrl();
+        String[] tokens = getUrl.split("/");
+        GetShipaIdApiCall.setDeliveryID(tokens[tokens.length-2]);
+        LoginDpApiCall.makeLoginApiCall();
+        CreateOtpApiCall.createOtpApiCall();
+        String dpAccessToken = PutOTPApiCall.OTPApiCall();
+        String shipaOrderNum = GetShipaIdApiCall.makeShipaIdApiCall(dpAccessToken);
+        ShipaInitiateEventApiCall.makeShipaInitiateEventApiCall(dpAccessToken, shipaOrderNum, "initiated");
+
     }
 }

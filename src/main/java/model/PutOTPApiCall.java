@@ -15,8 +15,10 @@ import static Helper.BaseClass.client;
 
 public class PutOTPApiCall {
     static String apiUrl = "https://dawak-apim-uat.azure-api.net/dawak-auth/api/auth/verifyOtp";
-    public static void OTPApiCall() {
-        try{
+    static String dpAccessToken;
+
+    public static String OTPApiCall() {
+        try {
             MediaType mediaType = MediaType.parse("application/json");
             Gson gson = new Gson();
             PutOTPApiCall putOTPApiCall = new PutOTPApiCall();
@@ -31,17 +33,19 @@ public class PutOTPApiCall {
             if (response.isSuccessful()) {
                 JSONObject jsonResponse = new JSONObject(response.body().string());
                 JSONObject data = jsonResponse.getJSONObject("data");
-                String accessToken = String.valueOf(data.getJSONObject("token"));
-                System.out.println(accessToken);
+                JSONObject token = data.getJSONObject("token");
+                dpAccessToken = String.valueOf(token.getString("accessToken"));
             } else {
                 System.out.println("API call failed!");
                 System.out.println("Response: " + response.body().string());
             }
-        }
-        catch (Exception e){
+            return dpAccessToken;
+        } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
+
     public PutOTP getPutOtp() {
         try (Reader reader = new InputStreamReader(this.getClass()
                 .getResourceAsStream("/PutOTP.json"))) {
