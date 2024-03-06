@@ -15,8 +15,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
-
-import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -47,7 +45,6 @@ public class BaseClass {
     public static String otpText;
     public static SoftAssert softAssert;
     public static AndroidDriver androidDriver;
-    public static DevTools devTools;
 
     @BeforeSuite
     public void setUp() throws MalformedURLException {
@@ -80,8 +77,7 @@ public class BaseClass {
     }
 
     public static String screenshot(String filename) throws IOException {
-        TakesScreenshot ts = (TakesScreenshot) driver;
-        File obj = ts.getScreenshotAs(OutputType.FILE);
+        File obj = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         String destination = new File("target//" + filename + ".PNG").getAbsolutePath();
         Files.copy(obj, new File("./target//" + filename + ".PNG"));
         return destination;
@@ -104,11 +100,11 @@ public class BaseClass {
     }
 
     public static JavascriptExecutor webJavascriptExecutor() {
-        return (JavascriptExecutor) driver;
+        return  driver;
     }
 
     public static JavascriptExecutor mobileJavascriptExecutor() {
-        return (JavascriptExecutor) androidDriver;
+        return androidDriver;
     }
 
     public String generateRandomNumericString() {
