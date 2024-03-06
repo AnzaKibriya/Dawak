@@ -43,10 +43,10 @@ public class Home {
         Assert.assertEquals(homePageHeader.getText(), BaseClass.propertyFile("config", "HomepageHeader"));
     }
 
-    public void SearchForOrder() throws InterruptedException {
+    public void SearchForOrder(String orderId) throws InterruptedException {
         Thread.sleep(9000);
-        search.sendKeys(prescriptionOrderID);
-        Assert.assertEquals(encounterNumberTodoPage.getText(), prescriptionOrderID);
+        search.sendKeys(orderId);
+        Assert.assertEquals(encounterNumberTodoPage.getText(), orderId);
         test.log(Status.PASS, "Encounter text verified in Todo Tab");
         Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskName"));
         test.log(Status.PASS, "TaskName text Verified in Todo Tab");
