@@ -31,8 +31,6 @@ public class LoginDpApiCall {
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 JSONObject jsonResponse = new JSONObject(response.body().string());
-//                JSONObject data = jsonResponse.getJSONObject("data");
-//                accessToken = data.getString("access_token");
             } else {
                 System.out.println("API call failed!");
                 System.out.println("Response: " + response.body().string());

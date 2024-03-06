@@ -27,6 +27,7 @@ public class TestCancelPrescription extends BaseClass {
     }
     @Test(priority = 3)
     public void cancelPrescription() throws InterruptedException {
+        test = extent.createTest("Login to Dawak App 2");
         Pages.DawakAppPrescriptionPage().clickOnGoToPharmacy();
         Pages.DawakAppPrescriptionPage().cancelPrescription();
         Pages.DawakAppLandingPage().openCancelPrescription();
