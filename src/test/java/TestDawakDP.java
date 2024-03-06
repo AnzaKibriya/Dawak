@@ -2,7 +2,6 @@ import Helper.BaseClass;
 import Pages.Pages;
 import org.testng.annotations.Test;
 
-import java.awt.*;
 
 public class TestDawakDP extends BaseClass {
 
@@ -15,7 +14,7 @@ public class TestDawakDP extends BaseClass {
     }
 
     @Test(priority = 2)
-    public void verifyOrderInTOdo() throws InterruptedException {
+    public void verifyOrderInTOdo()  {
         test = extent.createTest("Verify Making Order In TODO");
         Pages.HomeDP().verifyHomePageHeader();
         Pages.HomeDP().SearchForOrder();
@@ -23,7 +22,7 @@ public class TestDawakDP extends BaseClass {
     }
 
     @Test(priority = 3)
-    public void verifyOrderInProgress() throws InterruptedException, AWTException {
+    public void verifyOrderInProgress() throws InterruptedException {
         test = extent.createTest("Verify Making Order In InProgressTAB");
         Pages.NavigationsDP().navigateTOInprogressTab();
         Pages.HomeDP().moveToInprogressandVerify();

@@ -12,7 +12,6 @@ import java.util.List;
 
 import Enum.BasicInformationEnum;
 import Enum.ContactInformation;
-import Enum.viewDetailsInformationEnum;
 
 import static Helper.BaseClass.*;
 
@@ -25,7 +24,6 @@ public class OrderDetails {
     String orderDetailColumn = "//app-pending-medication-info//tbody[contains(@class, 'mdc-data-table__content')]//td";
     String trackingDetails = "//app-tracking-info//tbody[contains(@class, 'mdc-data-table__content')]//tr[1]//td[%s]";
     String trackDetailsColumn = "//app-tracking-info//tbody[contains(@class, 'mdc-data-table__content')]//tr[1]//td";
-    String viewDetails = "//label[contains(text(), '%s')]//following::h5[1]";
     String basicInString = "//div[contains(text(), '%s')]/following-sibling::div";
 
     String viewDetailscolumn = "//mat-drawer-content//tbody//button[2]/span[contains(@class, 'mat-mdc-button-persistent-ripple')]";
@@ -60,8 +58,7 @@ public class OrderDetails {
     @FindBy(xpath = "//span[normalize-space()='Add Back']")
     WebElement addBack;
 
-    @FindBy(xpath = "//img[@src='../../../assets/images/new_cross.png']")
-    WebElement crossIcon;
+
 
     @FindBy(xpath = "//app-pending-medication-info//tbody[contains(@class, 'mdc-data-table__content')]//tr[1]//span[text()=' View Details ']")
     WebElement viewDetailsButton;
@@ -89,11 +86,9 @@ public class OrderDetails {
     @FindBy(xpath = "//span[normalize-space()='Task Complete']")
     WebElement taskCompletedButton;
 
-    @FindBy(xpath = "(//mat-drawer[@tabindex='-1'])[2]")
-    WebElement drawer;
 
-    @FindBy(xpath = "//app-task-list//table//tr[1]//td[1]")
-    WebElement encounterNumberInProgressPage;
+
+
 
 
     public OrderDetails(WebDriver Driver) {
@@ -210,23 +205,6 @@ public class OrderDetails {
     }
 
 
-    public void verifyViewDetailsInformation() {
-        viewDetailsButton.click();
-        test.log(Status.PASS, " Navigated to view details page");
-        viewDetailsInformationEnum[] viewDetailsInformationEnums = viewDetailsInformationEnum.values();
-        for (int i = 0; i <= viewDetailsInformationEnums.length - 91; i++) {
-            WebElement viewInfo = driver.findElement(By.xpath(String.format(viewDetails, viewDetailsInformationEnums[i].value)));
-            Pages.WebCommon().waitForLoaderInvisibility();
-            Pages.WebCommon().waitForElementInteractivity(viewInfo);
-            if (viewInfo.getText().isEmpty()) {
-                Assert.fail("No Data present in " + viewDetailsInformationEnums[i].value);
-
-            }
-            test.log(Status.PASS, " Verified View Details successfully");
-        }
-        crossIcon.click();
-        test.log(Status.PASS, " Navigated back from view details page");
-    }
 
 
     public void approveMedicineInsurance() throws InterruptedException {
