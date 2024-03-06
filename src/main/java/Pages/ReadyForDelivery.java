@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 
-import static Helper.BaseClass.javascriptExecutor;
+import static Helper.BaseClass.webJavascriptExecutor;
 
 public class ReadyForDelivery {
     WebDriver driver;
@@ -20,7 +20,7 @@ public class ReadyForDelivery {
     }
 
     public void deliveryFunctionality(String ID) {
-        javascriptExecutor().executeScript("arguments[0].click();", readyDelivery);
+        webJavascriptExecutor().executeScript("arguments[0].click();", readyDelivery);
         Pages.WebCommon().waitForLoaderInvisibility();
         Pages.HomeDP().SearchForOrder();
         Pages.WebCommon().waitForLoaderInvisibility();

@@ -34,8 +34,8 @@ public class OrderDetailsDP {
         Pages.WebCommon().waitForLoaderInvisibility();
         try {
             Pages.WebCommon().waitForElementsInteractions();
-            javascriptExecutor().executeScript("window.scrollBy(0, 700);"); // Scroll down by 500 pixels
-            javascriptExecutor().executeScript("arguments[0].scrollIntoView(true);", dispencingOrder);
+            webJavascriptExecutor().executeScript("window.scrollBy(0, 700);"); // Scroll down by 500 pixels
+            webJavascriptExecutor().executeScript("arguments[0].scrollIntoView(true);", dispencingOrder);
             webWait.until(ExpectedConditions.elementToBeClickable(dispencingOrder));
             dispencingOrder.click();
 
@@ -49,8 +49,8 @@ public class OrderDetailsDP {
     public void orderReadyForDelivery() throws InterruptedException {
         Pages.WebCommon().waitForLoaderInvisibility();
         Pages.WebCommon().waitForElementsInteractions();
-        javascriptExecutor().executeScript("arguments[0].click();", readyForDelivery);
-        javascriptExecutor().executeScript("arguments[0].click();", yesButton);
+        webJavascriptExecutor().executeScript("arguments[0].click();", readyForDelivery);
+        webJavascriptExecutor().executeScript("arguments[0].click();", yesButton);
         test.log(Status.PASS, "Navigated to Detail page and clicked on  Ready for Delivery");
     }
 }

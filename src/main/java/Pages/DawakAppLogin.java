@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import static Helper.BaseClass.mobileWait;
 
 
-public class AndroidAppLogin {
+public class DawakAppLogin {
     AndroidDriver androidDriver;
 
     By engLangBtn = AppiumBy.id("ae.purehealth.dawak.qa:id/english_langauge_btn");
@@ -17,7 +17,7 @@ public class AndroidAppLogin {
     By skipBtn = AppiumBy.id("ae.purehealth.dawak.qa:id/skip_tv");
     By signInBtn = AppiumBy.id("ae.purehealth.dawak.qa:id/login_btn");
 
-    public AndroidAppLogin(AndroidDriver AndroidDriver) {
+    public DawakAppLogin(AndroidDriver AndroidDriver) {
         androidDriver = AndroidDriver;
     }
 

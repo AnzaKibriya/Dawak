@@ -158,7 +158,7 @@ public class OrderDetails {
     }
 
     public void verifyRemoveFunctionality() {
-        javascriptExecutor().executeScript("arguments[0].click();", removeButton);
+        webJavascriptExecutor().executeScript("arguments[0].click();", removeButton);
         leaveComment.sendKeys("these");
         submitButton.click();
         Pages.WebCommon().waitForLoaderInvisibility();
@@ -169,14 +169,14 @@ public class OrderDetails {
     public void verifySendInsuranceApproval() throws InterruptedException {
         Pages.WebCommon().waitForLoaderInvisibility();
         Pages.WebCommon().waitForElementsInteractions();
-        javascriptExecutor().executeScript("window.scrollBy(0, 700);"); // Scroll down by 700 pixels
-        javascriptExecutor().executeScript("arguments[0].click();", sendInsuranceApprovalButton);
+        webJavascriptExecutor().executeScript("window.scrollBy(0, 700);"); // Scroll down by 700 pixels
+        webJavascriptExecutor().executeScript("arguments[0].click();", sendInsuranceApprovalButton);
         test.log(Status.PASS, " order sent for insurance Approval");
         Pages.WebCommon().waitForLoaderInvisibility();
         Pages.WebCommon().waitForElementsInteractions();
         webWait.until(ExpectedConditions.visibilityOf(insuranceInProgressButton));
         webWait.until(ExpectedConditions.elementToBeClickable(insuranceInProgressButton));
-        javascriptExecutor().executeScript("arguments[0].click();", insuranceInProgressButton);
+        webJavascriptExecutor().executeScript("arguments[0].click();", insuranceInProgressButton);
         Pages.WebCommon().waitForLoaderInvisibility();
         driver.getCurrentUrl();
         Assert.assertEquals(driver.getCurrentUrl(), BaseClass.propertyFile("config", "InsuranceInprogressUrl"));
@@ -242,7 +242,7 @@ public class OrderDetails {
 
         List<WebElement> detail = driver.findElements(By.xpath(viewDetailscolumn));
         for (int i = 1; i <= detail.size(); i++) {
-            javascriptExecutor().executeScript("arguments[0].click();", viewDetailsButton);
+            webJavascriptExecutor().executeScript("arguments[0].click();", viewDetailsButton);
             Pages.WebCommon().waitForElementsInteractions();
             test.log(Status.PASS, " View Detail button gets clicked successfully");
             WebElement enterQuantity = driver.findElement(By.xpath(String.format(enterQty, i)));

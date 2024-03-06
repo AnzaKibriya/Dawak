@@ -69,11 +69,11 @@ public class HomeDP {
     }
 
     public void moveToInProgress() {
-        javascriptExecutor().executeScript("arguments[0].click();", assignButton);
+        webJavascriptExecutor().executeScript("arguments[0].click();", assignButton);
         test.log(Status.PASS, "successfully clicked on  assignButton");
         Pages.WebCommon().waitForLoaderInvisibility();
         test.log(Status.PASS, "Navigated to  in Inprogress tab");
-        javascriptExecutor().executeScript("arguments[0].click();", inProgressTabButton);
+        webJavascriptExecutor().executeScript("arguments[0].click();", inProgressTabButton);
         Pages.WebCommon().waitForLoaderInvisibility();
         webWait.until(ExpectedConditions.visibilityOf(encounterNumberInProgressPage));
         search.sendKeys(prescriptionOrderID);
@@ -81,16 +81,16 @@ public class HomeDP {
         test.log(Status.PASS, "Encounter text verified in Inprogress tab");
         Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskNameDP"));
         test.log(Status.PASS, "TaskName text Verified in Inprogress tab");
-        javascriptExecutor().executeScript("arguments[0].click();", detailButton);
+        webJavascriptExecutor().executeScript("arguments[0].click();", detailButton);
     }
 
 
     public void verifyOrderInDispensingInProgress()
     {
-        javascriptExecutor().executeScript("arguments[0].click();", dispensingInProgressTab);
+        webJavascriptExecutor().executeScript("arguments[0].click();", dispensingInProgressTab);
         Pages.WebCommon().waitForLoaderInvisibility();
         search.sendKeys(prescriptionOrderID);
-        javascriptExecutor().executeScript("arguments[0].click();", detailButton);
+        webJavascriptExecutor().executeScript("arguments[0].click();", detailButton);
     }
 }
 

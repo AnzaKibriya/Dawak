@@ -69,11 +69,11 @@ public class Home {
     }
 
     public void moveOrderToInProgressStateAndVerify() {
-        javascriptExecutor().executeScript("arguments[0].click();", assignButton);
+        webJavascriptExecutor().executeScript("arguments[0].click();", assignButton);
         test.log(Status.PASS, "successfully clicked on  assignButton");
         Pages.WebCommon().waitForLoaderInvisibility();
         test.log(Status.PASS, "Navigated to  in Inprogress tab");
-        javascriptExecutor().executeScript("arguments[0].click();", inProgressTabButton);
+        webJavascriptExecutor().executeScript("arguments[0].click();", inProgressTabButton);
         Pages.WebCommon().waitForLoaderInvisibility();
         webWait.until(ExpectedConditions.visibilityOf(encounterNumberInProgressPage));
         search.sendKeys(prescriptionOrderID);
@@ -86,7 +86,7 @@ public class Home {
     public void verifyReAssign() {
         unAssign.click();
         Pages.WebCommon().waitForLoaderInvisibility();
-        javascriptExecutor().executeScript("arguments[0].click();", toDo);
+        webJavascriptExecutor().executeScript("arguments[0].click();", toDo);
         Pages.WebCommon().waitForLoaderInvisibility();
         test.log(Status.PASS, "Reassign functionality passed");
     }

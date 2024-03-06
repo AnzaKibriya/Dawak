@@ -7,10 +7,7 @@ import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.google.common.io.Files;
-import io.appium.java_client.Setting;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.options.UiAutomator2Options;
-import model.*;
 import okhttp3.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -19,10 +16,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
 
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
@@ -48,7 +41,7 @@ public class BaseClass {
     public static WebDriverWait mobileWait;
     public static WebDriverWait webWait;
     public static String prescriptionOrderID;
-    public static String accessToken = "";
+    public static String accessToken;
     public static OkHttpClient client;
     public static String loginWindow;
     public static String otpText;
@@ -59,10 +52,6 @@ public class BaseClass {
     @BeforeSuite
     public void setUp() throws MalformedURLException {
         client = new OkHttpClient();
-//        accessToken = LoginApiCall.makeLoginApiCall();
-//        prescriptionOrderID = generateRandomNumericString();
-//        System.out.println(prescriptionOrderID);
-//        PrescriptionApiCall.makePrescriptionApiCall(accessToken, prescriptionOrderID);
         androidDriver = new AndroidDriver(new URL("http://localhost:4723"), getAPKOptions());
         androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         driver = new ChromeDriver();
@@ -114,8 +103,12 @@ public class BaseClass {
         }
     }
 
-    public static JavascriptExecutor javascriptExecutor() {
+    public static JavascriptExecutor webJavascriptExecutor() {
         return (JavascriptExecutor) driver;
+    }
+
+    public static JavascriptExecutor mobileJavascriptExecutor() {
+        return (JavascriptExecutor) androidDriver;
     }
 
     public String generateRandomNumericString() {

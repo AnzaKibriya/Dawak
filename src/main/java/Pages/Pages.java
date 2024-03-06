@@ -34,8 +34,8 @@ public class Pages {
         return pg;
     }
 
-    public static AndroidAppLogin AndroidAppLogin() {
-        AndroidAppLogin pg = new AndroidAppLogin(BaseClass.androidDriver);
+    public static DawakAppLogin AndroidAppLogin() {
+        DawakAppLogin pg = new DawakAppLogin(BaseClass.androidDriver);
         PageFactory.initElements(BaseClass.androidDriver, pg);
         return pg;
     }
@@ -79,6 +79,18 @@ public class Pages {
     public static ReadyForDelivery ReadyForDelivery() {
         ReadyForDelivery pg = new ReadyForDelivery(BaseClass.driver);
         PageFactory.initElements(BaseClass.driver, pg);
+        return pg;
+    }
+
+    public static DawakAppPrescriptionPage DawakAppPrescriptionPage() {
+        DawakAppPrescriptionPage pg = new DawakAppPrescriptionPage(BaseClass.androidDriver);
+        PageFactory.initElements(BaseClass.androidDriver, pg);
+        return pg;
+    }
+
+    public static DawakAppPaymentPage DawakAppPaymentPage(){
+        DawakAppPaymentPage pg = new DawakAppPaymentPage(BaseClass.androidDriver);
+        PageFactory.initElements(BaseClass.androidDriver, pg);
         return pg;
     }
 
