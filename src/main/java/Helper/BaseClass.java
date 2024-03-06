@@ -47,7 +47,6 @@ public class BaseClass {
     public static String otpText;
     public static SoftAssert softAssert;
     public static AndroidDriver androidDriver;
-    public static DevTools devTools;
 
     @BeforeSuite
     public void setUp() throws MalformedURLException {
@@ -111,8 +110,8 @@ public class BaseClass {
         return (JavascriptExecutor) androidDriver;
     }
 
-    public String generateRandomNumericString() {
-        int length = 10;
+    public static String generateRandomNumericString() {
+        int length = 8;
         StringBuilder numericString = new StringBuilder();
         Random random = new Random();
         for (int i = 0; i < length; i++) {

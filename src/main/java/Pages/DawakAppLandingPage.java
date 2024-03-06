@@ -14,23 +14,33 @@ import org.testng.Assert;
 
 import java.util.HashMap;
 
-import static Helper.BaseClass.mobileWait;
-import static Helper.BaseClass.prescriptionOrderID;
+import static Helper.BaseClass.*;
 
 public class DawakAppLandingPage {
     AndroidDriver androidDriver;
     By activePrescriptionWidget = AppiumBy.androidUIAutomator("new UiSelector().resourceId(\"ae.purehealth.dawak.qa:id/card_v\").instance(1)");
-
+    By patientBtn = AppiumBy.id("ae.purehealth.dawak.qa:id/managePatient");
+    By cancelPrescriptionWidget = AppiumBy.androidUIAutomator("new UiSelector().resourceId(\"ae.purehealth.dawak.qa:id/card_v\").instance(3)");
     public DawakAppLandingPage(AndroidDriver androidDriver) {
         this.androidDriver = androidDriver;
     }
 
 
     public void openActivePrescription() throws InterruptedException {
-        Thread.sleep(7000);
+        Pages.MobileCommon().waitForAPIResponseToMirrorInAPP();
         mobileWait.until(ExpectedConditions.elementToBeClickable(activePrescriptionWidget)).click();
         Pages.MobileCommon().waitForLoaderInvisibility();
-        Thread.sleep(10000);
+        Pages.MobileCommon().waitForElementsInteractions();
+    }
+    public void navigateToPatientPage() {
+        mobileWait.until(ExpectedConditions.elementToBeClickable(patientBtn)).click();
+        Pages.MobileCommon().waitForLoaderInvisibility();
     }
 
+    public void openCancelPrescription() throws InterruptedException {
+        Pages.MobileCommon().waitForAPIResponseToMirrorInAPP();
+        mobileWait.until(ExpectedConditions.elementToBeClickable(cancelPrescriptionWidget)).click();
+        Pages.MobileCommon().waitForLoaderInvisibility();
+        Pages.MobileCommon().waitForElementsInteractions();
+    }
 }
