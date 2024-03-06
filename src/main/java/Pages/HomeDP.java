@@ -50,10 +50,10 @@ public class HomeDP {
         test.log(Status.PASS, "Header is Verified");
     }
 
-    public void SearchForOrder() {
+    public void SearchForOrder(String OrderId) {
         Pages.WebCommon().waitForLoaderInvisibility();
-        search.sendKeys(prescriptionOrderID);
-        Assert.assertEquals(encounterNumberTodoPage.getText(), prescriptionOrderID);
+        search.sendKeys(OrderId);
+        Assert.assertEquals(encounterNumberTodoPage.getText(), OrderId);
         test.log(Status.PASS, "Encounter text verified in Todo Tab");
         Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskNameDP"));
         test.log(Status.PASS, "TaskName text Verified in Todo Tab");

@@ -7,9 +7,7 @@ import com.aventstack.extentreports.markuputils.ExtentColor;
 import com.aventstack.extentreports.markuputils.MarkupHelper;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.google.common.io.Files;
-import io.appium.java_client.Setting;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.options.UiAutomator2Options;
 import model.*;
 import okhttp3.*;
 import org.openqa.selenium.*;
@@ -18,12 +16,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
-
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -54,7 +46,6 @@ public class BaseClass {
     public static String otpText;
     public static SoftAssert softAssert;
     public static AndroidDriver androidDriver;
-    public static DevTools devTools;
 
     @BeforeSuite
     public void setUp() throws MalformedURLException {
@@ -63,9 +54,9 @@ public class BaseClass {
        prescriptionOrderID = generateRandomNumericString();
         System.out.println(prescriptionOrderID);
       PrescriptionApiCall.makePrescriptionApiCall(accessToken, prescriptionOrderID);
-//        LoginDpApiCall.makeLoginApiCall();
-//        CreateOtpApiCall.createOtpApiCall();
-//        PutOTPApiCall.OTPApiCall();
+        LoginDpApiCall.makeLoginApiCall();
+        CreateOtpApiCall.createOtpApiCall();
+        PutOTPApiCall.OTPApiCall();
        androidDriver = new AndroidDriver(new URL("http://localhost:4723"), getAPKOptions());
        androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
         driver = new ChromeDriver();
@@ -94,8 +85,8 @@ public class BaseClass {
     }
 
     public static String screenshot(String filename) throws IOException {
-        TakesScreenshot ts = (TakesScreenshot) driver;
-        File obj = ts.getScreenshotAs(OutputType.FILE);
+        //TakesScreenshot ts = (TakesScreenshot) driver;
+        File obj = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         String destination = new File("target//" + filename + ".PNG").getAbsolutePath();
         Files.copy(obj, new File("./target//" + filename + ".PNG"));
         return destination;
@@ -118,7 +109,7 @@ public class BaseClass {
     }
 
     public static JavascriptExecutor javascriptExecutor() {
-        return (JavascriptExecutor) driver;
+        return  driver;
     }
 
     public String generateRandomNumericString() {

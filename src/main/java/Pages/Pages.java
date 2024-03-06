@@ -95,5 +95,11 @@ public class Pages {
         return pg;
     }
 
+    public static Profile Profile() {
+        Profile pg = new Profile(BaseClass.driver);
+        PageFactory.initElements(BaseClass.driver, pg);
+        return pg;
+    }
+
 
 }
