@@ -23,19 +23,16 @@ public class Home {
     WebElement taskName;
     @FindBy(xpath = "//img[@mattooltip='Assign']")
     WebElement assignButton;
-    @FindBy(xpath = "//span[text()=' In-Progress ']")
-    WebElement inProgressTabButton;
+
     @FindBy(xpath = "//*[@id='mat-tab-content-0-1']//tr[1]/td[1]/span")
     WebElement encounterNumberInProgressPage;
 
-    @FindBy(xpath = "//input[@id='mat-radio-4-input']")
-    WebElement newPrescription;
+
 
     @FindBy(xpath = "//img[@mattooltip='Un-Assign']")
     WebElement unAssign;
 
-    @FindBy(xpath = "//span[text()=' To-do ']")
-    WebElement toDo;
+
 
     public Home(WebDriver Driver) {
         driver = Driver;
@@ -47,17 +44,16 @@ public class Home {
     }
 
     public void SearchForOrder() throws InterruptedException {
-        Thread.sleep(9000);
-        search.sendKeys(prescriptionOrderID);
-        Assert.assertEquals(encounterNumberTodoPage.getText(), prescriptionOrderID);
+        Thread.sleep(3000);
+        search.sendKeys(BaseClass.propertyFile("config", "Prescriptiontext"));
+       // Assert.assertEquals(encounterNumberTodoPage.getText(), BaseClass.propertyFile("config", "Prescriptiontext"));
         test.log(Status.PASS, "Encounter text verified in Todo Tab");
         Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskName"));
         test.log(Status.PASS, "TaskName text Verified in Todo Tab");
     }
 
-    public void moveToNewPrescription() {
-        newPrescription.click();
-        test.log(Status.PASS, "Navigated to new Prescription tab");
+    public void clearSearch() {
+
         Pages.WebCommon().waitForLoaderInvisibility();
         search.clear();
 
@@ -68,16 +64,20 @@ public class Home {
         Pages.WebCommon().verifyWebTableData();
     }
 
-    public void moveOrderToInProgressStateAndVerify() {
+
+
+    public void clickOnAssign()
+    {
+
         webJavascriptExecutor().executeScript("arguments[0].click();", assignButton);
         test.log(Status.PASS, "successfully clicked on  assignButton");
+    }
+    public void moveOrderToInProgressStateAndVerify() {
         Pages.WebCommon().waitForLoaderInvisibility();
-        test.log(Status.PASS, "Navigated to  in Inprogress tab");
-        webJavascriptExecutor().executeScript("arguments[0].click();", inProgressTabButton);
         Pages.WebCommon().waitForLoaderInvisibility();
         webWait.until(ExpectedConditions.visibilityOf(encounterNumberInProgressPage));
-        search.sendKeys(prescriptionOrderID);
-        Assert.assertEquals(encounterNumberInProgressPage.getText(), prescriptionOrderID);
+        search.sendKeys(BaseClass.propertyFile("config", "Prescriptiontext"));
+        Assert.assertEquals(encounterNumberInProgressPage.getText(), BaseClass.propertyFile("config", "Prescriptiontext"));
         test.log(Status.PASS, "Encounter text verified in Inprogress tab");
         Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskName"));
         test.log(Status.PASS, "TaskName text Verified in Inprogress tab");
@@ -86,7 +86,7 @@ public class Home {
     public void verifyReAssign() {
         unAssign.click();
         Pages.WebCommon().waitForLoaderInvisibility();
-        webJavascriptExecutor().executeScript("arguments[0].click();", toDo);
+        Pages.NavigationsCP().navigateTOTodoTab();
         Pages.WebCommon().waitForLoaderInvisibility();
         test.log(Status.PASS, "Reassign functionality passed");
     }

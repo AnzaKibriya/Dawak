@@ -15,8 +15,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.Duration;
-
-import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -51,14 +49,14 @@ public class BaseClass {
     @BeforeSuite
     public void setUp() throws MalformedURLException {
         client = new OkHttpClient();
-        androidDriver = new AndroidDriver(new URL("http://localhost:4723"), getAPKOptions());
-        androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+      //  androidDriver = new AndroidDriver(new URL("http://localhost:4723"), getAPKOptions());
+       // androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         driver = new ChromeDriver();
         softAssert = new SoftAssert();
         extent = new ExtentReports();
         prop = new Properties();
         webWait = new WebDriverWait(driver, Duration.ofSeconds(120));
-        mobileWait = new WebDriverWait(androidDriver, Duration.ofSeconds(120));
+       // mobileWait = new WebDriverWait(androidDriver, Duration.ofSeconds(120));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         driver.manage().window().maximize();
         loginWindow = driver.getWindowHandle();
@@ -79,8 +77,7 @@ public class BaseClass {
     }
 
     public static String screenshot(String filename) throws IOException {
-        TakesScreenshot ts = (TakesScreenshot) driver;
-        File obj = ts.getScreenshotAs(OutputType.FILE);
+        File obj = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
         String destination = new File("target//" + filename + ".PNG").getAbsolutePath();
         Files.copy(obj, new File("./target//" + filename + ".PNG"));
         return destination;
@@ -103,11 +100,11 @@ public class BaseClass {
     }
 
     public static JavascriptExecutor webJavascriptExecutor() {
-        return (JavascriptExecutor) driver;
+        return  driver;
     }
 
     public static JavascriptExecutor mobileJavascriptExecutor() {
-        return (JavascriptExecutor) androidDriver;
+        return androidDriver;
     }
 
     public static String generateRandomNumericString() {
@@ -124,7 +121,7 @@ public class BaseClass {
     @AfterSuite
     public void tearDown() {
         extent.flush();
-        androidDriver.quit();
+      //  androidDriver.quit();
         driver.quit();
     }
 }

@@ -76,6 +76,19 @@ public class Pages {
         return pg;
     }
 
+    public static NavigationsCP NavigationsCP() {
+        NavigationsCP pg = new NavigationsCP(BaseClass.driver);
+        PageFactory.initElements(BaseClass.driver, pg);
+        return pg;
+    }
+
+    public static NavigationsDP NavigationsDP() {
+        NavigationsDP pg = new NavigationsDP(BaseClass.driver);
+        PageFactory.initElements(BaseClass.driver, pg);
+        return pg;
+    }
+
+
     public static ReadyForDelivery ReadyForDelivery() {
         ReadyForDelivery pg = new ReadyForDelivery(BaseClass.driver);
         PageFactory.initElements(BaseClass.driver, pg);
@@ -93,6 +106,12 @@ public class Pages {
         PageFactory.initElements(BaseClass.androidDriver, pg);
         return pg;
     }
+    public static Profile Profile() {
+        Profile pg = new Profile(BaseClass.driver);
+        PageFactory.initElements(BaseClass.driver, pg);
+        return pg;
+    }
+
 
     public static DawakAppPatientModule DawakAppPatientModule() {
         DawakAppPatientModule pg = new DawakAppPatientModule(BaseClass.androidDriver);

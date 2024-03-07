@@ -23,14 +23,10 @@ public class HomeDP {
     @FindBy(xpath = "//tr/td[2]")
     WebElement taskName;
 
-    @FindBy(xpath = "//a[text()='Task List ']")
-    WebElement taskList;
-
     @FindBy(xpath = "//i[@mattooltip='Assign']")
     WebElement assignButton;
 
-    @FindBy(xpath = "//span[text()=' In-Progress ']")
-    WebElement inProgressTabButton;
+
     @FindBy(xpath = "//*[@id='mat-tab-content-0-1']//tr[1]/td[1]/span")
     WebElement encounterNumberInProgressPage;
 
@@ -41,26 +37,22 @@ public class HomeDP {
     @FindBy(xpath = "//i[@mattooltip='Detail']")
     WebElement detailButton;
 
-    @FindBy(xpath = "//span[text()=' Dispensing In-Progress ']")
-    WebElement dispensingInProgressTab;
+
 
 
 
     public HomeDP(WebDriver Driver) {
         driver=Driver;
     }
-    public void verifyHomePageHeader() throws InterruptedException {
+    public void verifyHomePageHeader() {
         Pages.WebCommon().waitForLoaderInvisibility();
         Assert.assertEquals(homePageHeader.getText(), BaseClass.propertyFile("config", "HomepageHeaderDP"));
         test.log(Status.PASS, "Header is Verified");
-        Pages.WebCommon().waitForElementsInteractions();
-
     }
 
     public void SearchForOrder() {
         Pages.WebCommon().waitForLoaderInvisibility();
         search.sendKeys(prescriptionOrderID);
-        Pages.WebCommon().waitForLoaderInvisibility();
         Assert.assertEquals(encounterNumberTodoPage.getText(), prescriptionOrderID);
         test.log(Status.PASS, "Encounter text verified in Todo Tab");
         Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskNameDP"));
@@ -68,12 +60,16 @@ public class HomeDP {
         test.log(Status.PASS, "Order verified in TODO TAB");
     }
 
-    public void moveToInProgress() {
+
+    public void clickonAssign()
+    {
         webJavascriptExecutor().executeScript("arguments[0].click();", assignButton);
         test.log(Status.PASS, "successfully clicked on  assignButton");
         Pages.WebCommon().waitForLoaderInvisibility();
-        test.log(Status.PASS, "Navigated to  in Inprogress tab");
-        webJavascriptExecutor().executeScript("arguments[0].click();", inProgressTabButton);
+
+    }
+
+    public void moveToInprogressandVerify() {
         Pages.WebCommon().waitForLoaderInvisibility();
         webWait.until(ExpectedConditions.visibilityOf(encounterNumberInProgressPage));
         search.sendKeys(prescriptionOrderID);
@@ -81,17 +77,24 @@ public class HomeDP {
         test.log(Status.PASS, "Encounter text verified in Inprogress tab");
         Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskNameDP"));
         test.log(Status.PASS, "TaskName text Verified in Inprogress tab");
+    }
+
+    public void clickonDetailButtonInInprogressTab()
+    {
         webJavascriptExecutor().executeScript("arguments[0].click();", detailButton);
+
     }
 
 
-    public void verifyOrderInDispensingInProgress()
+    public void searchOrderInDispensingInProgress()
     {
-        webJavascriptExecutor().executeScript("arguments[0].click();", dispensingInProgressTab);
         Pages.WebCommon().waitForLoaderInvisibility();
         search.sendKeys(prescriptionOrderID);
+    }
+
+    public void clickDetailButtonInDispensingInprogress()
+    {
         webJavascriptExecutor().executeScript("arguments[0].click();", detailButton);
+
     }
 }
-
-
