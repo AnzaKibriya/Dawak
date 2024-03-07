@@ -5,9 +5,9 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import static Helper.BaseClass.*;
+import static Helper.BaseClass.webJavascriptExecutor;
+import static Helper.BaseClass.test;
 
 public class OrderDetailsDP {
 
@@ -34,23 +34,21 @@ public class OrderDetailsDP {
         Pages.WebCommon().waitForLoaderInvisibility();
         try {
             Pages.WebCommon().waitForElementsInteractions();
-            webJavascriptExecutor().executeScript("window.scrollBy(0, 700);"); // Scroll down by 500 pixels
             webJavascriptExecutor().executeScript("arguments[0].scrollIntoView(true);", dispencingOrder);
-            webWait.until(ExpectedConditions.elementToBeClickable(dispencingOrder));
             dispencingOrder.click();
 
         } catch (StaleElementReferenceException e) {
         }
 
         Pages.WebCommon().waitForLoaderInvisibility();
-        test.log(Status.PASS, "Navigated to Detail page and clicked on Dispensing started");
+        test.log(Status.PASS, "Navigated to Detail page and clicked on Despencing started");
     }
 
     public void orderReadyForDelivery() throws InterruptedException {
         Pages.WebCommon().waitForLoaderInvisibility();
         Pages.WebCommon().waitForElementsInteractions();
         webJavascriptExecutor().executeScript("arguments[0].click();", readyForDelivery);
-        webJavascriptExecutor().executeScript("arguments[0].click();", yesButton);
+       webJavascriptExecutor().executeScript("arguments[0].click();", yesButton);
         test.log(Status.PASS, "Navigated to Detail page and clicked on  Ready for Delivery");
     }
 }

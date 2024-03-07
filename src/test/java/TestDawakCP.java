@@ -17,33 +17,53 @@ public class TestDawakCP extends BaseClass {
     }
 
     @Test(priority = 2)
-    public void verifyOrderInTOdo() throws InterruptedException {
-        test = extent.createTest("Verify Making Order In TODO");
+    public void verifyOpeningProfile()
+    {
         Pages.Home().verifyHomePageHeader();
-        Pages.Home().SearchForOrder();
+        Pages.Profile().openProfile();
+
     }
 
     @Test(priority = 3)
+    public void verifyEditprofile() throws InterruptedException, AWTException {
+
+        Pages.Profile().editProfile();
+        Pages.Profile().uploadProfilePicture();
+        Pages.Profile().editName();
+    }
+
+
+    @Test(priority = 4)
+    public void verifyOrderInTOdo() throws InterruptedException{
+        test = extent.createTest("Verify Making Order In TODO");
+        Pages.WebCommon().waitForLoaderInvisibility();
+        Pages.Home().SearchForOrder();
+    }
+
+    @Test(priority = 5)
     public void verifyTodoColumnData() {
         test = extent.createTest("Verify Data present in Todo  column");
         Pages.Home().verifyDataInWebTable();
     }
 
-    @Test(priority = 4)
+    @Test(priority = 6)
     public void verifyMakingOrderInProgress() throws InterruptedException {
         test = extent.createTest("Verify Making Order In Progress State");
-        Pages.Home().moveToNewPrescription();
+        Pages.NavigationsCP().moveToNewPrescription();
+        Pages.Home().clearSearch();
         Pages.Home().SearchForOrder();
+        Pages.Home().clickOnAssign();
+        Pages.NavigationsCP().navigateTOInprogressTab();
         Pages.Home().moveOrderToInProgressStateAndVerify();
     }
 
-    @Test(priority = 5)
+    @Test(priority = 7)
     public void verifyInProgressColumnData() {
         test = extent.createTest("Verify Data present in  In-progress column");
         Pages.Home().verifyDataInWebTable();
     }
 
-   /* @Test(priority = 6)
+   /* @Test(priority = 8)
     public void verifyUnAssignFunctionality() throws InterruptedException {
         test = extent.createTest("Verify un-assign functionality");
         Pages.Home().verifyReAssign();
@@ -51,10 +71,10 @@ public class TestDawakCP extends BaseClass {
         Pages.Home().moveOrderToInProgressStateAndVerify();
     }*/
 
-    @Test(priority = 7)
-    public void verifyOrderDetails() throws InterruptedException {
+    @Test(priority = 9)
+    public void verifyOrderDetails()  {
         test = extent.createTest("Verify order details data and Header text ");
-        Pages.OrderDetails().openOrderDetailPage();
+        Pages.NavigationsCP().openOrderDetailPage();
         Pages.OrderDetails().verifyDeliveryDetailTable();
         Pages.OrderDetails().verifyBasicDetailTable();
         Pages.OrderDetails().verifyContactDetail();
@@ -65,14 +85,16 @@ public class TestDawakCP extends BaseClass {
         Pages.OrderDetails().verifyRemoveFunctionality();
     }
 
-    @Test(priority = 8)
-    public void verifyInsuranceApproval() throws InterruptedException, AWTException {
+    @Test(priority = 10)
+    public void verifyInsuranceApproval() throws InterruptedException {
         test = extent.createTest("Verify Insurance Approval functionality");
+        Pages.OrderDetails().clickOnSendInsurenceApproval();
+        Pages.NavigationsCP().navigateTOInsurenceInprogressTab();
         Pages.OrderDetails().verifySendInsuranceApproval();
         Pages.OrderDetails().approveMedicineInsurance();
     }
 
-    @Test(priority = 9)
+    @Test(priority = 11)
     public void verifyLogoutFunctionality() {
         test = extent.createTest("Logout Functionality");
         Pages.Logout().verifyLogout();
