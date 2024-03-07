@@ -37,7 +37,7 @@ public class TestDawakCP extends BaseClass {
     public void verifyOrderInTOdo() throws InterruptedException{
         test = extent.createTest("Verify Making Order In TODO");
         Pages.WebCommon().waitForLoaderInvisibility();
-        Pages.Home().SearchForOrder(prescriptionOrderID);
+        Pages.Home().SearchForOrder();
     }
 
     @Test(priority = 5)
@@ -51,7 +51,7 @@ public class TestDawakCP extends BaseClass {
         test = extent.createTest("Verify Making Order In Progress State");
         Pages.NavigationsCP().moveToNewPrescription();
         Pages.Home().clearSearch();
-        Pages.Home().SearchForOrder(prescriptionOrderID);
+        Pages.Home().SearchForOrder();
         Pages.Home().clickOnAssign();
         Pages.NavigationsCP().navigateTOInprogressTab();
         Pages.Home().moveOrderToInProgressStateAndVerify();

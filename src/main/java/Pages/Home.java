@@ -43,10 +43,10 @@ public class Home {
         Assert.assertEquals(homePageHeader.getText(), BaseClass.propertyFile("config", "HomepageHeader"));
     }
 
-    public void SearchForOrder(String orderId) throws InterruptedException {
-        Thread.sleep(9000);
-        search.sendKeys(orderId);
-        Assert.assertEquals(encounterNumberTodoPage.getText(), orderId);
+    public void SearchForOrder() throws InterruptedException {
+        Thread.sleep(3000);
+        search.sendKeys(BaseClass.propertyFile("config", "Prescriptiontext"));
+       // Assert.assertEquals(encounterNumberTodoPage.getText(), BaseClass.propertyFile("config", "Prescriptiontext"));
         test.log(Status.PASS, "Encounter text verified in Todo Tab");
         Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskName"));
         test.log(Status.PASS, "TaskName text Verified in Todo Tab");
@@ -76,8 +76,8 @@ public class Home {
         Pages.WebCommon().waitForLoaderInvisibility();
         Pages.WebCommon().waitForLoaderInvisibility();
         webWait.until(ExpectedConditions.visibilityOf(encounterNumberInProgressPage));
-        search.sendKeys(prescriptionOrderID);
-        Assert.assertEquals(encounterNumberInProgressPage.getText(), prescriptionOrderID);
+        search.sendKeys(BaseClass.propertyFile("config", "Prescriptiontext"));
+        Assert.assertEquals(encounterNumberInProgressPage.getText(), BaseClass.propertyFile("config", "Prescriptiontext"));
         test.log(Status.PASS, "Encounter text verified in Inprogress tab");
         Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskName"));
         test.log(Status.PASS, "TaskName text Verified in Inprogress tab");

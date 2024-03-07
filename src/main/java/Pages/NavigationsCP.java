@@ -10,7 +10,7 @@ import static Helper.BaseClass.test;
 
 public class NavigationsCP {
     WebDriver driver;
-    @FindBy(xpath = "//input[@id='mat-radio-4-input']")
+    @FindBy(xpath = "//mat-radio-button[3]/div/div/input")
     WebElement newPrescription;
 
     @FindBy(xpath = "//span[text()=' In-Progress ']")

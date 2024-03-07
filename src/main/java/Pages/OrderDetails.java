@@ -172,7 +172,7 @@ public class OrderDetails {
         driver.getCurrentUrl();
         Assert.assertEquals(driver.getCurrentUrl(), BaseClass.propertyFile("config", "InsuurenceInprogressUrl"));
         Pages.WebCommon().waitForLoaderInvisibility();
-        search.sendKeys(prescriptionOrderID);
+        search.sendKeys(BaseClass.propertyFile("config", "Prescriptiontext"));
         test.log(Status.PASS, " Verified Insurance approval request in Insurance in progress");
         details.click();
         Pages.WebCommon().waitForDetailedButtonClickable();
