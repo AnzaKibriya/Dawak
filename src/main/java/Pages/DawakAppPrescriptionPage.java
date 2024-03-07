@@ -40,50 +40,21 @@ public class DawakAppPrescriptionPage {
         mobileWait.until(ExpectedConditions.elementToBeClickable(goToHomeBtn)).click();
     }
 
-    public void clickOnProceedBtn(){
+    public void clickOnProceedBtn() {
         mobileWait.until(ExpectedConditions.elementToBeClickable(proceedBtn)).click();
         Pages.MobileCommon().waitForLoaderInvisibility();
     }
 
-    public void clickOnGoToPharmacy(){
+    public void clickOnGoToPharmacy() {
         mobileWait.until(ExpectedConditions.elementToBeClickable(goToPharmacyBtn)).click();
         Pages.MobileCommon().waitForLoaderInvisibility();
     }
 
-    public void cancelPrescription(){
+    public void cancelPrescription() {
         mobileWait.until(ExpectedConditions.elementToBeClickable(cancelPrescriptionReason)).click();
         mobileWait.until(ExpectedConditions.elementToBeClickable(submitBtn)).click();
         Pages.MobileCommon().waitForLoaderInvisibility();
         mobileWait.until(ExpectedConditions.elementToBeClickable(closeBtn)).click();
         Pages.MobileCommon().waitForLoaderInvisibility();
     }
-
-
-
-//    public void paymentProceed() throws InterruptedException {
-//        mobileWait.until(ExpectedConditions.elementToBeClickable(proceedBtn)).click();
-//        Pages.MobileCommon().waitForLoaderInvisibility();
-//        mobileWait.until(ExpectedConditions.elementToBeClickable(timeSlotDropDown)).click();
-//        Pages.MobileCommon().scrollInMobile(dateSlotScroll, "down", "80");
-////        HashMap<String, String> scrollObject = new HashMap<String, String>();
-////        scrollObject.put("direction", "down");
-////        scrollObject.put("element", ((RemoteWebElement) element).getId());
-////        scrollObject.put("percent", "80");
-////        mobileJavascriptExecutor().executeScript("mobile: scrollGesture", scrollObject);
-//        mobileWait.until(ExpectedConditions.visibilityOfElementLocated(timeSlotCheckBox));
-//        mobileWait.until(ExpectedConditions.elementToBeClickable(timeSlotCheckBox)).click();
-//        mobileWait.until(ExpectedConditions.elementToBeClickable(confirmTimeSlotBtn)).click();
-//        Pages.MobileCommon().waitForLoaderInvisibility();
-//        Pages.MobileCommon().scrollInMobile(pageScroll, "down", "80");
-////        HashMap<String, String> scrollObject1 = new HashMap<String, String>();
-////        scrollObject1.put("direction", "down");
-////        scrollObject1.put("element", ((RemoteWebElement) element1).getId());
-////        scrollObject1.put("percent", "80");
-////        mobileJavascriptExecutor().executeScript("mobile: scrollGesture", scrollObject1);
-//        Pages.MobileCommon().waitForElementsInteractions();
-//        mobileWait.until(ExpectedConditions.elementToBeClickable(placeOrderBtn)).click();
-//        Pages.MobileCommon().waitForElementsInteractions();
-//        mobileWait.until(ExpectedConditions.visibilityOfElementLocated(goToHomeAfterPayment));
-//        mobileWait.until(ExpectedConditions.elementToBeClickable(goToHomeAfterPayment)).click();
-//    }
 }

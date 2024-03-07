@@ -88,14 +88,14 @@ public class Pages {
         return pg;
     }
 
-    public static DawakAppPaymentPage DawakAppPaymentPage() {
-        DawakAppPaymentPage pg = new DawakAppPaymentPage(BaseClass.androidDriver);
+    public static DawakAppPatientModule DawakAppPatientModule() {
+        DawakAppPatientModule pg = new DawakAppPatientModule(BaseClass.androidDriver);
         PageFactory.initElements(BaseClass.androidDriver, pg);
         return pg;
     }
 
-    public static DawakAppPatientModule DawakAppPatientModule() {
-        DawakAppPatientModule pg = new DawakAppPatientModule(BaseClass.androidDriver);
+    public static DawakAppPaymentModule DawakAppPaymentModule() {
+        DawakAppPaymentModule pg = new DawakAppPaymentModule(BaseClass.androidDriver);
         PageFactory.initElements(BaseClass.androidDriver, pg);
         return pg;
     }

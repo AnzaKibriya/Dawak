@@ -8,31 +8,33 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static Helper.BaseClass.mobileWait;
 
-public class DawakAppPaymentPage {
+public class DawakAppPaymentModule {
     AndroidDriver androidDriver;
-    WebElement dateSlotScroll = (WebElement) androidDriver.findElement(By.id("ae.purehealth.dawak.qa:id/rvDatesSlots"));
-    WebElement pageScroll = (WebElement) androidDriver.findElement(By.id("ae.purehealth.dawak.qa:id/root_view"));
     By timeSlotDropDown = AppiumBy.androidUIAutomator("new UiSelector().resourceId(\"ae.purehealth.dawak.qa:id/choose_time_slot_v\")");
     By timeSlotCheckBox = AppiumBy.androidUIAutomator("new UiSelector().textContains(\"10:00 PM - 10:30 PM\")");
     By confirmTimeSlotBtn = AppiumBy.id("ae.purehealth.dawak.qa:id/button3");
     By goToHomeAfterPayment = AppiumBy.xpath("//android.widget.Button[@text='GO TO HOME']");
     By placeOrderBtn = AppiumBy.id("ae.purehealth.dawak.qa:id/place_order_btn");
+    String dateSlotScroll = "ae.purehealth.dawak.qa:id/rvDatesSlots";
+    String pageScroll = "ae.purehealth.dawak.qa:id/root_view";
 
-    public DawakAppPaymentPage(AndroidDriver androidDriver) {
+    public DawakAppPaymentModule(AndroidDriver androidDriver) {
         this.androidDriver = androidDriver;
     }
 
-    public void selectTimeSlotForDelivery(){
+    public void selectTimeSlotForDelivery() {
         mobileWait.until(ExpectedConditions.elementToBeClickable(timeSlotDropDown)).click();
-        Pages.MobileCommon().scrollInMobile(dateSlotScroll, "down", "80");
+        WebElement timeScroll = androidDriver.findElement(By.id(String.format(dateSlotScroll)));
+        Pages.MobileCommon().scrollInMobile(timeScroll, "down", "80");
         mobileWait.until(ExpectedConditions.visibilityOfElementLocated(timeSlotCheckBox));
         mobileWait.until(ExpectedConditions.elementToBeClickable(timeSlotCheckBox)).click();
         mobileWait.until(ExpectedConditions.elementToBeClickable(confirmTimeSlotBtn)).click();
         Pages.MobileCommon().waitForLoaderInvisibility();
     }
 
-    public void placeOrderSuccessfully()throws InterruptedException {
-        Pages.MobileCommon().scrollInMobile(pageScroll, "down", "80");
+    public void placeOrderSuccessfully() throws InterruptedException {
+        WebElement scrollPage = androidDriver.findElement(By.id(String.format(pageScroll)));
+        Pages.MobileCommon().scrollInMobile(scrollPage, "down", "80");
         Pages.MobileCommon().waitForElementsInteractions();
         mobileWait.until(ExpectedConditions.elementToBeClickable(placeOrderBtn)).click();
         Pages.MobileCommon().waitForElementsInteractions();
