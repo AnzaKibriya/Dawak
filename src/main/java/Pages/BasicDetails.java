@@ -6,36 +6,22 @@ import com.google.gson.JsonParser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
-import org.testng.Assert;
 import Enum.ContactInformation;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-
 import Enum.BasicInformationEnum;
-
-import static Helper.BaseClass.test;
-
-
 public class BasicDetails {
-
     WebDriver driver;
-
     @FindBy(xpath = "//h5[text()='Basic Info']")
     WebElement basicInfoButton;
-
     String basicInString = "//div[contains(text(), '%s')]/following-sibling::div";
-
     @FindBy(xpath = "//div[@class='custom-class-for-accordion-con collapse-div-header']")
     WebElement contactInfoButton;
-
     JsonObject patient;
-
     public BasicDetails(WebDriver Driver) {
         driver = Driver;
     }
-
     public void loadJson() throws FileNotFoundException {
         JsonParser jsonParser = new JsonParser();
         FileReader reader;
@@ -45,7 +31,6 @@ public class BasicDetails {
         // Extract patient information
         patient = jsonObject.getAsJsonObject("patient");
     }
-
     public void verifyBasicDetailTable() throws FileNotFoundException {
         basicInfoButton.click();
         BasicInformationEnum[] BasicInformationEnums = BasicInformationEnum.values();
@@ -64,11 +49,11 @@ public class BasicDetails {
                     String fullname = firstName + middleName + lastName;
                     String fullnamewithoutspace = fullname.replaceAll("\\s", "");
                     String fullnameUI = basicInfo.getText().replaceAll("\\s", "");
-                  Pages.WebCommon().assertjson(fullnameUI, fullnamewithoutspace);
+                    Pages.WebCommon().assertjson(fullnameUI, fullnamewithoutspace);
                     break;
                 case 1:
                     String eid = patient.getAsJsonPrimitive("eid").getAsString();
-                   Pages.WebCommon().assertjson(basicInfo.getText(), eid);
+                    Pages.WebCommon().assertjson(basicInfo.getText(), eid);
                     break;
                 case 2:
                     String mrn = patient.getAsJsonPrimitive("mrn").getAsString();
@@ -129,24 +114,21 @@ public class BasicDetails {
 
     }
 
-
-
     public void contactDetailsTable() throws FileNotFoundException {
         contactInfoButton.click();
         ContactInformation[] contactInformations = ContactInformation.values();
         for (int i = 0; i <= contactInformations.length - 1; i++) {
             WebElement contactInfo = driver.findElement(By.xpath(String.format(basicInString, contactInformations[i].value)));
             loadJson();
-            switch (i)
-            {
+            switch (i) {
                 case 0:
                     String phoneNumber = patient.getAsJsonPrimitive("phoneNumber").getAsString();
                     System.out.println(contactInfo.getText());
                     System.out.println(phoneNumber);
-                    Pages.WebCommon().assertjson(contactInfo.getText(),phoneNumber);
+                    Pages.WebCommon().assertjson(contactInfo.getText(), phoneNumber);
                     break;
                 case 1:
-                    Pages.WebCommon().assertjson(contactInfo.getText(),"+971502201010");
+                    Pages.WebCommon().assertjson(contactInfo.getText(), "+971502201010");
                     break;
                 default:
                     System.out.println("value not found");
@@ -155,7 +137,6 @@ public class BasicDetails {
         }
 
     }
-
 
 
 }
