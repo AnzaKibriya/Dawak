@@ -3,6 +3,7 @@ import Pages.Pages;
 import org.testng.annotations.Test;
 
 import java.awt.*;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class TestDawakCP extends BaseClass {
@@ -37,7 +38,7 @@ public class TestDawakCP extends BaseClass {
     public void verifyOrderInTOdo() throws InterruptedException{
         test = extent.createTest("Verify Making Order In TODO");
         Pages.WebCommon().waitForLoaderInvisibility();
-        Pages.Home().SearchForOrder();
+        Pages.Home().SearchForOrder(prescriptionOrderID);
     }
 
     @Test(priority = 5)
@@ -51,7 +52,7 @@ public class TestDawakCP extends BaseClass {
         test = extent.createTest("Verify Making Order In Progress State");
         Pages.NavigationsCP().moveToNewPrescription();
         Pages.Home().clearSearch();
-        Pages.Home().SearchForOrder();
+        Pages.Home().SearchForOrder(prescriptionOrderID);
         Pages.Home().clickOnAssign();
         Pages.NavigationsCP().navigateTOInprogressTab();
         Pages.Home().moveOrderToInProgressStateAndVerify();
@@ -72,11 +73,11 @@ public class TestDawakCP extends BaseClass {
     }*/
 
     @Test(priority = 9)
-    public void verifyOrderDetails()  {
+    public void verifyOrderDetails() throws FileNotFoundException {
         test = extent.createTest("Verify order details data and Header text ");
         Pages.NavigationsCP().openOrderDetailPage();
         Pages.OrderDetails().verifyDeliveryDetailTable();
-        Pages.OrderDetails().verifyBasicDetailTable();
+        Pages.BasicDetails().verifyBasicDetailTable();
         Pages.OrderDetails().verifyContactDetail();
         Pages.OrderDetails().verifyOrderDetailTable();
         Pages.OrderDetails().verifyOrderDetailsHeader();
