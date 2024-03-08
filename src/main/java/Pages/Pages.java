@@ -119,8 +119,8 @@ public class Pages {
         return pg;
     }
 
-    public static BasicDetails BasicDetails() {
-        BasicDetails pg = new BasicDetails(BaseClass.driver);
+    public static PatientInformation PatientInformation() {
+        PatientInformation pg = new PatientInformation(BaseClass.driver);
         PageFactory.initElements(BaseClass.driver, pg);
         return pg;
     }

@@ -20,7 +20,7 @@ public class TestDawakCP extends BaseClass {
     @Test(priority = 2)
     public void verifyOpeningProfile() throws FileNotFoundException {
         Pages.Home().verifyHomePageHeader();
-        Pages.Profile().openProfile();
+         Pages.Profile().openProfile();
 
     }
 
@@ -76,8 +76,9 @@ public class TestDawakCP extends BaseClass {
         test = extent.createTest("Verify order details data and Header text ");
         Pages.NavigationsCP().openOrderDetailPage();
         Pages.OrderDetails().verifyDeliveryDetailTable();
-        Pages.BasicDetails().verifyBasicDetailTable();
-        Pages.BasicDetails().contactDetailsTable();
+        Pages.PatientInformation().verifyBasicDetailTable();
+        Pages.PatientInformation().contactDetailsTable();
+        Pages.PatientInformation().userDetailsValidation();
         Pages.OrderDetails().verifyOrderDetailTable();
         Pages.OrderDetails().verifyOrderDetailsHeader();
         Pages.OrderDetails().verifyTrackDetailTable();

@@ -1,6 +1,9 @@
 package Pages;
 
 import com.aventstack.extentreports.Status;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,6 +11,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.List;
 
 import static Helper.BaseClass.*;
@@ -25,8 +30,10 @@ public class WebCommon {
 
     String loader = "//ngx-spinner//img";
 
+   static public JsonObject patient;
+   static public JsonObject order;
 
-    public WebCommon(WebDriver Driver) {
+   public WebCommon(WebDriver Driver) {
         driver = Driver;
 
     }
@@ -81,6 +88,19 @@ public class WebCommon {
 
     public void assertjson(String expected, String actual) {
         Assert.assertEquals(expected, actual);
+    }
+
+    public void loadJson(String path) throws FileNotFoundException {
+        JsonParser jsonParser = new JsonParser();
+        FileReader reader;
+        reader = new FileReader(path);
+        Gson gson = new Gson();
+        JsonObject jsonObject = gson.fromJson(reader, JsonObject.class);
+        // Extract patient information
+        patient = jsonObject.getAsJsonObject("patient");
+        order = jsonObject.getAsJsonObject("order");
+
+
     }
 
 }

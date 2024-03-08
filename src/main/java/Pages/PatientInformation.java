@@ -1,8 +1,10 @@
 package Pages;
 
+import com.aventstack.extentreports.Status;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import model.Patient;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,33 +13,40 @@ import Enum.ContactInformation;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import Enum.BasicInformationEnum;
-public class BasicDetails {
+import Enum.UserDetailsEnum;
+
+import static Helper.BaseClass.prescriptionOrderID;
+import static Helper.BaseClass.test;
+import static Pages.WebCommon.order;
+import static Pages.WebCommon.patient;
+
+public class PatientInformation {
+
     WebDriver driver;
+
     @FindBy(xpath = "//h5[text()='Basic Info']")
     WebElement basicInfoButton;
     String basicInString = "//div[contains(text(), '%s')]/following-sibling::div";
+
+    String userDetail = "//h5[contains(text(), '%s')]/following-sibling::h5";
     @FindBy(xpath = "//div[@class='custom-class-for-accordion-con collapse-div-header']")
     WebElement contactInfoButton;
-    JsonObject patient;
-    public BasicDetails(WebDriver Driver) {
+
+
+    String createOrderPath = "./src/main/resources/CreatingOrder.json";
+
+    public PatientInformation(WebDriver Driver) {
         driver = Driver;
     }
-    public void loadJson() throws FileNotFoundException {
-        JsonParser jsonParser = new JsonParser();
-        FileReader reader;
-        reader = new FileReader("./src/main/resources/CreatingOrder.json");
-        Gson gson = new Gson();
-        JsonObject jsonObject = gson.fromJson(reader, JsonObject.class);
-        // Extract patient information
-        patient = jsonObject.getAsJsonObject("patient");
-    }
+
+
     public void verifyBasicDetailTable() throws FileNotFoundException {
         basicInfoButton.click();
         BasicInformationEnum[] BasicInformationEnums = BasicInformationEnum.values();
         System.out.println(BasicInformationEnums.length + "enum length");
         for (int i = 0; i <= BasicInformationEnums.length - 1; i++) {
             WebElement basicInfo = driver.findElement(By.xpath(String.format(basicInString, BasicInformationEnums[i].value)));
-            loadJson();
+            Pages.WebCommon().loadJson(createOrderPath);
             switch (i) {
                 case 0:
                     String firstName = patient.getAsJsonPrimitive("firstName").getAsString();
@@ -111,15 +120,16 @@ public class BasicDetails {
 
 
         }
+        test.log(Status.PASS, " verified Basic Details");
+
 
     }
-
     public void contactDetailsTable() throws FileNotFoundException {
         contactInfoButton.click();
         ContactInformation[] contactInformations = ContactInformation.values();
         for (int i = 0; i <= contactInformations.length - 1; i++) {
             WebElement contactInfo = driver.findElement(By.xpath(String.format(basicInString, contactInformations[i].value)));
-            loadJson();
+            Pages.WebCommon().loadJson(createOrderPath);
             switch (i) {
                 case 0:
                     String phoneNumber = patient.getAsJsonPrimitive("phoneNumber").getAsString();
@@ -134,12 +144,61 @@ public class BasicDetails {
                     System.out.println("value not found");
             }
 
+
         }
+        test.log(Status.PASS, " verified Contact Details");
+
 
     }
 
+    public void userDetailsValidation() throws FileNotFoundException {
+        UserDetailsEnum[] userData=UserDetailsEnum.values();
+        for(int i=0;i<=userData.length-1;i++)
+        {
+            WebElement userInfo=driver.findElement(By.xpath(String.format(userDetail,userData[i].value)));
+            Pages.WebCommon().loadJson(createOrderPath);
+            switch (i)
+            {
+                case 0:
+                    Pages.WebCommon().assertjson(userInfo.getText(),prescriptionOrderID);
+                    break;
+                case 1:
+                    String prescriberValue = order
+                            .getAsJsonObject("physician")
+                            .getAsJsonPrimitive("prescriber")
+                            .getAsString();
+                    Pages.WebCommon().assertjson(userInfo.getText(),prescriberValue);
+                    break;
+                case 2:
+                    String orderLocationValue = order
+                            .getAsJsonObject("orderLocation")
+                            .getAsJsonPrimitive("value")
+                            .getAsString();
+                    Pages.WebCommon().assertjson(userInfo.getText(),orderLocationValue);
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                default:
+                    System.out.println("vale not found");
+            }
 
+
+
+        }
+        test.log(Status.PASS, " verified user Details");
+
+
+    }
 }
+
+
+
+
+
+
+
 
 
 
