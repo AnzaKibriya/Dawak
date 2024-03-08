@@ -9,7 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
-
+import Enum.ContactInformation;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
@@ -27,9 +27,23 @@ public class BasicDetails {
 
     String basicInString = "//div[contains(text(), '%s')]/following-sibling::div";
 
+    @FindBy(xpath = "//div[@class='custom-class-for-accordion-con collapse-div-header']")
+    WebElement contactInfoButton;
+
+    JsonObject patient;
 
     public BasicDetails(WebDriver Driver) {
         driver = Driver;
+    }
+
+    public void loadJson() throws FileNotFoundException {
+        JsonParser jsonParser = new JsonParser();
+        FileReader reader;
+        reader = new FileReader("./src/main/resources/CreatingOrder.json");
+        Gson gson = new Gson();
+        JsonObject jsonObject = gson.fromJson(reader, JsonObject.class);
+        // Extract patient information
+        patient = jsonObject.getAsJsonObject("patient");
     }
 
     public void verifyBasicDetailTable() throws FileNotFoundException {
@@ -38,17 +52,7 @@ public class BasicDetails {
         System.out.println(BasicInformationEnums.length + "enum length");
         for (int i = 0; i <= BasicInformationEnums.length - 1; i++) {
             WebElement basicInfo = driver.findElement(By.xpath(String.format(basicInString, BasicInformationEnums[i].value)));
-            System.out.println(basicInfo.getText());
-            JsonParser jsonParser = new JsonParser();
-            FileReader reader;
-            reader = new FileReader("./src/main/resources/CreatingOrder.json");
-            Gson gson = new Gson();
-            JsonObject jsonObject = gson.fromJson(reader, JsonObject.class);
-            // Extract patient information
-            JsonObject patient = jsonObject.getAsJsonObject("patient");
-            // Pretty-print patient information
-            String patientJsonString = gson.toJson(patient);
-
+            loadJson();
             switch (i) {
                 case 0:
                     String firstName = patient.getAsJsonPrimitive("firstName").getAsString();
@@ -60,15 +64,15 @@ public class BasicDetails {
                     String fullname = firstName + middleName + lastName;
                     String fullnamewithoutspace = fullname.replaceAll("\\s", "");
                     String fullnameUI = basicInfo.getText().replaceAll("\\s", "");
-                    assertjson(fullnameUI, fullnamewithoutspace);
+                  Pages.WebCommon().assertjson(fullnameUI, fullnamewithoutspace);
                     break;
                 case 1:
                     String eid = patient.getAsJsonPrimitive("eid").getAsString();
-                    assertjson(basicInfo.getText(), eid);
+                   Pages.WebCommon().assertjson(basicInfo.getText(), eid);
                     break;
                 case 2:
                     String mrn = patient.getAsJsonPrimitive("mrn").getAsString();
-                    Assert.assertEquals(basicInfo.getText(), mrn);
+                    Pages.WebCommon().assertjson(basicInfo.getText(), mrn);
                     break;
                 case 3:
                     String dob = patient.getAsJsonPrimitive("dob").getAsString();
@@ -83,21 +87,21 @@ public class BasicDetails {
                     break;
                 case 5:
                     String patGender = patient.getAsJsonPrimitive("patGender").getAsString();
-                    assertjson(basicInfo.getText(), patGender);
+                    Pages.WebCommon().assertjson(basicInfo.getText(), patGender);
                     break;
                 case 6:
                     String maritalStatusValue = patient
                             .getAsJsonObject("maritalStatus")
                             .getAsJsonPrimitive("value")
                             .getAsString();
-                    assertjson(basicInfo.getText(), maritalStatusValue);
+                    Pages.WebCommon().assertjson(basicInfo.getText(), maritalStatusValue);
                     break;
                 case 7:
                     String nationalityValue = patient
                             .getAsJsonObject("nationality")
                             .getAsJsonPrimitive("value")
                             .getAsString();
-                    assertjson(basicInfo.getText(), nationalityValue);
+                    Pages.WebCommon().assertjson(basicInfo.getText(), nationalityValue);
                     break;
 
                 case 8:
@@ -105,15 +109,15 @@ public class BasicDetails {
                             .getAsJsonObject("language")
                             .getAsJsonPrimitive("value")
                             .getAsString();
-                    assertjson(basicInfo.getText(), languageValue);
+                    Pages.WebCommon().assertjson(basicInfo.getText(), languageValue);
                     break;
                 case 9:
                     String cmrn = patient.getAsJsonPrimitive("cmrn").getAsString();
-                    assertjson(basicInfo.getText(), cmrn);
+                    Pages.WebCommon().assertjson(basicInfo.getText(), cmrn);
                     break;
                 case 10:
                     String passportNumber = patient.getAsJsonPrimitive("passportNumber").getAsString();
-                    assertjson(basicInfo.getText(), passportNumber);
+                    Pages.WebCommon().assertjson(basicInfo.getText(), passportNumber);
                     break;
                 default:
                     System.out.println("value not found");
@@ -125,9 +129,35 @@ public class BasicDetails {
 
     }
 
-    public void assertjson(String expected, String actual) {
-        Assert.assertEquals(expected, actual);
+
+
+    public void contactDetailsTable() throws FileNotFoundException {
+        contactInfoButton.click();
+        ContactInformation[] contactInformations = ContactInformation.values();
+        for (int i = 0; i <= contactInformations.length - 1; i++) {
+            WebElement contactInfo = driver.findElement(By.xpath(String.format(basicInString, contactInformations[i].value)));
+            loadJson();
+            switch (i)
+            {
+                case 0:
+                    String phoneNumber = patient.getAsJsonPrimitive("phoneNumber").getAsString();
+                    System.out.println(contactInfo.getText());
+                    System.out.println(phoneNumber);
+                    Pages.WebCommon().assertjson(contactInfo.getText(),phoneNumber);
+                    break;
+                case 1:
+                    Pages.WebCommon().assertjson(contactInfo.getText(),"+971502201010");
+                    break;
+                default:
+                    System.out.println("value not found");
+            }
+
+        }
+
     }
+
+
+
 }
 
 

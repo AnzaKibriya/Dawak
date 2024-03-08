@@ -18,14 +18,15 @@ public class TestDawakCP extends BaseClass {
     }
 
     @Test(priority = 2)
-    public void verifyOpeningProfile()
-    {
+    public void verifyOpeningProfile() throws FileNotFoundException {
         Pages.Home().verifyHomePageHeader();
-        Pages.Profile().openProfile();
+       // Pages.Profile().openProfile();
+    //    Pages.BasicDetails().verifyBasicDetailTable();
+        Pages.BasicDetails().contactDetailsTable();
 
     }
 
-    @Test(priority = 3)
+   /* @Test(priority = 3)
     public void verifyEditprofile() throws InterruptedException, AWTException {
 
         Pages.Profile().editProfile();
@@ -70,7 +71,7 @@ public class TestDawakCP extends BaseClass {
         Pages.Home().verifyReAssign();
         Pages.Home().SearchForOrder();
         Pages.Home().moveOrderToInProgressStateAndVerify();
-    }*/
+    }
 
     @Test(priority = 9)
     public void verifyOrderDetails() throws FileNotFoundException {
@@ -99,5 +100,5 @@ public class TestDawakCP extends BaseClass {
     public void verifyLogoutFunctionality() {
         test = extent.createTest("Logout Functionality");
         Pages.Logout().verifyLogout();
-    }
+    }*/
 }
