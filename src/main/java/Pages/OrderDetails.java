@@ -77,20 +77,12 @@ public class OrderDetails {
     @FindBy(xpath = "//img[@mattooltip='Details']")
     WebElement details;
 
-    @FindBy(xpath = "//h5[text()='Basic Info']")
-    WebElement basicInfoButton;
 
     @FindBy(xpath = "//span[normalize-space()='Co Pay']")
     WebElement coPay;
 
-    @FindBy(xpath = "//div[@class='custom-class-for-accordion-con collapse-div-header']")
-    WebElement contactInfoButton;
-
     @FindBy(xpath = "//span[normalize-space()='Task Complete']")
     WebElement taskCompletedButton;
-
-    @FindBy(xpath = "(//mat-drawer[@tabindex='-1'])[2]")
-    WebElement drawer;
 
     @FindBy(xpath = "//app-task-list//table//tr[1]//td[1]")
     WebElement encounterNumberInProgressPage;
@@ -172,7 +164,7 @@ public class OrderDetails {
         driver.getCurrentUrl();
         Assert.assertEquals(driver.getCurrentUrl(), BaseClass.propertyFile("config", "InsuurenceInprogressUrl"));
         Pages.WebCommon().waitForLoaderInvisibility();
-        search.sendKeys(BaseClass.propertyFile("config", "Prescriptiontext"));
+        search.sendKeys(prescriptionOrderID);
         test.log(Status.PASS, " Verified Insurance approval request in Insurance in progress");
         details.click();
         Pages.WebCommon().waitForDetailedButtonClickable();
@@ -180,36 +172,6 @@ public class OrderDetails {
 
 
     }
-
-    public void verifyBasicDetailTable() {
-        basicInfoButton.click();
-        BasicInformationEnum[] BasicInformationEnums = BasicInformationEnum.values();
-        System.out.println(BasicInformationEnums.length + "enum length");
-        for (int i = 0; i <= BasicInformationEnums.length - 1; i++) {
-            WebElement basicInfo = driver.findElement(By.xpath(String.format(basicInString, BasicInformationEnums[i].value)));
-            Pages.WebCommon().waitForElementInteractivity(basicInfo);
-            if (basicInfo.getText().isEmpty()) {
-                Assert.fail("No Data present in " + BasicInformationEnums[i].value);
-            }
-        }
-        test.log(Status.PASS, " Verified Basic Information Details successfully");
-    }
-
-    public void verifyContactDetail() {
-        contactInfoButton.click();
-        ContactInformation[] contactInformations = ContactInformation.values();
-        for (int i = 0; i <= contactInformations.length - 1; i++) {
-            WebElement contactInfo = driver.findElement(By.xpath(String.format(basicInString, contactInformations[i].value)));
-            Pages.WebCommon().waitForElementInteractivity(contactInfo);
-            if (contactInfo.getText().isEmpty()) {
-                Assert.fail("No Data present in " + contactInformations[i].value);
-            }
-        }
-        test.log(Status.PASS, " Verified ContactInformation Details successfully");
-
-    }
-
-
     public void verifyViewDetailsInformation() {
         viewDetailsButton.click();
         test.log(Status.PASS, " Navigated to view details page");
