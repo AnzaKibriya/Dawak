@@ -32,13 +32,23 @@ public class ShipaInitiateEventApiCall {
                     .build();
             Response response = client.newCall(request).execute();
             int  a = response.code();
-            if (response.isSuccessful()) {
+            assert response.body() != null;
+            String responseString = response.body().string();
+            if (responseString.contains("Notification")){
                 System.out.println("API call successful!");
                 System.out.println("Response: " + response.body().string());
-            } else {
-                System.out.println("API call failed!");
-                System.out.println("Response: " + response.body().string());
             }
+            else {
+                System.out.println("API call failed!");
+            }
+
+//            if (response.isSuccessful()) {
+//                System.out.println("API call successful!");
+//                System.out.println("Response: " + response.body().string());
+//            } else {
+//                System.out.println("API call failed!");
+//                System.out.println("Response: " + response.body().string());
+//            }
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -33,6 +33,7 @@ public class ReadyForDelivery {
         String dpAccessToken = PutOTPApiCall.OTPApiCall();
         String shipaOrderNum = GetShipaIdApiCall.makeShipaIdApiCall(dpAccessToken);
         ShipaInitiateEventApiCall.makeShipaInitiateEventApiCall(dpAccessToken, shipaOrderNum, "initiated");
+        ShipaInitiateEventApiCall.makeShipaInitiateEventApiCall(dpAccessToken, shipaOrderNum, "Completed");
 
     }
 }

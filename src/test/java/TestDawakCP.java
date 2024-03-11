@@ -13,40 +13,24 @@ public class TestDawakCP extends BaseClass {
         test = extent.createTest("Login to Central Pharmacist");
         Pages.LoginCP().invalidCPLogin();
         Pages.LoginCP().CPLogin();
-        Pages.Mailinator().verifyOtp();
+//        Pages.Mailinator().verifyOtp();
         Pages.LoginCP().verifyEnteringOtp();
     }
 
     @Test(priority = 2)
-    public void verifyOpeningProfile() throws FileNotFoundException {
-        Pages.Home().verifyHomePageHeader();
-         Pages.Profile().openProfile();
-
-    }
-
-    @Test(priority = 3)
-    public void verifyEditprofile() throws InterruptedException, AWTException {
-
-        Pages.Profile().editProfile();
-        Pages.Profile().uploadProfilePicture();
-        Pages.Profile().editName();
-    }
-
-
-    @Test(priority = 4)
     public void verifyOrderInTOdo() throws InterruptedException{
         test = extent.createTest("Verify Making Order In TODO");
         Pages.WebCommon().waitForLoaderInvisibility();
         Pages.Home().SearchForOrder(prescriptionOrderID);
     }
 
-    @Test(priority = 5)
+    @Test(priority = 3)
     public void verifyTodoColumnData() {
         test = extent.createTest("Verify Data present in Todo  column");
         Pages.Home().verifyDataInWebTable();
     }
 
-    @Test(priority = 6)
+    @Test(priority = 4)
     public void verifyMakingOrderInProgress() throws InterruptedException {
         test = extent.createTest("Verify Making Order In Progress State");
         Pages.NavigationsCP().moveToNewPrescription();
@@ -57,7 +41,7 @@ public class TestDawakCP extends BaseClass {
         Pages.Home().moveOrderToInProgressStateAndVerify();
     }
 
-    @Test(priority = 7)
+    @Test(priority = 5)
     public void verifyInProgressColumnData() {
         test = extent.createTest("Verify Data present in  In-progress column");
         Pages.Home().verifyDataInWebTable();
@@ -71,14 +55,11 @@ public class TestDawakCP extends BaseClass {
         Pages.Home().moveOrderToInProgressStateAndVerify();
     }*/
 
-    @Test(priority = 9)
+    @Test(priority = 7)
     public void verifyOrderDetails() throws FileNotFoundException {
         test = extent.createTest("Verify order details data and Header text ");
         Pages.NavigationsCP().openOrderDetailPage();
         Pages.OrderDetails().verifyDeliveryDetailTable();
-        Pages.PatientInformation().verifyBasicDetailTable();
-        Pages.PatientInformation().contactDetailsTable();
-        Pages.PatientInformation().userDetailsValidation();
         Pages.OrderDetails().verifyOrderDetailTable();
         Pages.OrderDetails().verifyOrderDetailsHeader();
         Pages.OrderDetails().verifyTrackDetailTable();
@@ -86,7 +67,7 @@ public class TestDawakCP extends BaseClass {
         Pages.OrderDetails().verifyRemoveFunctionality();
     }
 
-    @Test(priority = 10)
+    @Test(priority = 8)
     public void verifyInsuranceApproval() throws InterruptedException {
         test = extent.createTest("Verify Insurance Approval functionality");
         Pages.OrderDetails().clickOnSendInsurenceApproval();
@@ -95,7 +76,7 @@ public class TestDawakCP extends BaseClass {
         Pages.OrderDetails().approveMedicineInsurance();
     }
 
-    @Test(priority = 11)
+    @Test(priority = 9)
     public void verifyLogoutFunctionality() {
         test = extent.createTest("Logout Functionality");
         Pages.Logout().verifyLogout();

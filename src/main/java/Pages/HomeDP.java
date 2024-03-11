@@ -44,8 +44,9 @@ public class HomeDP {
     public HomeDP(WebDriver Driver) {
         driver=Driver;
     }
-    public void verifyHomePageHeader() {
+    public void verifyHomePageHeader() throws InterruptedException {
         Pages.WebCommon().waitForLoaderInvisibility();
+        Pages.WebCommon().waitForElementsInteractions();
         Assert.assertEquals(homePageHeader.getText(), BaseClass.propertyFile("config", "HomepageHeaderDP"));
         test.log(Status.PASS, "Header is Verified");
     }

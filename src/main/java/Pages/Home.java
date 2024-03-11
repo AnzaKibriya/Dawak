@@ -68,7 +68,6 @@ public class Home {
 
     public void clickOnAssign()
     {
-
         webJavascriptExecutor().executeScript("arguments[0].click();", assignButton);
         test.log(Status.PASS, "successfully clicked on  assignButton");
     }

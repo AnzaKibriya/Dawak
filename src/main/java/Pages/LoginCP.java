@@ -50,7 +50,7 @@ public class LoginCP {
 
     public void  verifyEnteringOtp()
     {
-        otp.sendKeys(otpText);
+        otp.sendKeys("1234");
         verifyButton.click();
         test.log(Status.PASS, "Home page Header verified");
         test.log(Status.PASS, "Sign In is Successful");

@@ -22,14 +22,14 @@ public class TestDawakApp extends BaseClass {
 
     @Test(priority = 2)
     public void verifyPrescription() throws InterruptedException {
-        test = extent.createTest("Login to Dawak App 2");
+        test = extent.createTest("Open Prescription and Verify ID");
         Pages.DawakAppLandingPage().openActivePrescription();
         Pages.DawakAppPrescriptionPage().verifyPrescriptionID();
     }
 
     @Test(priority = 3)
     public void sendPrescriptionForDelivery() {
-        test = extent.createTest("Login to Dawak App 3");
+        test = extent.createTest("Deliver Medicine Functionality");
         Pages.DawakAppPrescriptionPage().deliverMedicine();
     }
 }
