@@ -45,6 +45,7 @@ public class BaseClass {
     public static String otpText;
     public static SoftAssert softAssert;
     public static AndroidDriver androidDriver;
+    public static String emiratesID;
 
     @BeforeSuite
     public void setUp() throws MalformedURLException {

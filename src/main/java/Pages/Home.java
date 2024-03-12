@@ -28,7 +28,6 @@ public class Home {
     WebElement encounterNumberInProgressPage;
 
 
-
     @FindBy(xpath = "//img[@mattooltip='Un-Assign']")
     WebElement unAssign;
 

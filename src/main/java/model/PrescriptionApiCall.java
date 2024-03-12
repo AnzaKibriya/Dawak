@@ -8,9 +8,11 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 
 import static Helper.BaseClass.client;
+import static Helper.BaseClass.emiratesID;
 
 public class PrescriptionApiCall {
 
@@ -50,6 +52,10 @@ public class PrescriptionApiCall {
             result.getOrder().setPhysicianEncounterId(orderID);
             result.getOrder().setPhysicianOrderDate(getCurrentDateTime());
             result.getOrder().setOrderVisitDate(getCurrentDateTime());
+            result.getPatient().setEid("784"+ generateRandomEID());
+            result.getPatient().setMrn(orderID);
+            result.getPatient().setCmrn(orderID);
+            result.getPatient().setPhoneNumber("9715"+ orderID);
             System.out.println(result);
             return result;
         } catch (IOException e) {
@@ -62,5 +68,16 @@ public class PrescriptionApiCall {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         return now.format(formatter);
+    }
+
+    public static String generateRandomEID() {
+        int length = 12;
+        StringBuilder numericString = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < length; i++) {
+            int digit = random.nextInt(10);
+            emiratesID = String.valueOf(numericString.append(digit));
+        }
+        return emiratesID;
     }
 }
