@@ -1,17 +1,12 @@
 package Pages;
 
 import com.aventstack.extentreports.Status;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import model.Patient;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import Enum.ContactInformation;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import Enum.BasicInformationEnum;
 import Enum.UserDetailsEnum;
 

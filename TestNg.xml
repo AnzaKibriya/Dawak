@@ -1,7 +1,12 @@
 <suite name="Dawak">
-    <test name="Dawak Android App Regression">
+    <test name="Dawak Android App Adding a new patient">
         <classes>
-            <class name="TestDawakApp"/>
+            <class name="TestAddPatientInDawakApp"/>
+        </classes>
+    </test>
+    <test name="Dawak Android App Delivery">
+        <classes>
+            <class name="TestPrescriptionDelivery"/>
         </classes>
     </test>
     <test name="Central Pharmacist Regression">
