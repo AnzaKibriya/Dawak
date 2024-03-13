@@ -15,7 +15,7 @@ import static Pages.WebCommon.patient;
 
 public class DawakAppPatientModule {
     AndroidDriver androidDriver;
-    String createOrderPath = "./src/main/resources/CreatingOrder.json";
+    String createOrderPath = "./src/main/resources/CreateNewPatient.json";
     String textViews = "//androidx.recyclerview.widget.RecyclerView[@resource-id='ae.purehealth.dawak.qa:id/patient_detail_rv']/android.view.ViewGroup";
     By addFamilyBtn = AppiumBy.id("ae.purehealth.dawak.qa:id/add_patient_btn");
     By relationDropdown = AppiumBy.id("ae.purehealth.dawak.qa:id/relation_tv");
