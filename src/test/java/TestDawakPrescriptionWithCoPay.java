@@ -2,11 +2,10 @@ import Helper.BaseClass;
 import Pages.Pages;
 import org.testng.annotations.Test;
 
-import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class TestDawakCP extends BaseClass {
+public class TestDawakPrescriptionWithCoPay extends BaseClass {
 
     @Test(priority = 1)
     public void verifyCPLogin() throws IOException {

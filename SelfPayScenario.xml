@@ -1,0 +1,12 @@
+<suite name="Dawak Self Pay Scenario">
+    <test name="Dawak Android App Delivery">
+        <classes>
+            <class name="TestPrescriptionDelivery"/>
+        </classes>
+    </test>
+    <test name="Central Pharmacist Regression">
+        <classes>
+            <class name="TestDawakPrescriptionWithCoPay"/>
+        </classes>
+    </test>
+</suite>

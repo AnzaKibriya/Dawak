@@ -11,7 +11,7 @@
     </test>
     <test name="Central Pharmacist Regression">
         <classes>
-            <class name="TestDawakCP"/>
+            <class name="TestDawakPrescriptionWithCoPay"/>
         </classes>
     </test>
 
