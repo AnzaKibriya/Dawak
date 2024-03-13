@@ -1,8 +1,8 @@
 {
     "patient": {
-        "firstName": "Anza",
-        "middleName": "QA",
-        "lastName": "Kibriya",
+        "firstName": "Test",
+        "middleName": "New",
+        "lastName": "Patient",
         "dob": "12/12/1997",
         "patGender": "Female",
         "phoneNumber": "",
