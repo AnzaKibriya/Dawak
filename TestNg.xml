@@ -1,4 +1,9 @@
 <suite name="Dawak">
+    <test name="Dawak Android App Adding a new patient">
+        <classes>
+            <class name="TestAddPatientInDawakApp"/>
+        </classes>
+    </test>
     <test name="Dawak Android App Delivery">
         <classes>
             <class name="TestPrescriptionDelivery"/>
