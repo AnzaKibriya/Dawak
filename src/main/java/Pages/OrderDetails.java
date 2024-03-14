@@ -10,8 +10,6 @@ import org.testng.Assert;
 
 import java.util.List;
 
-import Enum.BasicInformationEnum;
-import Enum.ContactInformation;
 import Enum.viewDetailsInformationEnum;
 
 import static Helper.BaseClass.*;
@@ -66,7 +64,7 @@ public class OrderDetails {
     WebElement viewDetailsButton;
 
     @FindBy(xpath = "//span[normalize-space()='Send Insurance for Approval']")
-    WebElement sendInsurenceApprovalButton;
+    WebElement sendInsuranceApprovalButton;
 
 
     @FindBy(xpath = "//input[@placeholder='Search by Attribute']")
@@ -159,7 +157,7 @@ public class OrderDetails {
     public void clickOnSendInsurenceApproval() throws InterruptedException {
         Pages.WebCommon().waitForLoaderInvisibility();
         Pages.WebCommon().waitForElementsInteractions();
-        webJavascriptExecutor().executeScript("arguments[0].click();", sendInsurenceApprovalButton);
+        webJavascriptExecutor().executeScript("arguments[0].click();", sendInsuranceApprovalButton);
         test.log(Status.PASS, " order sent for insurance Approval");
         Pages.WebCommon().waitForLoaderInvisibility();
         Pages.WebCommon().waitForElementsInteractions();
@@ -279,7 +277,7 @@ public class OrderDetails {
     }
 
 
-    public void insurenceApprovalUsingAllPayments() throws InterruptedException {
+    public void insuranceApprovalUsingAllPayments() throws InterruptedException {
         List<WebElement> detail = driver.findElements(By.xpath(viewDetailscolumn));
         for (int i = 1; i <= detail.size(); i++) {
             webJavascriptExecutor().executeScript("arguments[0].click();", viewDetailsButton);

@@ -72,7 +72,7 @@ public class TestDawakPrescriptionWithAllPayments extends BaseClass {
         Pages.OrderDetails().clickOnSendInsurenceApproval();
         Pages.NavigationsCP().navigateTOInsurenceInprogressTab();
         Pages.OrderDetails().verifySendInsuranceApproval();
-        Pages.OrderDetails().insurenceApprovalUsingAllPayments();
+        Pages.OrderDetails().insuranceApprovalUsingAllPayments();
     }
 
     @Test(priority = 9)
