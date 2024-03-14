@@ -70,6 +70,11 @@
                 "physicianOrderId": "1402202713",
                 "ndcCode": "10003-0000-30",
                 "drugDescription": "metFormin 500mg Tablet"
+            },
+            {
+                "physicianOrderId": "1402702713",
+                "ndcCode": "99999-0000-33",
+                "drugDescription": "Enalapril 5mg Tablet"
             }
         ]
     }

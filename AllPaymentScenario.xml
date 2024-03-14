@@ -6,7 +6,7 @@
     </test>
     <test name="Central Pharmacist Regression">
         <classes>
-            <class name="TestDawakPrescriptionWithSelfPay"/>
+            <class name="TestDawakPrescriptionWithAllPayments"/>
         </classes>
     </test>
 </suite>

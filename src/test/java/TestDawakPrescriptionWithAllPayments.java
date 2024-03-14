@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class TestDawakPrescriptionWithCoPay extends BaseClass {
+public class TestDawakPrescriptionWithAllPayments extends BaseClass {
 
     @Test(priority = 1)
     public void verifyCPLogin() throws IOException, InterruptedException {
@@ -16,7 +16,7 @@ public class TestDawakPrescriptionWithCoPay extends BaseClass {
         Pages.LoginCP().verifyEnteringOtp();
     }
 
-   @Test(priority = 2)
+    @Test(priority = 2)
     public void verifyOrderInTOdo() throws InterruptedException{
         test = extent.createTest("Verify Making Order In TODO");
         Pages.WebCommon().waitForLoaderInvisibility();
@@ -72,7 +72,7 @@ public class TestDawakPrescriptionWithCoPay extends BaseClass {
         Pages.OrderDetails().clickOnSendInsurenceApproval();
         Pages.NavigationsCP().navigateTOInsurenceInprogressTab();
         Pages.OrderDetails().verifySendInsuranceApproval();
-        Pages.OrderDetails().approveMedicineInsuranceUsingCopay();
+        Pages.OrderDetails().insurenceApprovalUsingAllPayments();
     }
 
     @Test(priority = 9)
