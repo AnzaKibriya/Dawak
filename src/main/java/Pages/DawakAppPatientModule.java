@@ -73,5 +73,6 @@ public class DawakAppPatientModule {
     public void navigateBackToDashboard(){
         mobileWait.until(ExpectedConditions.visibilityOfElementLocated(successLabel)).getText();
         Assert.assertEquals(mobileWait.until(ExpectedConditions.visibilityOfElementLocated(successLabel)).getText(), "Patient Added Successfully!");
+        mobileWait.until(ExpectedConditions.elementToBeClickable(dashboardNavigateBtn)).click();
     }
 }

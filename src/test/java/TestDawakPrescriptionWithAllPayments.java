@@ -70,7 +70,7 @@ public class TestDawakPrescriptionWithAllPayments extends BaseClass {
     public void verifyInsuranceApproval() throws InterruptedException {
         test = extent.createTest("Verify Insurance Approval functionality");
         Pages.OrderDetails().clickOnSendInsurenceApproval();
-        Pages.NavigationsCP().navigateTOInsurenceInprogressTab();
+        Pages.NavigationsCP().navigateTOInsuranceInprogressTab();
         Pages.OrderDetails().verifySendInsuranceApproval();
         Pages.OrderDetails().insuranceApprovalUsingAllPayments();
     }

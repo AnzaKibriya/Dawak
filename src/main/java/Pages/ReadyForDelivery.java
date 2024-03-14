@@ -20,7 +20,7 @@ public class ReadyForDelivery {
     }
 
     public void deliveryFunctionality(String ID) {
-        webJavascriptExecutor().executeScript("arguments[0].click();", readyDelivery);
+        webJavascriptExecutor().executeScript("arguments[0].scrollIntoView(true);", readyDelivery);
         Pages.WebCommon().waitForLoaderInvisibility();
         Pages.HomeDP().SearchForOrder();
         Pages.WebCommon().waitForLoaderInvisibility();

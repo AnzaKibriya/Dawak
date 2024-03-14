@@ -44,9 +44,9 @@ public class TestDawakDP extends BaseClass {
         Pages.ReadyForDelivery().deliveryFunctionality(prescriptionOrderID);
 
     }
-//    @Test(priority = 5)
-//    public void verifyLogoutFunctionality() {
-//        test = extent.createTest("Logout Functionality");
-//        Pages.Logout().verifyLogout();
-//    }
+    @Test(priority = 5)
+    public void verifyLogoutFunctionality() {
+        test = extent.createTest("Logout Functionality");
+        Pages.Logout().verifyLogout();
+    }
 }

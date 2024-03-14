@@ -57,7 +57,7 @@ public class NavigationsCP {
         Pages.WebCommon().waitForLoaderInvisibility();
     }
 
-    public void navigateTOInsurenceInprogressTab() {
+    public void navigateTOInsuranceInprogressTab() {
         webJavascriptExecutor().executeScript("arguments[0].click();", insurenceInprogressButton);
     }
 
