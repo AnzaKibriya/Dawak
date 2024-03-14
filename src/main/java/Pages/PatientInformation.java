@@ -41,7 +41,6 @@ public class PatientInformation {
         System.out.println(BasicInformationEnums.length + "enum length");
         for (int i = 0; i <= BasicInformationEnums.length - 1; i++) {
             WebElement basicInfo = driver.findElement(By.xpath(String.format(basicInString, BasicInformationEnums[i].value)));
-
             Pages.WebCommon().loadJson(createOrderPath);
             switch (i) {
                 case 0:
