@@ -125,4 +125,10 @@ public class Pages {
         return pg;
     }
 
+    public static PatientInformations PatientInformations() {
+        PatientInformations pg = new PatientInformations(BaseClass.driver);
+        PageFactory.initElements(BaseClass.driver, pg);
+        return pg;
+    }
+
 }

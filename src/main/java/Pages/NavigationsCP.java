@@ -52,7 +52,7 @@ public class NavigationsCP {
 
 
 
-    public void openOrderDetailPage() {
+    public void openOrderDetailPage()  {
         actionButton.click();
         Pages.WebCommon().waitForLoaderInvisibility();
     }

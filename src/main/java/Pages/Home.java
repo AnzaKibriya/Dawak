@@ -7,6 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 
+import java.io.FileNotFoundException;
+
 import static Helper.BaseClass.*;
 
 public class Home {
@@ -42,13 +44,12 @@ public class Home {
         Assert.assertEquals(homePageHeader.getText(), BaseClass.propertyFile("config", "HomepageHeader"));
     }
 
-    public void SearchForOrder(String orderid) throws InterruptedException {
+    public void SearchForOrder(String orderid) throws InterruptedException, FileNotFoundException {
         Thread.sleep(3000);
         search.sendKeys(orderid);
+        Pages.WebCommon().verifyTaskTable();
        // Assert.assertEquals(encounterNumberTodoPage.getText(), orderid));
-        test.log(Status.PASS, "Encounter text verified in Todo Tab");
-        Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskName"));
-        test.log(Status.PASS, "TaskName text Verified in Todo Tab");
+
     }
 
     public void clearSearch() {
@@ -70,15 +71,13 @@ public class Home {
         webJavascriptExecutor().executeScript("arguments[0].click();", assignButton);
         test.log(Status.PASS, "successfully clicked on  assignButton");
     }
-    public void moveOrderToInProgressStateAndVerify() {
+    public void moveOrderToInProgressStateAndVerify() throws FileNotFoundException, InterruptedException {
         Pages.WebCommon().waitForLoaderInvisibility();
         Pages.WebCommon().waitForLoaderInvisibility();
         webWait.until(ExpectedConditions.visibilityOf(encounterNumberInProgressPage));
-        search.sendKeys(prescriptionOrderID);
+        Pages.Home().SearchForOrder(prescriptionOrderID);
       //  Assert.assertEquals(encounterNumberInProgressPage.getText(), prescriptionOrderID);
-        test.log(Status.PASS, "Encounter text verified in Inprogress tab");
-        Assert.assertEquals(taskName.getText(), BaseClass.propertyFile("config", "TaskName"));
-        test.log(Status.PASS, "TaskName text Verified in Inprogress tab");
+
     }
 
     public void verifyReAssign() {

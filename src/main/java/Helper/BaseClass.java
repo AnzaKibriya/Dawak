@@ -25,6 +25,8 @@ import org.testng.asserts.SoftAssert;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 import java.util.Random;
 
@@ -46,6 +48,7 @@ public class BaseClass {
     public static SoftAssert softAssert;
     public static AndroidDriver androidDriver;
     public static String emiratesID;
+    public static String formattedDate;
 
     @BeforeSuite
     public void setUp() throws MalformedURLException {
@@ -117,6 +120,13 @@ public class BaseClass {
             prescriptionOrderID = String.valueOf(numericString.append(digit));
         }
         return prescriptionOrderID;
+    }
+    public static String getCurrentDateTime() {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        DateTimeFormatter formatte = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        formattedDate=now.format(formatte);
+        return now.format(formatter);
     }
 
     @AfterSuite

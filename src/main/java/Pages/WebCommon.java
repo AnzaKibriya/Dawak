@@ -13,6 +13,8 @@ import org.testng.Assert;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static Helper.BaseClass.*;
@@ -20,13 +22,22 @@ import static java.time.Duration.ofSeconds;
 
 public class WebCommon {
 
+    static String uiFormattedDate;
+
     static WebDriver driver;
 
     public static String value;
 
     String taskTable = "//app-task-list//table/tbody//tr//td[%s]";
 
+    String taskTableColumn="//app-task-list//tbody[contains(@class, 'mdc-data-table__content')]//tr[1]//td";
+
+    String taskTableValues="//app-task-list//tbody[contains(@class, 'mdc-data-table__content')]//td[%s]";
+
     String justNowText = "//td[contains(text(),'just now')]";
+
+    String taskTableHeading="//app-task-list//table[contains(@class, 'mat-mdc-table mdc-data-table__table cdk-table mat-sort')]//th[%s]";
+
 
     String loader = "//ngx-spinner//img";
 
@@ -37,6 +48,25 @@ public class WebCommon {
         driver = Driver;
 
     }
+
+
+    public void verifyTaskTable() throws FileNotFoundException {
+        List<WebElement> taskDetailsTable = driver.findElements(By.xpath(taskTableColumn));
+        System.out.println(taskDetailsTable.size());
+        test.log(Status.PASS, "verifying task table information");
+
+        for(int i=1;i<=taskDetailsTable.size()-1;i++)
+        {
+            WebElement tableHeading = driver.findElement(By.xpath(String.format(taskTableHeading, i)));
+            WebElement tasktableData = driver.findElement(By.xpath(String.format(taskTableValues, i)));
+            Pages.PatientInformations().info(tableHeading,tasktableData);
+
+        }
+
+
+    }
+
+
 
 
     public void verifyWebTableData() {
@@ -85,6 +115,20 @@ public class WebCommon {
     public void waitForElementsInteractions() throws InterruptedException {
         Thread.sleep(5000);
     }
+
+    public void ExtractDateFromString(String timeDate) {
+        // Parse the original string to LocalDateTime
+        DateTimeFormatter originalFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        LocalDateTime dateTime = LocalDateTime.parse(timeDate, originalFormatter);
+
+        // Format the LocalDateTime to the desired date format
+        DateTimeFormatter desiredFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        uiFormattedDate = dateTime.format(desiredFormatter);
+
+        // Display the formatted date
+        System.out.println("Formatted Date: " + uiFormattedDate);
+    }
+
 
     public void assertjson(String expected, String actual) {
         Assert.assertEquals(expected, actual);
