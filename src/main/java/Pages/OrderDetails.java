@@ -8,9 +8,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.testng.Assert;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import Enum.viewDetailsInformationEnum;
+import Enum.BasicInformationEnum;
 
 import static Helper.BaseClass.*;
 
@@ -72,6 +74,9 @@ public class OrderDetails {
 
     @FindBy(xpath = "//img[@mattooltip='Details']")
     WebElement details;
+
+    @FindBy(xpath = "//h5[text()='Basic Info']")
+    WebElement basicInfoButton;
 
 
     @FindBy(xpath = "//span[normalize-space()='Co Pay']")
@@ -164,13 +169,14 @@ public class OrderDetails {
 
     }
 
-    public void verifySendInsuranceApproval() throws InterruptedException {
+    public void verifySendInsuranceApproval() throws InterruptedException, FileNotFoundException {
 
         Pages.WebCommon().waitForLoaderInvisibility();
         driver.getCurrentUrl();
         Assert.assertEquals(driver.getCurrentUrl(), BaseClass.propertyFile("config", "InsuurenceInprogressUrl"));
         Pages.WebCommon().waitForLoaderInvisibility();
-        search.sendKeys(prescriptionOrderID);
+        Pages.Home().SearchForOrder(prescriptionOrderID);
+
         test.log(Status.PASS, " Verified Insurance approval request in Insurance in progress");
         details.click();
         Pages.WebCommon().waitForDetailedButtonClickable();
@@ -178,6 +184,21 @@ public class OrderDetails {
 
 
     }
+
+    public void verifyBasicDetail() {
+        basicInfoButton.click();
+        BasicInformationEnum[] BasicInformationEnums = BasicInformationEnum.values();
+        System.out.println(BasicInformationEnums.length + "enum length");
+        for (int i = 0; i <= BasicInformationEnums.length - 1; i++) {
+            WebElement basicInfo = driver.findElement(By.xpath(String.format(basicInString, BasicInformationEnums[i].value)));
+            Pages.WebCommon().waitForElementInteractivity(basicInfo);
+            if (basicInfo.getText().isEmpty()) {
+                Assert.fail("No Data present in " + BasicInformationEnums[i].value);
+            }
+        }
+        test.log(Status.PASS, " Verified Basic Information Details successfully");
+    }
+
 
     public void verifyViewDetailsInformation() {
         viewDetailsButton.click();

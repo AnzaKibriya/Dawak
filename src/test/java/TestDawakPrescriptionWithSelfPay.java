@@ -17,7 +17,7 @@ public class TestDawakPrescriptionWithSelfPay extends BaseClass {
     }
 
     @Test(priority = 2)
-    public void verifyOrderInTOdo() throws InterruptedException{
+    public void verifyOrderInTOdo() throws InterruptedException, FileNotFoundException {
         test = extent.createTest("Verify Making Order In TODO");
         Pages.WebCommon().waitForLoaderInvisibility();
         Pages.Home().SearchForOrder(prescriptionOrderID);
@@ -30,7 +30,7 @@ public class TestDawakPrescriptionWithSelfPay extends BaseClass {
     }
 
     @Test(priority = 4)
-    public void verifyMakingOrderInProgress() throws InterruptedException {
+    public void verifyMakingOrderInProgress() throws InterruptedException, FileNotFoundException {
         test = extent.createTest("Verify Making Order In Progress State");
         Pages.NavigationsCP().moveToNewPrescription();
         Pages.Home().clearSearch();
@@ -54,10 +54,25 @@ public class TestDawakPrescriptionWithSelfPay extends BaseClass {
         Pages.Home().moveOrderToInProgressStateAndVerify();
     }*/
 
+    @Test(priority =6 )
+    public void verifyMoveToOrderDetails()  {
+        test = extent.createTest("Verify Navigation to order details page ");
+        Pages.NavigationsCP().openOrderDetailPage();
+
+
+
+    }
     @Test(priority = 7)
+    public void verifyPatientInformation()
+    {
+        test = extent.createTest("Verify Navigation to order details page ");
+        Pages.PatientInformations().verifyBasicDetailTable();
+
+
+    }
+    @Test(priority = 8)
     public void verifyOrderDetails() throws FileNotFoundException {
         test = extent.createTest("Verify order details data and Header text ");
-        Pages.NavigationsCP().openOrderDetailPage();
         Pages.OrderDetails().verifyDeliveryDetailTable();
         Pages.OrderDetails().verifyOrderDetailTable();
         Pages.OrderDetails().verifyOrderDetailsHeader();
@@ -66,8 +81,8 @@ public class TestDawakPrescriptionWithSelfPay extends BaseClass {
         Pages.OrderDetails().verifyRemoveFunctionality();
     }
 
-    @Test(priority = 8)
-    public void verifyInsuranceApproval() throws InterruptedException {
+    @Test(priority = 9)
+    public void verifyInsuranceApproval() throws InterruptedException, FileNotFoundException {
         test = extent.createTest("Verify Insurance Approval functionality");
         Pages.OrderDetails().clickOnSendInsurenceApproval();
         Pages.NavigationsCP().navigateTOInsuranceInprogressTab();
@@ -75,7 +90,7 @@ public class TestDawakPrescriptionWithSelfPay extends BaseClass {
         Pages.OrderDetails().approveMedicineInsuranceselfpay();
     }
 
-    @Test(priority = 9)
+    @Test(priority = 10)
     public void verifyLogoutFunctionality() {
         test = extent.createTest("Logout Functionality");
         Pages.Logout().verifyLogout();
