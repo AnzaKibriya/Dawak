@@ -50,6 +50,8 @@ public class BaseClass {
     public static String emiratesID;
     public static String formattedDate;
 
+    public static String authid;
+
     @BeforeSuite
     public void setUp() throws MalformedURLException {
         client = new OkHttpClient();
