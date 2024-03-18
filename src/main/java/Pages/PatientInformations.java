@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import Enum.BasicInformationEnum;
-
+import Enum.ContactInformation;
 import java.io.FileNotFoundException;
 
 import static Helper.BaseClass.*;
@@ -31,6 +31,25 @@ public class PatientInformations {
 
     public PatientInformations(WebDriver Driver) {
         driver=Driver;
+    }
+
+
+    public void verifyContactDetail() {
+        contactInfoButton.click();
+        ContactInformation[] contactInformations = ContactInformation.values();
+        for (int i = 0; i <= contactInformations.length - 1; i++) {
+            WebElement contactDetails = driver.findElement(By.xpath(String.format(basicInfostring, contactInformations[i].value)));
+            WebElement contactSibling = driver.findElement(By.xpath(String.format(basicInfoSiblingstring, contactInformations[i].value)));
+
+            try {
+                info(contactDetails,contactSibling);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
     }
 
 

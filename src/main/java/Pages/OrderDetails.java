@@ -88,8 +88,23 @@ public class OrderDetails {
     @FindBy(xpath = "//span[text()='Self Pay']")
     WebElement selfPay;
 
-    @FindBy(xpath = "//textarea[@rows='5']")
+    @FindBy(xpath = "//div[@class='mat-mdc-form-field-flex ng-tns-c6-28']//textarea[@rows='5']")
     WebElement comment;
+
+    @FindBy(xpath = "//div[@class='mat-mdc-form-field-infix ng-tns-c6-45']//textarea[@rows='5']")
+    WebElement rejectionReasonSecondMedicine;
+
+    @FindBy(xpath = "//div[@class='mat-mdc-form-field-infix ng-tns-c6-45']//textarea[@rows='5']")
+    WebElement rejectionReasonThirdMedicine;
+
+    @FindBy(xpath = "//div[@class='mat-mdc-form-field-infix ng-tns-c6-31']//textarea[@rows='5']")
+    WebElement ThirdMedicineComment;
+
+    @FindBy(xpath = "//div[@class='mat-mdc-form-field-infix ng-tns-c6-31']//textarea[@rows='5']")
+    WebElement secondMedicineComment;
+
+    @FindBy(xpath = "//div[@class='mat-mdc-form-field-infix ng-tns-c6-14']//textarea[@rows='5']")
+    WebElement reason;
 
 
     @FindBy(xpath = "//span[text()=' Task Complete ']")
@@ -238,7 +253,22 @@ public class OrderDetails {
                 coPay.click();
                 WebElement enterPaymentAmount = driver.findElement(By.xpath(String.format(payAmount, i)));
                 enterPaymentAmount.sendKeys(BaseClass.propertyFile("config", "Amount"));
-                WebElement clickSaveBtn = driver.findElement(By.xpath(String.format(saveButton, i)));
+            if(i==1) {
+                //webJavascriptExecutor().executeScript("arguments[0].value = '" + "Test" + "'", comment);
+                reason.sendKeys(BaseClass.propertyFile("config", "paymentComment"));
+            }
+            if(i==2)
+            {  if(counter==1) {
+                secondMedicineComment.sendKeys(BaseClass.propertyFile("config", "paymentComment"));
+            }
+                if(counter==2)
+                {
+                    ThirdMedicineComment.sendKeys(BaseClass.propertyFile("config", "paymentComment"));
+
+                }
+            }
+
+            WebElement clickSaveBtn = driver.findElement(By.xpath(String.format(saveButton, i)));
                 clickSaveBtn.click();
                 Pages.WebCommon().waitForLoaderInvisibility();
                 test.log(Status.PASS, " Drug Details gets saved successfully ");
@@ -276,7 +306,24 @@ public class OrderDetails {
                 selfPay.click();
                 WebElement enterPaymentAmount = driver.findElement(By.xpath(String.format(payAmount, i)));
                 enterPaymentAmount.sendKeys(BaseClass.propertyFile("config", "Amount"));
-                comment.sendKeys(BaseClass.propertyFile("config", "selfpaypaymentComment"));
+
+            if(i==1) {
+                //webJavascriptExecutor().executeScript("arguments[0].value = '" + "Test" + "'", comment);
+                    comment.sendKeys(BaseClass.propertyFile("config", "selfpaypaymentComment"));
+                    reason.sendKeys(BaseClass.propertyFile("config", "paymentComment"));
+                }
+                if(i==2)
+                {  if(count==1) {
+                    rejectionReasonSecondMedicine.sendKeys(BaseClass.propertyFile("config", "selfpaypaymentComment"));
+                    secondMedicineComment.sendKeys(BaseClass.propertyFile("config", "paymentComment"));
+                }
+                    if(count==2)
+                    {
+                        rejectionReasonThirdMedicine.sendKeys(BaseClass.propertyFile("config", "selfpaypaymentComment"));
+                        ThirdMedicineComment.sendKeys(BaseClass.propertyFile("config", "paymentComment"));
+
+                    }
+                }
                 WebElement clickSaveBtn = driver.findElement(By.xpath(String.format(saveButton, i)));
                 Pages.WebCommon().waitForElementsInteractions();
                 clickSaveBtn.click();
@@ -319,16 +366,23 @@ public class OrderDetails {
                 }
                 WebElement enterPaymentAmount = driver.findElement(By.xpath(String.format(payAmount, i)));
                 enterPaymentAmount.sendKeys(BaseClass.propertyFile("config", "Amount"));
-                if (i == 2) {
-                    comment.sendKeys(BaseClass.propertyFile("config", "selfpaypaymentComment"));
-                    Pages.WebCommon().waitForElementsInteractions();
+                if(i==1) {
+                    //webJavascriptExecutor().executeScript("arguments[0].value = '" + "Test" + "'", comment);
+                    reason.sendKeys(BaseClass.propertyFile("config", "paymentComment"));
                 }
-                WebElement clickSaveBtn = driver.findElement(By.xpath(String.format(saveButton, i)));
+                if(i==2) {
+                        rejectionReasonSecondMedicine.sendKeys(BaseClass.propertyFile("config", "selfpaypaymentComment"));
+                        secondMedicineComment.sendKeys(BaseClass.propertyFile("config", "paymentComment"));
+
+                }
+
+                    WebElement clickSaveBtn = driver.findElement(By.xpath(String.format(saveButton, i)));
                 clickSaveBtn.click();
                 Pages.WebCommon().waitForLoaderInvisibility();
                 test.log(Status.PASS, " Drug Details gets saved successfully");
                 driver.navigate().refresh();
                 Pages.WebCommon().waitForLoaderInvisibility();
+
 
             }
 
@@ -341,6 +395,7 @@ public class OrderDetails {
                 WebElement clickHealthPlan = driver.findElement(By.xpath(String.format(healthPlan, i)));
                 clickHealthPlan.click();
                 noPay.click();
+                ThirdMedicineComment.sendKeys(BaseClass.propertyFile("config", "paymentComment"));
                 WebElement clickSaveBtn = driver.findElement(By.xpath(String.format(saveButton, i)));
                 clickSaveBtn.click();
                 Pages.WebCommon().waitForLoaderInvisibility();

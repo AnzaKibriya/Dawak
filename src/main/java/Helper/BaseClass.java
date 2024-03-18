@@ -53,7 +53,7 @@ public class BaseClass {
     @BeforeSuite
     public void setUp() throws MalformedURLException {
         client = new OkHttpClient();
-        androidDriver = new AndroidDriver(new URL("http://localhost:4723"), getAPKOptions());
+       androidDriver = new AndroidDriver(new URL("http://localhost:4723"), getAPKOptions());
         androidDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         driver = new ChromeDriver();
         softAssert = new SoftAssert();
@@ -133,6 +133,6 @@ public class BaseClass {
     public void tearDown() {
         extent.flush();
         androidDriver.quit();
-        driver.quit();
+       driver.quit();
     }
 }

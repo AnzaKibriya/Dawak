@@ -4,6 +4,7 @@ import com.aventstack.extentreports.Status;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,6 +12,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.time.LocalDateTime;
@@ -108,8 +110,8 @@ public class WebCommon {
 
 
     public void waitForDetailedButtonClickable() throws InterruptedException {
-        Thread.sleep(7000);        //7 seconds
-        driver.getCurrentUrl();
+        Thread.sleep(7000);
+        driver.navigate().refresh();//7 seconds
     }
 
     public void waitForElementsInteractions() throws InterruptedException {
