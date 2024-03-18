@@ -52,9 +52,10 @@ public class NavigationsCP {
 
 
 
-    public void openOrderDetailPage()  {
+    public void openOrderDetailPage() throws InterruptedException {
         actionButton.click();
         Pages.WebCommon().waitForLoaderInvisibility();
+        Pages.WebCommon().waitForElementsInteractions();
     }
 
     public void navigateTOInsuranceInprogressTab() {

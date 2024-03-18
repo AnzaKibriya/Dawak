@@ -55,7 +55,7 @@ public class TestDawakPrescriptionWithCoPay extends BaseClass {
     }*/
 
     @Test(priority =6 )
-    public void verifyMoveToOrderDetails()  {
+    public void verifyMoveToOrderDetails() throws InterruptedException {
         test = extent.createTest("Verify Navigation to order details page ");
         Pages.NavigationsCP().openOrderDetailPage();
 
