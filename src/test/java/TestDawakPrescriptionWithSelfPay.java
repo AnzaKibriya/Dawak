@@ -14,12 +14,11 @@ public class TestDawakPrescriptionWithSelfPay extends BaseClass {
         Pages.LoginCP().CPLogin();
 //        Pages.Mailinator().verifyOtp();
         Pages.LoginCP().verifyEnteringOtp();
-  //      Pages.OrderDetails().approveMedicineInsuranceselfpay();
 
 
     }
 
-   @Test(priority = 2)
+  @Test(priority = 2)
     public void verifyOrderInTOdo() throws InterruptedException, FileNotFoundException {
         test = extent.createTest("Verify Making Order In TODO");
         Pages.WebCommon().waitForLoaderInvisibility();
@@ -71,6 +70,9 @@ public class TestDawakPrescriptionWithSelfPay extends BaseClass {
         test = extent.createTest("Verify Navigation to order details page ");
         Pages.PatientInformations().verifyBasicDetailTable();
         Pages.PatientInformations().verifyContactDetail();
+        Pages.PatientInformations().userDetails();
+
+
 
 
     }
