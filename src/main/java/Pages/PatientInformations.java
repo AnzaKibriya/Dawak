@@ -8,11 +8,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import Enum.BasicInformationEnum;
 import Enum.ContactInformation;
+import Enum.UserDetailsEnum;
 import java.io.FileNotFoundException;
 
 import static Helper.BaseClass.*;
-import static Pages.WebCommon.patient;
-import static Pages.WebCommon.uiFormattedDate;
+import static Pages.WebCommon.*;
 
 public class PatientInformations {
 
@@ -26,6 +26,9 @@ public class PatientInformations {
     @FindBy(xpath = "//div[@class='custom-class-for-accordion-con collapse-div-header']")
     WebElement contactInfoButton;
 
+    String userDetailsibling = "//h5[contains(text(), '%s')]/following-sibling::h5";
+
+    String userDetails="//h5[contains(text(), '%s')]";
 
     String createOrderPath = "./src/main/resources/CreatingOrder.json";
 
@@ -51,6 +54,30 @@ public class PatientInformations {
         }
 
     }
+
+
+    public void userDetails()
+    {
+        UserDetailsEnum[] userData= UserDetailsEnum.values();
+        test.log(Status.PASS, "verifying user Details Information");
+
+        for(int i=0;i<=userData.length-1;i++)
+        {
+            WebElement patienttDetails = driver.findElement(By.xpath(String.format(userDetails, userData[i].value)));
+            WebElement patientDetailsSibling = driver.findElement(By.xpath(String.format(userDetailsibling, userData[i].value)));
+            System.out.println(patienttDetails.getText());
+            System.out.println(patientDetailsSibling.getText());
+
+            try {
+                info(patienttDetails,patientDetailsSibling);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+    }
+
 
 
 
@@ -205,6 +232,34 @@ public class PatientInformations {
             test.log(Status.PASS, "created date text verified");
 
         }
+        else if (element.getText().contains("Physician Encounter Id#")) {
+          //  Pages.WebCommon().assertjson(actualText.getText(),prescriptionOrderID);
+            test.log(Status.PASS, "prescription order id verified");
+
+
+        } else if (element.getText().contains("Prescribed By")) {
+            String prescriberValue = order
+                    .getAsJsonObject("physician")
+                    .getAsJsonPrimitive("prescriber")
+                    .getAsString();
+            Pages.WebCommon().assertjson(actualText.getText(),prescriberValue);
+
+
+        } else if (element.getText().contains("Order Location")) {
+
+            String orderLocationValue = order
+                    .getAsJsonObject("orderLocation")
+                    .getAsJsonPrimitive("value")
+                    .getAsString();
+            Pages.WebCommon().assertjson(actualText.getText(),orderLocationValue);
+
+        } else if (element.getText().contains("Channel")) {
+            Pages.WebCommon().assertjson(actualText.getText(),"Mobile App");
+
+        }
+
+
+
 
 
     }

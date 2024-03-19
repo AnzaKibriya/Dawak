@@ -69,6 +69,9 @@ public class TestDawakPrescriptionWithAllPayments extends BaseClass {
     {
         test = extent.createTest("Verify Navigation to order details page ");
         Pages.PatientInformations().verifyBasicDetailTable();
+        Pages.PatientInformations().verifyContactDetail();
+        Pages.PatientInformations().userDetails();
+
 
 
     }
