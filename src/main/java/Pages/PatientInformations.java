@@ -127,7 +127,6 @@ public class PatientInformations {
         }
         else if(element.getText().contains("MRN#"))
         {
-            System.out.println(patient.get("mrn").getAsString());
             String mrn = patient.getAsJsonPrimitive("mrn").getAsString();
             Pages.WebCommon().assertjson(actualText.getText(), mrn);
             test.log(Status.PASS, "mrn id verified");

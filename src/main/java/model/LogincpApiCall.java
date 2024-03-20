@@ -33,6 +33,7 @@ public class LogincpApiCall {
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 JSONObject jsonResponse = new JSONObject(response.body().string());
+                System.out.println(jsonResponse);
                 test.log(Status.PASS, " Login API verified");
             } else {
                 System.out.println("API call failed!");
