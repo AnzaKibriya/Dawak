@@ -49,8 +49,10 @@ public class GetTaskAPICall {
                 try {
                     String finNumber = dataObject.get("finNumber").getAsString();
                     String encounterId = dataObject.get("encounterId").getAsString();
-                    System.out.println("finNumber: " + finNumber);
-                    System.out.println("encounterId: " + encounterId);
+                    if (encounterId.equals("4249")) {
+                        System.out.println("finNumber: " + finNumber);
+                    }
+
                 }
                 catch (NullPointerException e) {
                     e.printStackTrace();

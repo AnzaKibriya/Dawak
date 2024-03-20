@@ -16,20 +16,31 @@ public class TestDawakPrescriptionWithCoPay extends BaseClass {
         Pages.LoginCP().verifyEnteringOtp();
     }
 
+
     @Test(priority = 2)
+    public void verifyFilterValidation() throws InterruptedException, FileNotFoundException {
+
+        test = extent.createTest("Verify Filter Validation");
+        Pages.WebCommon().waitForElementsInteractions();
+        Pages.Home().verifyFilters();
+
+
+    }
+
+    @Test(priority = 3)
     public void verifyOrderInTOdo() throws InterruptedException, FileNotFoundException {
         test = extent.createTest("Verify Making Order In TODO");
         Pages.WebCommon().waitForLoaderInvisibility();
         Pages.Home().SearchForOrder(prescriptionOrderID);
     }
 
-    @Test(priority = 3)
+    @Test(priority = 4)
     public void verifyTodoColumnData() {
         test = extent.createTest("Verify Data present in Todo  column");
         Pages.Home().verifyDataInWebTable();
     }
 
-    @Test(priority = 4)
+    @Test(priority = 5)
     public void verifyMakingOrderInProgress() throws InterruptedException, FileNotFoundException {
         test = extent.createTest("Verify Making Order In Progress State");
         Pages.NavigationsCP().moveToNewPrescription();
@@ -40,7 +51,7 @@ public class TestDawakPrescriptionWithCoPay extends BaseClass {
         Pages.Home().moveOrderToInProgressStateAndVerify();
     }
 
-    @Test(priority = 5)
+    @Test(priority = 6)
     public void verifyInProgressColumnData() {
         test = extent.createTest("Verify Data present in  In-progress column");
         Pages.Home().verifyDataInWebTable();
@@ -54,7 +65,7 @@ public class TestDawakPrescriptionWithCoPay extends BaseClass {
         Pages.Home().moveOrderToInProgressStateAndVerify();
     }*/
 
-    @Test(priority =6 )
+    @Test(priority =7)
     public void verifyMoveToOrderDetails() throws InterruptedException {
         test = extent.createTest("Verify Navigation to order details page ");
         Pages.NavigationsCP().openOrderDetailPage();
@@ -62,7 +73,7 @@ public class TestDawakPrescriptionWithCoPay extends BaseClass {
 
 
     }
-    @Test(priority = 7)
+    @Test(priority = 8)
     public void verifyPatientInformation()
     {
         test = extent.createTest("Verify Navigation to order details page ");
@@ -73,7 +84,7 @@ public class TestDawakPrescriptionWithCoPay extends BaseClass {
 
 
     }
-    @Test(priority = 8)
+    @Test(priority = 9)
     public void verifyOrderDetails() throws FileNotFoundException {
         test = extent.createTest("Verify order details data and Header text ");
         Pages.OrderDetails().verifyDeliveryDetailTable();
@@ -84,7 +95,7 @@ public class TestDawakPrescriptionWithCoPay extends BaseClass {
         Pages.OrderDetails().verifyRemoveFunctionality();
     }
 
-    @Test(priority = 9)
+    @Test(priority = 10)
     public void verifyInsuranceApproval() throws InterruptedException, FileNotFoundException {
         test = extent.createTest("Verify Insurance Approval functionality");
         Pages.OrderDetails().clickOnSendInsurenceApproval();
@@ -93,7 +104,7 @@ public class TestDawakPrescriptionWithCoPay extends BaseClass {
         Pages.OrderDetails().approveMedicineInsuranceUsingCopay();
     }
 
-    @Test(priority = 10)
+    @Test(priority = 11)
     public void verifyLogoutFunctionality() {
         test = extent.createTest("Logout Functionality");
         Pages.Logout().verifyLogout();
